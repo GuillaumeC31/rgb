@@ -144,6 +144,10 @@ class HomeController extends AbstractController
                 $ent->setDateRegistration(new \dateTime('now'));
                 $ent->setRoles(['ROLE_ENTREPRISE']);
 
+                #divers :
+                $ent->setUserId('0');
+                $ent->setPhotoProfileId('0');
+
                 /*
                 if(count($info) === 0){
                     $infoValid = true;

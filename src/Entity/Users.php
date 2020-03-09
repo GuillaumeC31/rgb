@@ -187,6 +187,16 @@ class Users implements UserInterface
      */
     private $ape_name;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $user_id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $photo_profile_id;
+
 
 
     public function getId(): ?int
@@ -623,6 +633,30 @@ class Users implements UserInterface
     public function setApeName(?string $ape_name): self
     {
         $this->ape_name = $ape_name;
+
+        return $this;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?int $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getPhotoProfileId(): ?int
+    {
+        return $this->photo_profile_id;
+    }
+
+    public function setPhotoProfileId(?int $photo_profile_id): self
+    {
+        $this->photo_profile_id = $photo_profile_id;
 
         return $this;
     }
