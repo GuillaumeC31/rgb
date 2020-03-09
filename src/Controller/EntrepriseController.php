@@ -135,14 +135,17 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/entreprise/ficheEntreprise/modif", name="modifficheEnt")
+     * @Route("/entreprise/ficheEntreprise/modif/{id}", name="modifficheEnt")
      */
-    public function modifFicheEnt()
+    public function modifFicheEnt(int $id)
     {
         $post = [];
         $errors = [];
 
-        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager = $this->getDoctrine()->getManager()->getRepository(Users::class);
+        $ficheEntUpdate = $entityManager->find($id);
+
         if (!empty($_POST)) {
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
@@ -194,7 +197,7 @@ class EntrepriseController extends AbstractController
                 $ficheEntUpdate->setPassword($this->passwordEncoder->encodePassword($ficheEntUpdate, $post['passwordModif']));
 
 
-                $entityManager->persist($ficheEntUpdate);
+                //$entityManager->persist($ficheEntUpdate);
                 $entityManager->flush();
 
                 $this->addFlash(
@@ -209,6 +212,7 @@ class EntrepriseController extends AbstractController
         return $this->render('entreprise/modifEnt.html.twig', [
             'validFicheEnt' => $validFicheEnt ?? null,
             'errors' => $errors ?? [],
+            'ficheEntUpdate' => $ficheEntUpdate,
         ]);
     }
 
@@ -324,5 +328,75 @@ class EntrepriseController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * Permet un étudiant de contacter une entreprise via Ajax
+     * @Route("/ajax/allow-student-contact", name="allow_student_contact")
+     */
+    public function ajaxAllowStudent()
+    {
+        if(!empty($_POST)){
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!empty($post['id_entreprise']) && is_numeric($post['id_entreprise'])
+                && !empty($post['id_student']) && is_numeric($post['id_student']) && isset($post['new_status']))
+            {
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entStudAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy([
+                    'ent_id' => (int) $post['id_entreprise'],
+                    'stud_id' => (int) $post['id_student'],
+                ]);
+
+                if(!empty($entStudAccept)){
+                    // Mise à jour
+                    $entStudAccept->setEntId($post['id_entreprise']);
+                    $entStudAccept->setStudId($post['id_student']);
+                    $entStudAccept->setAccept($post['new_status']);
+
+                    $entityManager->flush();
+
+                }
+                else {
+                    // Insert
+                    $entStudAccept = new EntStudAccept();
+                    $entStudAccept->setEntId($post['id_entreprise']);
+                    $entStudAccept->setStudId($post['id_student']);
+                    $entStudAccept->setAccept($post['new_status']);
+
+                    $entityManager->persist($entStudAccept);
+                    $entityManager->flush();
+                }
+
+
+
+                    /*
+                    $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                    $message.= '<br> Bienvenue sur la plateforme RGB :';
+                    $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                    $message.= '<br> login : '.$post['email'];
+                    $message.= '<br> mot de passe : '.$post['password'];
+                    $message.= '<br>A très bientôt sur RGB.';
+                    $message.= '</p>';
+
+
+                    $email = (new Email())
+                        ->from('hello@rgb.fr')
+                        ->to('you@example.fr')
+                        ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
+                        ->text(strip_tags($message))
+                        ->html($message);
+
+                    $sentEmail = $mailer->send($email);
+                    */
+
+
+                return $this->json(['status' => 'ok']);
+            }
+        }
+
+    }
 
 }

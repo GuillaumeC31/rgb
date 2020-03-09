@@ -3,12 +3,12 @@
 {% block title %}Connexion{% endblock %}
 {% block javascripts %}
 
-  {% for message in app.flashes('register') %}
+  {% for messages in app.flashes('register') %}
     <script type="text/javascript">
     Swal.fire({
       icon: 'success',
       title: 'Félicitation',
-      text: '{{ message }}',
+      text: '{{ messages }}',
       icon: 'success',
       showClass: {
         popup: 'animated fadeInDown faster'
@@ -38,11 +38,20 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifier !</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+    <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous identifier !</h1>
+    <br>
+    <div class="form-row  mb-3">
+      <label for="inputEmail" class="col-form-label col-3">Email</label>
+      <div class="col-12 col-md-9">
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+      </div>
+    </div>
+    <div class="form-row  mb-3">
+      <label for="inputPassword" class="col-form-label col-3">Password</label>
+      <div class="col-12 col-md-9">
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+      </div>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -58,10 +67,11 @@
             </label>
         </div>
     #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <div class="row">
+      <div class="col-12 text-center">
+        <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
+      </div>
+    </div>
 </form>
 </div>
 {% endblock %}

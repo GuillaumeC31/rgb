@@ -4,15 +4,14 @@
 
 {% block body %}
 
-
-{% if status_form is not null and status_form == true %}
-  <div class="alert alert-success text-center">
-    Votre demande d'enregistrement a bien été effectuée!<br>
-    Un mail vous a été envoyer.<br>
-    Merci pour votre inscription.<br>
-    - l'équipe de RGB -
-  </div>
-{% elseif status_form is not null and status_form == false %}
+{#  <div class="alert alert-success text-center">
+      Votre demande d'enregistrement a bien été effectuée!<br>
+      Un mail vous a été envoyer.<br>
+      Merci pour votre inscription.<br>
+      - l'équipe de RGB -
+    </div>
+  #}
+{% if status_form is not null and status_form == false %}
   <div class="alert alert-danger text-center">
     {{ errors_form|join('<br>')|raw }} {# équivalent du implode('<br>', $errors) #}
   </div>
@@ -21,15 +20,14 @@
 <div class="container border mt-5 p-2">
   <h1 class="text-center">Inscription </h1>
 
-
   <form method="post" class="m-5 justify-content-center">
 
-    <div class="row ">
+    <div class="row">
       <div class="col-12 col-md-6 ">
         <h5 class="text-center my-4 border-bottom pb-2">Information Entreprise</h5>
         <div class="form-row  mb-3">
           <label for="num_siret" class="col-form-label col-4">N° SIRET</label>
-          <div for="num_siret" class="col-8">
+          <div for="num_siret" class="col-12 col-md-8">
             <input type="text" name="num_siret" id="num_siret" class="form-control" placeholder="N° Siret">
           </div>
         </div>
@@ -37,7 +35,7 @@
 
         <div class="form-row mb-3  ">
           <label for="identity" class="col-form-label col-4">Nom de l'entreprise</label>
-          <div for="identity" class="col-8">
+          <div for="identity" class="col-12 col-md-8">
             <input type="text" name="identity" id="identity" class="form-control" placeholder="Nom entreprise">
           </div>
         </div>
@@ -45,7 +43,7 @@
 
         <div class="form-row mb-3  ">
           <label for="phonePro" class="col-form-label col-4">Téléphone (Standard)</label>
-          <div for="phonePro" class="col-8">
+          <div for="phonePro" class="col-12 col-md-8">
             <input type="phone" name="phonePro" id="phonePro" class="form-control" placeholder="Téléphone">
           </div>
         </div>
@@ -53,7 +51,7 @@
 
         <div class="form-row  mb-3">
           <label for="emailPro" class="col-form-label col-4">Email société</label>
-          <div  class="col-8">
+          <div  class="col-12 col-md-8">
             <input type="email" name="emailPro" id="emailPro" class="form-control" placeholder="Votre email">
           </div>
         </div>
@@ -61,24 +59,18 @@
 
         <div class="form-row mb-3  ">
           <label for="webPro" class="col-form-label col-4">Site Web (Standard)</label>
-          <div for="webPro" class="col-8">
+          <div for="webPro" class="col-12 col-md-8">
             <input type="text" name="webPro" id="webPro" class="form-control" placeholder="Site web">
           </div>
         </div>
         <hr>
-
-        <div class="text-center">
-          <button type="submit" class="btn btn-outline-success  m-3 rounded-lg">Inscription </button>
-          <a type="button" href="{{ path('home_index')}}" class="btn m-3 btn-outline-warning rounded-lg">Retour</a>
-        </div>
-
       </div>
 
       <div class="col-12 col-md-6 ">
         <h5 class="text-center my-4 border-bottom pb-2">Information Contact</h5>
         <div class="form-row  mb-3">
           <label for="lastname" class="col-form-label col-4">Nom de Famille</label>
-          <div for="lastname" class="col-8">
+          <div for="lastname" class="col-12 col-md-8">
             <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de Famille">
           </div>
         </div>
@@ -86,7 +78,7 @@
 
         <div class="form-row  mb-3">
           <label for="firstname" class="col-form-label col-4">Prénom</label>
-          <div for="firstname" class="col-8">
+          <div for="firstname" class="col-12 col-md-8">
             <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom">
           </div>
         </div>
@@ -94,7 +86,7 @@
 
         <div class="form-row  mb-3">
           <label class="col-form-label col-4">Telephone Contact</label>
-          <div for="phone" class="col-8">
+          <div for="phone" class="col-12 col-md-8">
             <input type="text" name="phone" id="phone" class="form-control" placeholder="Téléphone">
           </div>
         </div>
@@ -102,7 +94,7 @@
 
         <div class="form-row  mb-3">
           <label for="email" class="col-form-label col-4">Email contact</label>
-          <div  class="col-8">
+          <div  class="col-12 col-md-8">
             <input type="email" name="email" id="email" class="form-control" placeholder="Votre email">
           </div>
         </div>
@@ -110,7 +102,7 @@
 
         <div class="form-row  mb-3">
           <label class="col-form-label col-4" for="Password">Password</label>
-          <div for="phone" class="col-8">
+          <div for="phone" class="col-12 col-md-8">
             <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
           </div>
         </div>
@@ -118,28 +110,120 @@
 
         <div class="form-row  mb-3">
           <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
-          <div for="phone" class="col-8">
+          <div for="phone" class="col-12 col-md-8">
             <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
           </div>
         </div>
+      </div>
+    </div>
 
-        <div>
-          <input type="hidden" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
-          <input type="hidden" name="siret" id="siret" value="siret">
-          <input type="hidden" name="siren" id="siren" value="siren">
-          <input type="hidden" name="nic" id="nic" value="nic">
-          <input type="hidden" name="adresse" id="adresse" value="adresse">
-          <input type="hidden" name="codepostal" id="codepostal" value="codepostal">
-          <input type="hidden" name="commune" id="commune" value="commune">
-          <input type="hidden" name="denomination" id="denomination" value="denomination">
-          <input type="hidden" name="departement" id="departement" value="departement">
-          <input type="hidden" name="region" id="region" value="region">
-          <input type="hidden" name="activite" id="activite" value="activite">
-          <input type="hidden" name="codedepartement" id="codedepartement" value="codedepartement">
-          <input type="hidden" name="groupeent" id="groupeent" value="groupeent">
+    <div class="row border-top border-bottom">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-outline-success  m-3 rounded-lg">Inscription </button>
+        <a type="button" href="{{ path('home_index')}}" class="btn m-3 btn-outline-warning rounded-lg">Retour</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <h5 class="text-center my-4 border-bottom pb-2 d-flex justify-content-center">Information selon SIRET</h5>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">SIRET</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="siret" id="siret" value="siret">
+            {#<input type="hiden" class="form-control" name="siret" id="siret" value="siret">#}
+            <div id="siret" class="form-control"></div>
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">CODE APE/NAF</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
+            {#<input type="hiden" class="form-control" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">SIREN</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="siren" id="siren" value="siren">
+            {#<input type="hiden" class="form-control" name="siren" id="siren" value="siren" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">NIC</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="nic" id="nic" value="nic">
+            {#<input type="hiden" class="form-control" name="nic" id="nic" value="nic" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">ADRESSE</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="adresse" id="adresse" value="adresse">
+            {#<input type="hiden" class="form-control" name="adresse" id="adresse" value="adresse" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">CP</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="codepostal" id="codepostal" value="codepostal">
+            {#<input type="hiden" class="form-control" name="codepostal" id="codepostal" value="codepostal" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">COMMUNE</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="commune" id="commune" value="commune">
+            {#<input type="hiden" class="form-control" name="commune" id="commune" value="commune" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">DEPARTEMENT</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="departement" id="departement" value="departement">
+            {#<input type="hiden" class="form-control" name="departement" id="departement" value="departement" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">N° DEPARTEMENT</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="codedepartement" id="codedepartement" value="codedepartement">
+            {#<input type="hiden" class="form-control" name="codedepartement" id="codedepartement" value="codedepartement" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">REGION</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="region" id="region" value="region">
+            {#<input type="hiden" class="form-control" name="region" id="region" value="region" disabled>#}
+          </div>
+        </div>
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-3">ACTIVITE</label>
+          <div class="col-12 col-md-9">
+            <input type="hidden" class="form-control" name="activite" id="activite" value="activite">
+            {#<input type="hiden" class="form-control" name="activite" id="activite" value="activite" disabled>#}
+          </div>
         </div>
 
+      <input type="hidden" class="form-control" name="commune" id="commune" value="commune">
+      <input type="hidden" class="form-control" name="denomination" id="denomination" value="denomination">
+      <input type="hidden" class="form-control" name="groupeent" id="groupeent" value="groupeent">
       </div>
+    </div>
+
+
+
+
+  </form>
+
+
+  <div class="row">
+      <div class="col-12 col-md-12">
+
+    </div>
+  </div>
       {#
       <div class="row d-flex justify-content-center">
         <div class="col-12">
@@ -152,7 +236,8 @@
       #}
 
     </div>
-  </form>
+
+
 
 </div>
 
@@ -189,7 +274,7 @@ $(document).ready(function(){
             $('#sirene_code_ape').val(code_ape);
             console.log($('#sirene_code_ape').val(code_ape));
 
-            siret = myRecords.fields.siret;
+            siret = myRecords.fields.siretsiegeunitelegale;
             $('#siret').val(siret);
             console.log($('#siret').val(siret));
 
