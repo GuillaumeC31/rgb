@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}View SCHOOL{% endblock %}
+
+
+  {% block body %}
+
+
+    <!--==== SECTION LISTE ETUDIANTS ====-->
+    <section class="container mt-5">
+      <div class="row">
+        <div class="col-10">
+          <h1 class="r">Fiche de {{ view_school.identity }}</h1>
+        </div>
+        <div class="col-2">
+          <a type="button" class="btn btn-info d-flex align-items-center justify-content-center mt-2" href="{{ path('index_entreprise') }}">retour</a>
+        </div>
+      </div>
+      <hr>
+
+      <div class="container-fluid mt-5">
+
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-4 border">
+            <h5 class="text-center">CONTACT</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="">Nom : </td>
+                  <td>{{ view_school.lastname }}</td>
+                </tr>
+                <tr>
+                  <td>Prénom : </td>
+                  <td>{{ view_school.firstname }}</td>
+                </tr>
+                <tr>
+                  <td>Adresse : </td>
+                  <td>
+                    {{ view_school.address }}<br>
+                    {{ view_school.zipcode }} {{ view_school.city }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Téléphone : </td>
+                  <td>{{ view_school.phone }}</td>
+                </tr>
+                <tr>
+                  <td>Email : </td>
+                  <td>{{ view_school.email }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-12 col-md-4 col-lg-4 border">
+            <h5 class="text-center">CENTRE DE FORMATION</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>N° SIREN</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>N° SIRET</td>
+                  <td>{{ view_school.school }}</td>
+                </tr>
+                <tr>
+                  <td>NIC</td>
+                  <td>{{ view_school.school }}</td>
+                </tr>
+                <tr>
+                  <td>CODE APE</td>
+                  <td>{{ view_school.school }}</td>
+                </tr>
+                <tr>
+                  <td>ACTIVITE PRINICPALE</td>
+                  <td>{{ view_school.school }}</td>
+                </tr>
+                <tr>
+                  <td>DENOMINATION</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-12 col-md-4 col-lg-4 border">
+            <h5 class="text-center">INFOS COMPLEMENTAIRES</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>ADRESSE</td><td></td>
+                </tr>
+                <tr>
+                  <td>CODE POSTAL</td><td></td>
+                </tr>
+                <tr>
+                  <td>VILLE</td><td></td>
+                </tr>
+                <tr>
+                  <td>REGION</td><td></td>
+                </tr>
+                <tr>
+                  <td>DEPARTEMENT</td><td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+{% endblock %}

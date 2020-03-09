@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+
+
+<div class="container border mt-5 p-2">
+  <h1 class="text-center">Inscription </h1>
+
+
+  {% if status_form is not null and status_form == true %}
+    <div class="alert alert-success text-center">
+      Votre demande d'enregistrement a bien été effectuée!<br>
+      Un mail vous a été envoyer.<br>
+      Merci pour votre inscription.<br>
+      - l'équipe de RGB -
+    </div>
+  {% elseif status_form is not null and status_form == false %}
+    <div class="alert alert-danger text-center">
+      {{ errors_form|join('<br>')|raw }} {# équivalent du implode('<br>', $errors) #}
+    </div>
+  {% endif %}
+
+
+    <div class="row ">
+        <div class="col ">
+      <form method="post" class="m-5 justify-content-center">
+
+        <div class="form-row  mb-3">
+          <label for="num_siret" class="col-form-label col-4">N° SIRET/SIREN</label>
+          <div for="num_siret" class="col-8">
+            <input type="hidden" name="sirene_code_ape" id="sirene_code_ape">
+            <input type="text" name="num_siret" id="num_siret" class="form-control" placeholder="N° Siret ou siren">
+            <small id="" class="form-text text-muted">Renseigner de 9 à 14 chiffres sans espace.</small>
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="name_ent" class="col-form-label col-4">Nom entreprise</label>
+          <div for="name_ent" class="col-8">
+            <input type="text" name="name_ent" id="name_ent" class="form-control" placeholder="Nom entreprise">
+          </div>
+        </div>
+        <hr>
+
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Email</label>
+          <div  class="col-8">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Votre email">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Telephone</label>
+          <div for="phone" class="col-8">
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Votre Numéro">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4" for="Password">Password</label>
+          <div for="phone" class="col-8">
+            <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
+          <div for="phone" class="col-8">
+            <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
+          </div>
+        </div>
+
+        <div>
+          <input type="hidden" name="siret" id="siret" value="siret">
+          <input type="hidden" name="siren" id="siren" value="siren">
+          <input type="hidden" name="nic" id="nic" value="nic">
+          <input type="hidden" name="adresse" id="adresse" value="adresse">
+          <input type="hidden" name="codepostal" id="codepostal" value="codepostal">
+          <input type="hidden" name="commune" id="commune" value="commune">
+          <input type="hidden" name="denomination" id="denomination" value="denomination">
+          <input type="hidden" name="departement" id="departement" value="departement">
+          <input type="hidden" name="region" id="region" value="region">
+        </div>
+        <!--
+          RECUPERATION DES INFORMATION API dans home/index.html.twig
+                * siret (siret)
+                * siren (siren)
+                * nic (nic)
+                ** ape_code / apeCode (activiteprincipaleetablissement)
+                ** region (regionetablissement)
+                ** departement (departementetablissement)
+                ** commune (libellecommuneetablissement)
+                ** adresse (adresseetablissement)
+                ** code postal (codepostaletablissement)
+                ** dénomination (denominationunitelegale)
+        -->
+
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-success  m-3 rounded-0">Inscription </button>
+          <button type="submit"<a href="{{ path('home_index')}}" class="btn m-3 btn-outline-warning rounded-0">Retour</a></button>
+        </div>
+    </div>
+    </form>
+  </div>
+ </div>
+</div>
+
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function(){
+  $('#num_siret').change(function(e){
+
+    var numSiretSaisi = $(this).val();
+
+    if(numSiretSaisi.length >= 9){
+      // Je fais appel à l'API
+      var urlApi = 'https://data.opendatasoft.com/api/records/1.0/search/?dataset=sirene_v3%40public&q='+numSiretSaisi+'&lang=fr&sort=datederniertraitementetablissement&facet=siret&facet=siren&facet=nic&facet=activiteprincipaleetablissement&facet=regionetablissement&facet=departementetablissement&facet=libellecommuneetablissement&facet=adresseetablissement&facet=codepostaletablissement&facet=denominationunitelegale&facet=l1_adressage_unitelegale';
+
+      fetch(urlApi)
+      .then(function(result){
+        // Récupération des résultat
+        return result.json();
+      })
+      .then(function(data){
+        //console.log(data);
+
+        // nhits represente (dans cette api) le nombre de résultat
+        if(data.nhits >= 1){
+
+          for(myRecords of data.records){
+            code_ape = myRecords.fields.activiteprincipaleetablissement; // APE
+            $('#sirene_code_ape').val(code_ape);
+            console.log($('#sirene_code_ape').val(code_ape));
+
+            identity = myRecords.fields.l1_adressage_unitelegale;
+            $('#denomination').val(denomination);
+            console.log($('#denomination').val(denomination));
+
+            region = myRecords.fields.regionetablissement;
+            $('#region').val(region);
+            console.log($('#region').val(region));
+
+            departement = myRecords.fields.departementetablissement;
+            $('#departement').val(departement);
+            console.log($('#departement').val(departement));
+
+            adresse = myRecords.fields.adresseetablissement;
+            $('#adresse').val(adresse);
+            console.log($('#adresse').val(adresse));
+
+            codepostal = myRecords.fields.codepostaletablissement;
+            $('#codepostal').val(codepostal);
+            console.log($('#codepostal').val(codepostal));
+
+            commune = myRecords.fields.libellecommuneetablissement;
+            $('#commune').val(commune);
+            console.log($('#commune').val(commune));
+
+            siret = myRecords.fields.siret;
+            $('#siret').val(siret);
+            console.log($('#siret').val(siret));
+
+            siren = myRecords.fields.siren;
+            $('#siren').val(siren);
+            console.log($('#siren').val(siren));
+
+            nic = myRecords.fields.nic;
+            $('#nic').val(nic);
+            console.log($('#nic').val(nic));
+
+          }
+        }
+      });
+
+    }
+
+  })
+
+
+});
+</script>
+{% endblock %}
+

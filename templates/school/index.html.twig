@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+
+<div class="container justify-content-center mt-5">
+  <div class="row">
+    <div class="col">
+      <h1> Bienvenue dans le BackOffice</h1>
+
+{% if validationForm is not null and validationForm == true %}
+    <div class="alert alert-success text-center">
+      Elève enregistrer dans la base de données<br>
+      - l'équipe de RGB -
+    </div>
+  {% elseif validationForm is not null and validationForm == false %}
+    <div class="alert alert-danger text-center">
+      {{ errorForm|join('<br>')|raw }}
+    </div>
+  {% endif %}
+
+
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-6">
+              <h2>Ajout manuel utilisateurs</h2><br>
+              <a class="btn btn-success m-3 rounded-0" href="{{ path('add_user') }}" class="text-info">Ajouter</a>
+            </div>
+
+            <div class="col-6">
+              <h2>Liste complete des utilisateurs</h2><br>
+              <a class="btn btn-info m-3 rounded-0" href="{{ path('list_school') }}" class="text-info">BDD</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <h5>liste des code APE</h5>
+
+          <div class="my-5">
+            <form method="post">
+
+              <div class="form-row mb-3">
+                <label for="ape_code" class="col-form-label col-4">CODE APE / NAF</label>
+                <div class="col-8">
+                  <input type="text" name="ape_code" id="ape_code" placeholder="code ape NAFRev2">
+                </div>
+              </div>
+
+              <div class="form-row mb-3">
+                <label for="ape_name" class="col-form-label col-4">DESIGNATION</label>
+                <div class="col-8">
+                  <input type="text" name="ape_name" id="ape_name" placeholder="désignation ape NAFRev2">
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-outline-success  m-3 rounded-0">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+
+          <h4>Entreprise autorisée automatiquement</h4>
+          <table class="table">
+            <thead>
+
+              <tr>
+                <th scope="col">APE</th>
+                <th scope="col">Designation</th>
+              </tr>
+
+            </thead>
+            <tbody>
+              {% for ApeSchool in listApeSchool %}
+              <tr>
+                <td>{{ ApeSchool.code }}</td>
+                <td>{{ ApeSchool.nameape }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Section Entreprise{% endblock %}
+
+
+  {% block body %}
+
+    <section>
+      <h4>Id Entreprise : {{ app.user.id }}</h4>
+      <h4>Id Etudiant : {{ view_student.id }}</h4>
+    </section>
+
+
+    <!--==== SECTION LISTE ETUDIANTS ====-->
+    <section class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-10">
+          <h1 class="r">{{ view_student.lastname }} {{ view_student.firstname }}</h1>
+        </div>
+        <div class="col-12 col-md-4 col-lg-2">
+          <a type="button" class="btn btn-info d-flex align-items-center justify-content-center mt-2" href="{{ path('ficheEtu') }}">RETOUR</a>
+        </div>
+      </div>
+      <hr>
+
+      <div class="container mt-5">
+
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6 border">
+            <h5 class="text-center">Informations personnelles</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="">Profil : </td>
+                  <td><img src=""></td>
+                </tr>
+                <tr>
+                  <td class="">Nom : </td>
+                  <td>{{ view_student.lastname }}</td>
+                </tr>
+                <tr>
+                  <td>Prénom : </td>
+                  <td>{{ view_student.firstname }}</td>
+                </tr>
+                <tr>
+                  <td>Adresse : </td>
+                  <td>
+                    {{ view_student.address }}<br>
+                    {{ view_student.zipcode }} {{ view_student.city }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Téléphone : </td>
+                  <td>{{ view_student.phone }}</td>
+                </tr>
+                <tr>
+                  <td>Email : </td>
+                  <td>{{ view_student.email }}</td>
+                </tr>
+                <tr>
+                  <td>Date de Naissance :</td>
+                  <td>{{ view_student.birthdate|date('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                  <td>Site Web :</td>
+                  <td>{{ view_student.web }}</td>
+                </tr>
+                <tr>
+                  <td>Github :</td>
+                  <td>{{ view_student.github }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 col-md-6 col-lg-6 border">
+            <h5 class="text-center">formation</h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="">Section actuelle : </td>
+                  <td>{{ view_student.formation }}</td>
+                </tr>
+                <tr>
+                  <td class="">Centre de Formation : </td>
+                  <td>{{ view_student.school }}</td>
+                </tr>
+                <tr>
+                  <td>Langages connus : </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Framework connus :</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Autorisation de contact</td>
+                  <td>
+                    <form method="post" id="switchAccept">
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" name="switchAccept" class="custom-control-input" id="switchAccept">
+                        <label class="custom-control-label" for="switchAccept"></label>
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Envoyer message</td>
+                  <td>
+                    <form method="post" id="messageStudent">
+                      <div class="form-group">
+                        <textarea class="form-control" id="messageStudent" rows="5"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-outline-info mb-2">Envoyer</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+{% endblock %}

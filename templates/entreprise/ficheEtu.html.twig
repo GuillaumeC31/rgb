@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Section Entreprise{% endblock %}
+{% block stylesheets %}
+
+<style type="text/css">
+
+</style>
+
+{% endblock %}
+  {% block body %}
+
+
+  <section class="container">
+
+      <div class="col-12 d-flex justify-content-center flex-wrap my-3">
+        <nav class="navbar navbar-light bg-light">
+          <button data-filter="" class="btn btn-info btn-filter clear-button active-filter mx-2 my-3">TOUTES FORMATIONS </button>
+          {% for sectionFilter in sectionList %}
+            <button data-filter="{{ sectionFilter.name }}" class="btn btn-info btn-filter mx-2 my-3">{{ sectionFilter.name }}</button>
+          {% endfor %}
+        </nav>
+      </div>
+
+
+    <div class="filterProject d-flex justify-content-center flex-wrap border">
+
+      {% for student_listing in studentList %}
+        <div class="card mx-2 my-2 project {{ student_listing.formation }}" style="width: 18rem;">
+          <img src="{{asset('assets/img/student.jpg')}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ student_listing.lastname }} {{ student_listing.firstname }}</h5>
+            <p class="card-text text-center">{{ student_listing.formation }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="text-center"> CENTRE DE FORMATION :</div>
+              <div class="text-center"> {{ student_listing.school }}</div>
+            </li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+          </ul>
+          <div class="card-body">
+            <a type="button" class="btn btn-outline-info" href="{{ path('viewStu', {id: student_listing.id}) }}" class="card-link">en savoir plus</a>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </section>
+
+
+<script src='https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'></script><script  src="./script.js"></script>
+{% endblock %}
+
+
+
+{% block javascripts %}
+{#
+<script>
+    $(document).ready(function(){
+      $("#array").on("keyup",function(){
+        var value = $(this).val().toLowerCase();
+        $("#body tr").filter(function(){
+          $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+        });
+      });
+    });
+</script>
+#}
+
+<script>
+const iso = new Isotope('.filterProject');
+const filterButtons = Array.prototype.slice.call(document.querySelectorAll('.btn-filter'));
+
+filterButtons.map(button => {
+  button.addEventListener('click', function () {
+    filterButtons.map(button => button.classList.remove('active-filter'));
+    const type = this.getAttribute('data-filter');
+    this.classList.add('active-filter');
+    iso.arrange({
+      filter: type && `.${type}` });
+    iso.layout();
+  });
+});
+</script>
+
+{% endblock %}

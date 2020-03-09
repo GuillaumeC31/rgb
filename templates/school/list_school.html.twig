@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+
+
+<a class="btn btn-warning m-3 rounded-0" href="{{ path('index') }}" class="text-info">Retour</a>
+
+
+<div class="container-fluid  my-5">
+  <div class="row">
+    <div class="col justify-content-center">
+        <h1>ENTREPRISE</h1>
+
+        <table class="table ">
+         <tr>
+            <th>Nom entreprise</th>
+            <th>N° Siret </th>
+            <th>Code postale</th>
+            <th>Ville</th>
+            <th>Numero de teléphone</th>
+            <th>Email</th>
+          </tr>
+
+         {% for user in entList %}
+          <tr>
+            <td>{{user.identity}}:   </td>
+            <td><i>{{user.siret}}</i></td>
+            <td>{{user.zipcodePro}}</td>
+            <td>{{user.cityPro}}</td>
+            <td>{{user.phonePro}}</td>
+            <td>{{user.email}}</td>
+            <td>
+              <a class="btn btn-outline-info m-3 rounded-0" href="{{ path('view_ent', {id: user.id}) }}" class="text-info">Voir entreprise</a>
+            </td>
+           </tr>
+         {% endfor %}
+        </table>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col justify-content-center ">
+       <h1>Elèves</h1>
+
+        <table class="table ">
+          <tr >
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Code postale</th>
+            <th>Ville</th>
+            <th>Numero de teléphone</th>
+            <th>Email</th>
+            <th>Note</th>
+            <th>Age</th>
+
+          </tr>
+
+         {% for user in listStudent %}
+          <tr>
+            <td>{{user.firstname}}: </td>
+            <td><i>{{user.lastname}}</i></td>
+            <td>{{user.address}}</td>
+            <td>{{user.zipcode}}</td>
+            <td>{{user.city}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.mark}}</td>
+            <td>{{user.birthdate|date('d/m/Y  H:i') }}</td>
+            <td>
+              <a class="btn btn-outline-info m-3 rounded-0" href="{{ path('view_student', {id: user.id}) }}" class="text-info">Voir élève</a>
+            </td>
+          </tr>
+
+         {% endfor %}
+        </table>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

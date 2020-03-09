@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Section Admin{% endblock %}
+
+{% block javascripts %}
+
+  {% for message in app.flashes('modifEnt') %}
+    <script type="text/javascript">
+    Swal.fire({
+      title: '{{ message }}',
+      icon: 'success',
+      showClass: {
+        popup: 'animated fadeInDown faster'
+      },
+      hideClass: {
+        popup: 'animated fadeOutUp faster'
+      }
+    });
+    </script>
+  {% endfor %}
+
+    <script>
+    $(document).ready(function(){
+      $("#array").on("keyup",function(){
+        var value = $(this).val().toLowerCase();
+        $("#body tr").filter(function(){
+          $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+        });
+      });
+    });
+  </script>
+
+{% endblock %}
+
+{% block body %}
+
+<!--==== SECTION SEARCH FORMATION ====-->
+<section class="container-fluid mt-5 border rouded-lg">
+  <div class="row">
+    <div class="col-12 col-md-2 col-lg-2 border rouded-lg">
+      <h4 class="text-center">Centre de Formation</h4>
+        <input class = "form-control" id = "array" type = "text" placeholder = "Recherche école, langage...">
+
+        <hr>
+
+
+    </div>
+    <!--==== END SECTION SEARCH STUDENT ====-->
+
+
+
+    <div class="col-12 col-md-10 col-lg-10 border rouded-lg">
+
+      <table class="table table-hover">
+        <thead>
+          <th>Etablissement</th>
+          <th>Adresse</th>
+          <th>Code Postal</th>
+          <th>Ville</th>
+          <th>Téléphone</th>
+          <th>Web</th>
+          <th></th>
+        </thead>
+        <tbody id="body">
+          {% for schoolList in school_List %}
+            <tr>
+              <td>{{ schoolList.identity }}</td>
+              <td>{{ schoolList.adressPro }}</td>
+              <td>{{ schoolList.zipcodePro }}</td>
+              <td>{{ schoolList.cityPro }}</td>
+              <td>{{ schoolList.phonePro }}</td>
+              <td>{{ schoolList.webPro }}</td>
+              <td><a type="button" class="btn btn-outline-info" href="{{ path('view_admin', {id: schoolList.id}) }}">Voir</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+

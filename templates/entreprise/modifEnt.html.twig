@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Section Entreprise{% endblock %}
+
+
+  {% block body %}
+
+    <!--==== SECTION LISTE ETUDIANTS ====-->
+    <section class="container mt-5">
+      <h1 class="text-center">Fiche de {{ app.user.identity }}</h1>
+      <hr>
+    </section>
+
+    <section class="container">
+      <h5 class="text-center">Modification Fiche Personnelle</h5>
+      {% if validFicheEnt is not null and validFicheEnt == true %}
+        <div class="alert alert-success text-center">
+          Votre demande d'enregistrement a bien été effectuée!<br>
+          Un mail vous a été envoyer.<br>
+          Merci pour votre inscription.<br>
+          - l'équipe de RGB -
+        </div>
+      {% elseif validFicheEnt is not null and validFicheEnt == false %}
+        <div class="alert alert-danger text-center">
+          {{ errors|join('<br>')|raw }} {# équivalent du implode('<br>', $errors) #}
+        </div>
+      {% endif %}
+
+      <form method="post">
+
+        <div class="form-row  mb-3">
+          <label for="firstnameModif" class="col-form-label col-4">Prénom</label>
+          <div for="firstnameModif" class="col-8">
+            <input type="text" name="firstnameModif" id="firstnameModif" class="form-control" value="{{ app.user.firstname }}" placeholder="Prénom">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="lastnameModif" class="col-form-label col-4">Nom</label>
+          <div for="lastnameModif" class="col-8">
+            <input type="text" name="lastnameModif" id="lastnameModif" class="form-control" value="{{ app.user.lastname }}" placeholder="Nom">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="addressModif" class="col-form-label col-4">Adresse</label>
+          <div for="addressModif" class="col-8">
+            <input type="text" name="addressModif" id="addressModif" class="form-control" value="{{ app.user.address }}" placeholder="Adresse">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="zipcodeModif" class="col-form-label col-4">Code Postal</label>
+          <div for="zipcodeModif" class="col-8">
+            <input type="text" name="zipcodeModif" id="zipcodeModif" class="form-control" value="{{ app.user.zipcode }}" placeholder="Code Postal">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="cityModif" class="col-form-label col-4">Ville</label>
+          <div for="cityModif" class="col-8">
+            <input type="text" name="cityModif" id="cityModif" class="form-control" value="{{ app.user.city }}" placeholder="Ville">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="phoneModif" class="col-form-label col-4">Téléphone</label>
+          <div for="phoneModif" class="col-8">
+            <input type="phone" name="phoneModif" id="phoneModif" class="form-control" value="{{ app.user.phone }}" placeholder="Téléphone">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="emailModif" class="col-form-label col-4">Email</label>
+          <div for="emailModif" class="col-8">
+            <input type="email" name="emailModif" id="emailModif" class="form-control" value="{{ app.user.email }}" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="webModif" class="col-form-label col-4">Site Web</label>
+          <div for="webModif" class="col-8">
+            <input type="text" name="webModif" id="webModif" class="form-control" value="{{ app.user.web }}" placeholder="Site Web">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="githubModif" class="col-form-label col-4">Site Github</label>
+          <div for="githubModif" class="col-8">
+            <input type="text" name="githubModif" id="githubModif" class="form-control" value="{{ app.user.github }}" placeholder="Site Github">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="passwordModif" class="col-form-label col-4">Mot de Passe</label>
+          <div for="passwordModif" class="col-8">
+            <input type="text" name="passwordModif" id="passwordModif" class="form-control" value="" placeholder="Mot de Passe">
+          </div>
+        </div>
+
+        <div class="form-row  mb-3">
+          <label for="passwordConfirmModif" class="col-form-label col-4">Confirmation Mot de Passe</label>
+          <div for="passwordConfirmModif" class="col-8">
+            <input type="text" name="passwordConfirmModif" id="passwordConfirmModif" class="form-control" value="" placeholder="Confirmation Mot de Passe">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a type="button" href="{{ path('ficheEnt') }}" type="button" class="btn btn-danger">Annuler</a>
+          <button type="submit" class="btn btn-info">Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+
+
+{% endblock %}

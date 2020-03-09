@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+
+
+<div class="container justify-content-center mt-5  p-3">
+  <div class="row">
+    <div class="col">
+
+     <form method="post" class="mt-5 justify-content-center">
+      <h1>{{users.firstname}}</h1><br>
+
+  <table class="table">
+      <tbody>
+          <tr>
+            <td>Prénom</td>
+            <td>{{users.firstname}} </td>
+          </tr>
+
+          <tr>
+            <th>Nom</th>
+            <td>{{users.lastname}}</td>
+          </tr>
+
+          <tr>
+            <th>Adresse</th>
+            <td>{{users.address}}</td>
+          </tr>
+
+          <tr>
+            <th>Code postale</th>
+            <td>{{users.zipcode}}</td>
+          </tr>
+
+          <tr>
+            <th>Ville</th>
+            <td>{{users.city}}</td>
+         </tr>
+
+          <tr>
+            <th>Numero de teléphone</th>
+            <td>{{users.phone}}</td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>{{users.email}}</td>
+          </tr>
+
+          <tr>
+            <th>Note</th>
+            <td>{{users.mark}}</td>
+          </tr>
+
+          <tr>
+            <th>Age</th>
+            <td>{{users.birthdate|date('d/m/Y  H:i') }}</td>
+          </tr>
+
+          <tr>
+            <th>Date d'enregistrement</th>
+            <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+          </tr>
+
+
+
+
+          </tbody>
+        </table>
+              <a class="btn btn-outline-success m-3 rounded-0" href="{{ path('list_school', {id: users.id}) }}" class="text-info">Retour</a>
+               <a type="submit" class="btn btn-outline-warning m-3 rounded-0" href="{{ path('modif_student', {id: users.id}) }}" class="text-info">Modifier</a>
+              <a type="submit" class="btn btn-outline-danger m-3 rounded-0 " class="text-info">Supprimer élève</a>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

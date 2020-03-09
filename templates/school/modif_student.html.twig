@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+<h1>Modifier Elève</h1>
+
+
+
+
+<div class="container justify-content-center">
+  <div class="row">
+    <div class="col">
+
+
+
+       <form method="post" class="m-5 justify-content-center">
+
+           <div class="form mb-3  ">
+          <label for="title" class="col-form-label">Adresse</label>
+          <div for="title" >
+             <input type="text" name="title" id="title" class="form-control" value="{{ user.address }}">
+          </div>
+        </div>
+
+         <div class="form  mb-3">
+          <label class="form-label">Code postale</label>
+          <div for="content" >
+           <input type="text" name="title" id="title" class="form-control" value="{{user.zipcode}}">
+          </div>
+        </div>
+
+         <div class="form  mb-3">
+          <label class="form-label">Ville</label>
+          <div for="content" >
+           <input type="text" name="title" id="title" class="form-control" value="{{user.city}}">
+          </div>
+        </div>
+
+
+         <div class="form mb-3  ">
+          <label for="resume" class="col-form-label">Email</label>
+          <div for="resume">
+            <input type="text" name="title" id="title" class="form-control" value="{{user.email}}">
+          </div>
+        </div>
+
+
+         <div class="form  mb-3">
+          <label class="form-label">Téléphone</label>
+          <div for="content" >
+           <input type="text" name="title" id="title" class="form-control" value="{{user.phone}}">
+          </div>
+        </div>
+
+         <div class="form mb-3  ">
+          <label for="resume" class="col-form-label">Web site</label>
+          <div for="resume">
+            <input type="text" name="title" id="title" class="form-control" value="{{user.web}}">
+          </div>
+        </div>
+
+        <div class="form mb-3  ">
+          <label for="resume" class="col-form-label">Github</label>
+          <div for="resume">
+            <input type="text" name="title" id="title" class="form-control" value="{{user.github}}">
+          </div>
+        </div>
+
+
+
+         <a  class="btn btn-outline-success m-3 rounded-0" href="{{ path('list_valid') }}" class="text-info">Retour</a>
+           <a type="submit" class="btn btn-outline-warning m-3 rounded-0" href="{{ path('view_student', {id: user.id}) }}" class="text-danger">Valider</a>
+       </form>
+       <hr>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+

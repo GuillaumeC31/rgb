@@ -1,0 +1,260 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+
+{% if status_form is not null and status_form == true %}
+  <div class="alert alert-success text-center">
+    Votre demande d'enregistrement a bien été effectuée!<br>
+    Un mail vous a été envoyer.<br>
+    Merci pour votre inscription.<br>
+    - l'équipe de RGB -
+  </div>
+{% elseif status_form is not null and status_form == false %}
+  <div class="alert alert-danger text-center">
+    {{ errors_form|join('<br>')|raw }} {# équivalent du implode('<br>', $errors) #}
+  </div>
+{% endif %}
+
+<div class="container border mt-5 p-2">
+  <h1 class="text-center">Inscription </h1>
+
+
+  <form method="post" class="m-5 justify-content-center">
+
+    <div class="row ">
+      <div class="col-12 col-md-6 ">
+        <h5 class="text-center my-4 border-bottom pb-2">Information Entreprise</h5>
+        <div class="form-row  mb-3">
+          <label for="num_siret" class="col-form-label col-4">N° SIRET</label>
+          <div for="num_siret" class="col-8">
+            <input type="text" name="num_siret" id="num_siret" class="form-control" placeholder="N° Siret">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="identity" class="col-form-label col-4">Nom de l'entreprise</label>
+          <div for="identity" class="col-8">
+            <input type="text" name="identity" id="identity" class="form-control" placeholder="Nom entreprise">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="phonePro" class="col-form-label col-4">Téléphone (Standard)</label>
+          <div for="phonePro" class="col-8">
+            <input type="phone" name="phonePro" id="phonePro" class="form-control" placeholder="Téléphone">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="emailPro" class="col-form-label col-4">Email société</label>
+          <div  class="col-8">
+            <input type="email" name="emailPro" id="emailPro" class="form-control" placeholder="Votre email">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="webPro" class="col-form-label col-4">Site Web (Standard)</label>
+          <div for="webPro" class="col-8">
+            <input type="text" name="webPro" id="webPro" class="form-control" placeholder="Site web">
+          </div>
+        </div>
+        <hr>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-success  m-3 rounded-lg">Inscription </button>
+          <a type="button" href="{{ path('home_index')}}" class="btn m-3 btn-outline-warning rounded-lg">Retour</a>
+        </div>
+
+      </div>
+
+      <div class="col-12 col-md-6 ">
+        <h5 class="text-center my-4 border-bottom pb-2">Information Contact</h5>
+        <div class="form-row  mb-3">
+          <label for="lastname" class="col-form-label col-4">Nom de Famille</label>
+          <div for="lastname" class="col-8">
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de Famille">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="firstname" class="col-form-label col-4">Prénom</label>
+          <div for="firstname" class="col-8">
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Telephone Contact</label>
+          <div for="phone" class="col-8">
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Téléphone">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="email" class="col-form-label col-4">Email contact</label>
+          <div  class="col-8">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Votre email">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4" for="Password">Password</label>
+          <div for="phone" class="col-8">
+            <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
+          <div for="phone" class="col-8">
+            <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
+          </div>
+        </div>
+
+        <div>
+          <input type="hidden" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
+          <input type="hidden" name="siret" id="siret" value="siret">
+          <input type="hidden" name="siren" id="siren" value="siren">
+          <input type="hidden" name="nic" id="nic" value="nic">
+          <input type="hidden" name="adresse" id="adresse" value="adresse">
+          <input type="hidden" name="codepostal" id="codepostal" value="codepostal">
+          <input type="hidden" name="commune" id="commune" value="commune">
+          <input type="hidden" name="denomination" id="denomination" value="denomination">
+          <input type="hidden" name="departement" id="departement" value="departement">
+          <input type="hidden" name="region" id="region" value="region">
+          <input type="hidden" name="activite" id="activite" value="activite">
+          <input type="hidden" name="codedepartement" id="codedepartement" value="codedepartement">
+          <input type="hidden" name="groupeent" id="groupeent" value="groupeent">
+        </div>
+
+      </div>
+      {#
+      <div class="row d-flex justify-content-center">
+        <div class="col-12">
+          <div class="text-center">
+            <button type="submit" class="btn btn-outline-success  m-3 rounded-lg">Inscription </button>
+            <a type="button" href="{{ path('home_index')}}" class="btn m-3 btn-outline-warning rounded-lg">Retour</a>
+          </div>
+        </div>
+      </div>
+      #}
+
+    </div>
+  </form>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function(){
+  $('#num_siret').change(function(e){
+
+    var numSiretSaisi = $(this).val();
+
+    if(numSiretSaisi.length >= 9){
+      // Je fais appel à l'API
+      var urlApi = 'https://data.opendatasoft.com/api/records/1.0/search/?dataset=sirene_v3%40public&q='+numSiretSaisi+'&lang=fr&start=0&sort=datederniertraitementetablissement&facet=activiteprincipaleetablissement&facet=siret&facet=siren&facet=nic&facet=adresseetablissement&facet=codepostaletablissement&facet=codecommuneetablissement&facet=libellecommuneetablissement&facet=l1_adressage_unitelegale&facet=denominationunitelegale&facet=departementetablissement&facet=regionetablissement&facet=divisionunitelegale&facet=codedepartementetablissement&facet=classeunitelegale';
+
+      fetch(urlApi)
+      .then(function(result){
+        // Récupération des résultat
+        return result.json();
+      })
+      .then(function(data){
+        console.log(data);
+
+        // sortir les données par date du dernier établissement ("sort": ["datederniertraitementetablissement"])
+
+        // nhits represente (dans cette api) le nombre de résultat
+        if(data.nhits >= 1){
+
+          for(myRecords of data.records){
+            code_ape = myRecords.fields.activiteprincipaleetablissement; // APE
+            $('#sirene_code_ape').val(code_ape);
+            console.log($('#sirene_code_ape').val(code_ape));
+
+            siret = myRecords.fields.siret;
+            $('#siret').val(siret);
+            console.log($('#siret').val(siret));
+
+            siren = myRecords.fields.siren;
+            $('#siren').val(siren);
+            console.log($('#siren').val(siren));
+
+            nic = myRecords.fields.nic;
+            $('#nic').val(nic);
+            console.log($('#nic').val(nic));
+
+            adresse = myRecords.fields.adresseetablissement;
+            $('#adresse').val(adresse);
+            console.log($('#adresse').val(adresse));
+
+            codepostal = myRecords.fields.codepostaletablissement;
+            $('#codepostal').val(codepostal);
+            console.log($('#codepostal').val(codepostal));
+
+            codepostal2 = myRecords.fields.codecommuneetablissement;
+            $('#codepostal2').val(codepostal2);
+            console.log($('#codepostal2').val(codepostal2));
+
+            commune = myRecords.fields.libellecommuneetablissement;
+            $('#commune').val(commune);
+            console.log($('#commune').val(commune));
+
+            identity = myRecords.fields.l1_adressage_unitelegale;
+            $('#denomination').val(denomination);
+            console.log($('#denomination').val(denomination));
+
+            denomination2 = myRecords.fields.denominationunitelegale;
+            $('#denomination2').val(denomination2);
+            console.log($('#denomination2').val(denomination2));
+
+            departement = myRecords.fields.departementetablissement;
+            $('#departement').val(departement);
+            console.log($('#departement').val(departement));
+
+            region = myRecords.fields.regionetablissement;
+            $('#region').val(region);
+            console.log($('#region').val(region));
+
+            activite = myRecords.fields.divisionunitelegale;
+            $('#activite').val(activite);
+            console.log($('#activite').val(activite));
+
+            codedepartement = myRecords.fields.codedepartementetablissement;
+            $('#codedepartement').val(codedepartement);
+            console.log($('#codedepartement').val(codedepartement));
+
+            groupeent = myRecords.fields.classeunitelegale;
+            $('#groupeent').val(groupeent);
+            console.log($('#groupeent').val(groupeent));
+
+          }
+        }
+      });
+
+    }
+
+  })
+
+
+});
+</script>
+{% endblock %}
+

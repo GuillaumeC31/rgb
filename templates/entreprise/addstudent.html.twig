@@ -1,0 +1,184 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Section Entreprise{% endblock %}
+
+  {% block body %}
+
+
+<div class="example-wrapper">
+
+
+<div class="container border mt-5 p-2">
+  <h1 class="text-center">Inscription </h1>
+
+
+  {% if formValid is not null and formValid == true %}
+    <div class="alert alert-success text-center">
+      Elève enregistrer dans la base de données<br>
+      - l'équipe de RGB -
+    </div>
+  {% elseif formValid is not null and formValid == false %}
+    <div class="alert alert-danger text-center">
+      {{ errors|join('<br>')|raw }}
+    </div>
+  {% endif %}
+
+
+  <div class="row ">
+    <div class="col ">
+
+      <form method="post" class="m-5 justify-content-center">
+
+        <div class="form-row mb-3">
+          <label for="firstname" class="col-form-label col-4">Prénom</label>
+          <div class="col-8">
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="lastname" class="col-form-label col-4">Nom</label>
+          <div class="col-8">
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row mb-3  ">
+          <label for="address" class="col-form-label col-4">Adresse</label>
+          <div class="col-8">
+            <input type="text" name="address" id="address" class="form-control" placeholder="Adresse">
+          </div>
+        </div>
+        <div class="form-row mb-3  ">
+          <label for="zipcode" class="col-form-label col-4"></label>
+          <div class="col-8">
+            <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Code Postal">
+          </div>
+        </div>
+        <div class="form-row mb-3  ">
+          <label for="city" class="col-form-label col-4"></label>
+          <div class="col-8">
+            <input type="text" name="city" id="city" class="form-control" placeholder="Ville">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="email" class="col-form-label col-4">Email</label>
+          <div  class="col-8">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="birthdate" class="col-form-label col-4">Date de Naissance</label>
+          <div  class="col-8">
+            <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Email">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label for="phone" class="col-form-label col-4">Téléphone</label>
+          <div  class="col-8">
+            <input type="phone" name="phone" id="phone" class="form-control" placeholder="Telephone">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Formation</label>
+          <div for="section" class="col-8">
+            <select class="form-control" id="section" name="section" placeholder="Sélectionner une formation">
+              {% for formSection in sectionStudent %}
+                <option>{{ formSection.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Ecole</label>
+          <div for="section" class="col-8">
+            <select class="form-control" id="school" name="school" placeholder="Sélectionner une Ecole">
+              {% for school_student in schoolStudent %}
+                <option>{{ school_student.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Langages</label>
+          <div for="langage" class="col-8">
+            {% for langCheck in langageStudent %}
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="langage" name="langage" value="{{ langCheck.langage }}">
+                <label class="form-check-label">{{ langCheck.langage }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Framework</label>
+          <div for="framework" class="col-8">
+            <input type="text" name="framework" id="framework" class="form-control" placeholder="Non inclus dans BDD">
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+          <label class="col-form-label col-4">Note Moyenne</label>
+          <div for="mark" class="col-8">
+            <select class="form-control" id="mark" name="mark">
+              <option>01</option>
+              <option>02</option>
+              <option>03</option>
+              <option>04</option>
+              <option>05</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+
+        <div class="form-row  mb-3">
+         <label class="col-form-label col-4" for="Password">Password</label>
+         <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
+       </div>
+       <hr>
+
+       <div class="form-row  mb-3">
+         <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
+         <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
+       </div>
+       <hr>
+
+       <div class="text-center">
+        <button type="submit" class="btn btn-outline-success  m-3 rounded-0">Inscription </button>
+      </div>
+
+  </form>
+</div>
+</div>
+
+
+{% endblock %}
+

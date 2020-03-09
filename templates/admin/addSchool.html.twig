@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Ecole{% endblock %}
+
+{% block body %}
+
+  <div class="container border mt-5 p-2">
+    <h1 class="text-center">Inscription d'une Ecole </h1>
+
+
+    <div class="row ">
+      <div class="col-6 mx-auto ">
+
+        <form method="post" class="m-5 justify-content-center">
+
+          {% if formValid is not null and formValid == false %}
+            <div class="alert alert-danger text-center">
+              {{ errors|join('<br>')|raw }}
+            </div>
+          {% endif %}
+
+            <div class="form-row mb-3  ">
+              <label for="identity" class="col-form-label col-4">Centre de formation</label>
+              <div class="col-8">
+                <input type="text" name="identity" id="identity" class="form-control" placeholder="Identité Centre de Formation">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="adress_pro" class="col-form-label col-4">Adresse</label>
+              <div class="col-8">
+                <input type="text" name="adress_pro" id="adress_pro" class="form-control" placeholder="Adresse">
+              </div>
+            </div>
+            <div class="form-row mb-3  ">
+              <label for="zipcode_pro" class="col-form-label col-4">Code Postal</label>
+              <div class="col-8">
+                <input type="text" name="zipcode_pro" id="zipcode_pro" class="form-control" placeholder="Code Postal">
+              </div>
+            </div>
+            <div class="form-row mb-3  ">
+              <label for="city_pro" class="col-form-label col-4">Ville</label>
+              <div class="col-8">
+                <input type="text" name="city_pro" id="city_pro" class="form-control" placeholder="Ville">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="phone_pro" class="col-form-label col-4">Téléphone</label>
+              <div class="col-8">
+                <input type="text" name="phone_pro" id="phone_pro" class="form-control" placeholder="Téléphone">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="email_pro" class="col-form-label col-4">Email</label>
+              <div class="col-8">
+                <input type="text" name="email_pro" id="email_pro" class="form-control" placeholder="Votre email">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="web_pro" class="col-form-label col-4">Site Web</label>
+              <div class="col-8">
+                <input type="text" name="web_pro" id="web_pro" class="form-control" placeholder="Site Web">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="siret" class="col-form-label col-4">N° SIRET</label>
+              <div class="col-8">
+                <input type="text" name="siret" id="siret" class="form-control" placeholder="N° de SIRET">
+                <small id="" class="form-text text-muted">14 chiffres sans espace</small>
+              </div>
+            </div>
+            <hr>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="" class="col-form-label col-4">Contact</label>
+              <div class="col-8">
+                <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Votre prénom">
+              </div>
+              <label for="" class="col-form-label col-4"></label>
+              <div class="col-8 mt-3">
+                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Votre nom">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="email" class="col-form-label col-4">Email</label>
+              <div class="col-8">
+                <input type="text" name="email" id="email" class="form-control" placeholder="Votre email">
+              </div>
+            </div>
+            <hr>
+            <div class="form-row mb-3  ">
+              <label for="password" class="col-form-label col-4">Mot de Passe</label>
+              <div class="col-8">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Votre mot de passe">
+              </div>
+            </div>
+            <div class="form-row mb-3  ">
+              <label for="passwordConfirm" class="col-form-label col-4">Confirmation</label>
+              <div class="col-8">
+                <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Confirmer votre mot de Passe">
+              </div>
+            </div>
+            <hr>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-outline-success  m-3 rounded-0">Inscription </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}
+

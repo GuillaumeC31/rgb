@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+
+<div class="container  justify-content-center mt-5">
+  <div class="row">
+    <div class="col justify-content-center">
+        <h1>Entreprise</h1>
+
+         <form method="post" class="justify-content-center">
+           <h1>{{users.identity}}</h1><br>
+
+         <table class="table">
+      <tbody>
+          <tr>
+           <th>Nom entreprise</th>
+            <td>{{users.identity}}</td>
+          </tr>
+
+
+          <tr>
+            <th>Adresse</th>
+            <td>{{users.adressPro}}</td>
+          </tr>
+
+          <tr>
+            <th>Code postale</th>
+            <td>{{users.zipcodePro}}</td>
+          </tr>
+
+          <tr>
+            <th>Ville</th>
+             <td>{{users.cityPro}}</td>
+          </tr>
+
+          <tr>
+            <th>Numero de teléphone</th>
+            <td>{{users.phonePro}}</td>
+         </tr>
+
+          <tr>
+            <th>N° Siret </th>
+             <td>{{users.siret}}</td>
+          </tr>
+
+          <tr>
+             <th>N° Siren</th>
+              <td>{{users.siren}}</td>
+          </tr>
+
+          <tr>
+             <th> NIC </th>
+            <td>{{users.nic}}</td>
+          </tr>
+
+          <tr>
+            <th>Code APE </th>
+              <td>{{users.apeCode}}</td>
+          </tr>
+
+          <tr>
+             <th>Email</th>
+              <td>{{users.email}}</td>
+          </tr>
+
+           <tr>
+               <th>Date d'enregistrement</th>
+                <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+          </tr>
+
+          </tbody>
+        </table>
+
+          <a type="submit" class="btn btn-outline-success m-3 rounded-0" href="{{ path('list_valid', {id: user.id}) }}" class="text-info">Retour</a>
+          <a type="submit" class="btn btn-outline-danger m-3 rounded-0"  class="text-danger">Supprimer entreprise</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
