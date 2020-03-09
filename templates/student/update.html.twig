@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container d-flex justify-content-center mt-5">
+
+    <div class="col-lg-6 col-sm-12 col-md-6 d-flex justify-content-center">
+        <form method="POST" class="bg-secondary rounded p-3" enctype="multipart/form-data">
+            <h2 class="text-center text-light">Modifier profil</h2>
+            <div class="custom-file mt-3">
+                <label for="profilePhoto" class="custom-file-label">Photo de profil</label>
+                <input type="file" class="custom-file-input" name="profilePhoto">
+            </div>
+
+            <div class="text-center">
+                <h3 class="mt-5 text-light" style="font-size:1.5em;">Choix catégories actualités</h3>
+            </div>
+
+            <div class="form-group form-check mt-3">
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="technology" name="technology" value="technology">
+                        <label class="form-check-label" for="technology">Technologie</label>
+                    </div>
+                
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="business" name="business" value="business">
+                        <label class="form-check-label" for="business">Business</label>
+                    </div>
+                
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="sports" name="sports" value="sports">
+                        <label class="form-check-label" for="sports">Sport</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-around">
+                
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="science" name="science" value="science">
+                        <label class="form-check-label" for="science">Science</label>
+                    </div>
+            
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="entertainment" name="entertainment" value="entertainment">
+                        <label class="form-check-label" for="entertainment">Divertissement</label>
+                    </div>
+
+                </div>
+
+            </div>   
+
+            <button type="submit" class="btn btn-dark btn-block mt-3" name="submit">Valider</button>
+            
+        </form>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

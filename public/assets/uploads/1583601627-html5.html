@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--Déclaration de type de document (DTD) au format HTML5-->
+
+<html lang="fr">
+<!--l'attribut lang permet au navigateur de détecter la langue de la  page, utile en SEO-->
+
+<head>
+  <meta charset="utf-8">
+  <!--jeu de caractères européens avec accents-->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--pour le responsive et la mise à l'échelle sur les écran UHD-->
+
+  <title>HTML 5 et balises sémantiques</title>
+
+  <meta name="description" content="Description sémantique de la page, nécessaire au SEO et au bon référencement de la page web">
+
+  <!--placement de VOTRE FEUILLE DE STYLE - toujours en dernière position car c'est le dernier style déclaré qui sera appliqué-->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+
+
+<div class="box_2 container-fluid ">
+
+
+  <div class="boutton_click text-center pb-2 pt-2">
+
+
+    <button  class="rounded-pill bg-light" id="button1" type="button" name="button">Fondu !</button>
+    <button class="rounded-pill bg-dark text-light" id="button2" type="button" name="button">Mouvement</button>
+    <button class="rounded-pill bg-danger text-light " id="button3" type="button" name="button">Largeur</button>
+    <button class="rounded-pill bg-danger text-light " id="button4" type="button" name="button">Fondu bleu</button>
+
+  </div>
+
+  <div class="box ">
+
+
+    <div id="principal"></div>
+    <div id="deux"></div>
+    <div id="trois"></div>
+    <div id="quatre"></div>
+  </div>
+</div>
+  <!-- A PARTIR D'ICI, ON VIENT PLACER LES FICHIERS JAVASCRIPT -->
+
+  <!-- D'abord, our finir, vous viendrez insérer votre propre fichier JS-->
+  <script src="js/script.js"></script>
+  <!-- à noter l'attribut type="text/javascript" ne s'écrit plus depuis le HTML5/CSS3 d'après les recommandations du W3C-->
+
+</body>
+
+</html>

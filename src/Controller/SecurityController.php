@@ -17,6 +17,8 @@ class SecurityController extends AbstractController
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         if($this->getUser()){
           if(in_array('ROLE_ENTREPRISE', $this->getUser()->getRoles())){
@@ -26,7 +28,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('index_school');
           }
           if(in_array('ROLE_STUDENT', $this->getUser()->getRoles())){
-                return $this->redirectToRoute('index_student');
+                return $this->redirectToRoute('student_home', ['id' => $user->getId()]);
           }
           if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
                 return $this->redirectToRoute('index_admin');
