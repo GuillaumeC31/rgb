@@ -27,7 +27,7 @@ class EntStudAccept
     private $stud_id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $accept;
 
@@ -60,12 +60,12 @@ class EntStudAccept
         return $this;
     }
 
-    public function getAccept(): ?int
+    public function getAccept(): ?string
     {
         return $this->accept;
     }
 
-    public function setAccept(?int $accept): self
+    public function setAccept(?string $accept): self
     {
         $this->accept = $accept;
 

@@ -95,9 +95,9 @@
                 <tr>
                   <td>Autorisation de contact</td>
                   <td>
-                    <form method="post" id="switchAccept">
+                    <form method="post">
                       <div class="custom-control custom-switch">
-                        <input type="checkbox" name="switchAccept" class="custom-control-input" id="switchAccept">
+                        <input type="checkbox" name="allow_contact" class="custom-control-input" id="switchAccept">
                         <label class="custom-control-label" for="switchAccept"></label>
                       </div>
                     </form>
@@ -108,9 +108,9 @@
                   <td>
                     <form method="post" id="messageStudent">
                       <div class="form-group">
-                        <textarea class="form-control" id="messageStudent" rows="5"></textarea>
+                        <textarea class="form-control form-control-hidden" id="messageStudent" rows="5"></textarea>
                       </div>
-                      <button type="submit" class="btn btn-outline-info mb-2">Envoyer</button>
+                      <button type="submit" class="btn btn-sm btn-outline-info mb-2">Envoyer le message</button>
                     </form>
                   </td>
                 </tr>
@@ -119,6 +119,28 @@
           </div>
         </div>
       </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$('[name="allow_contact"]').on('change', function(e){
+  var statusCheckbox = $(this).is(':checked');
+
+  $.post('{{ path('allow_student_contact') }}', {
+    new_status: statusCheckbox,
+    id_entreprise: '{{ app.user.id }}',
+    id_student: '{{ view_student.id }}',
+  }, function(dataResult){
+      // dataResult cocntiendra le resultat de mon script PHP (s'il en renvoi un)
+      console.log(dataResult);
+  });
+
+
+});
+
+</script>
 
 
 {% endblock %}

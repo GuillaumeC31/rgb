@@ -23,14 +23,14 @@
   {% block body %}
 
     <!--==== SECTION LISTE ETUDIANTS ====-->
-    <section class="container-fluid mt-5">
-      <h1 class="text-center">Fiche de {{ app.user.identity }}</h1>
+    <section class="container mt-5">
+      <h1 class="text-center">Fiche de {{ app.user.identity }} / {{ app.user.id }}</h1>
       <hr>
 
       <div class="container-fluid mt-5 mx-1">
 
         <div class="row">
-          <div class="col-12 col-md-4 col-lg-4">
+          <div class="col-12 col-md-5">
             <h5 class="text-center">Informations personnelles
             <button type="button" class="btn btn-info btn-sm rounded-circle" data-toggle="tooltip" data-placement="right" title="informations personnelles modifiable">?
             </button>
@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                   <td>Adresse : </td>
-                  <td></td>
+                  <td>{{ app.user.address }}</td>
                 </tr>
                 <tr>
                   <td>Téléphone : </td>
@@ -68,9 +68,9 @@
               </tbody>
             </table>
             <hr>
-            <a type="button" class="btn btn-outline-warning" href="{{ path('modifficheEnt') }}">Modif</a>
+            <a type="button" class="btn btn-outline-warning" href="{{ path('modifficheEnt', {id: app.user.id }) }}">Modifier</a>
           </div>
-          <div class="col-12 col-md-4 col-lg-4">
+          <div class="col-12 col-md-7">
             <h5 class="text-center">Identité de l'entreprise
               <button type="button" class="btn btn-info btn-sm rounded-circle" data-toggle="tooltip" data-placement="right" title="informations depuis api siren">?
               </button>
@@ -114,46 +114,6 @@
                   <td>{{ app.user.region }}</td>
                 </tr>
 
-              </tbody>
-            </table>
-          </div>
-          <div class="col-12 col-md-4 col-lg-4 border">
-            <h5 class="text-center">formation</h5>
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td class="">Section actuelle : </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td class="">Centre de Formation : </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Langages connus : </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Framework connus :</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Autorisation de contact</td>
-                  <td>
-
-                  </td>
-                </tr>
-                <tr>
-                  <td>Envoyer message</td>
-                  <td>
-                    <form method="post">
-                      <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-outline-info mb-2">Envoyer</button>
-                    </form>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>

@@ -129,9 +129,9 @@ class HomeController extends AbstractController
                     #$ent->setIdentity($post['denomination']);
                 $ent->setCityPro($post['commune']);
                 $ent->setDepartement($post['departement']);
-                $ent->setRegion($post['codedepartement']);
+                $ent->setCodeDepartement($post['codedepartement']);
                 $ent->setRegion($post['region']);
-                $ent->setRegion($post['activite']);
+                $ent->setActivite($post['activite']);
                 $ent->setApeName($post['groupeent']);
 
                 # contact :
@@ -159,7 +159,6 @@ class HomeController extends AbstractController
                 */
 
                 /* RECUPERATION DES INFORMATION API dans home/index.html.twig
-
 <input type="hidden" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
 <input type="hidden" name="denomination" id="denomination" value="denomination">
 <input type="hidden" name="denomination2" id="denomination2" value="denomination2">
@@ -175,9 +174,6 @@ class HomeController extends AbstractController
 <input type="hidden" name="region" id="region" value="region">
 <input type="hidden" name="activite" id="activite" value="activite">
 <input type="hiden" name="groupeent" id="groupeent" value="groupeent">
-
-
-
                 */
 
 
@@ -185,16 +181,21 @@ class HomeController extends AbstractController
                 $entityManager->persist($ent);
                 $entityManager->flush();
 
-                $email = '<p>Bonjour , ';
-                $email.= '<br> Bienvenue sur RGB :';
+                $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                $message.= '<br> Bienvenue sur la plateforme RGB :';
+                $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                $message.= '<br> login : '.$post['email'];
+                $message.= '<br> mot de passe : '.$post['password'];
+                $message.= '<br>A très bientôt sur RGB.';
+                $message.= '</p>';
 
-                $email = new Email();
-                $email->from('Papercut@papercut.com');
-                $email->to('alexanderfry@live.fr');
-                $email->replyTo($post['email']);
-                $email->subject('[Contact du site ] Nouveau message du site le '.date('d/m/Y H:i'));
-                $email->text('RGB vous souhaite la bienvenue');
-                $email->html('<p></p>');
+
+                $email = (new Email())
+                    ->from('hello@rgb.fr')
+                    ->to('you@example.fr')
+                    ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
+                    ->text(strip_tags($message))
+                    ->html($message);
 
                 $sentEmail = $mailer->send($email);
 
