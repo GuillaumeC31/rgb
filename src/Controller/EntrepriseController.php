@@ -74,6 +74,7 @@ class EntrepriseController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $viewStudent = $entityManager->getRepository(Users::class)->find($id);
+        $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findAll();
 
         /*
         if ($_POST['switchAccept'] == 1 ) {
@@ -94,6 +95,7 @@ class EntrepriseController extends AbstractController
 
         return $this->render('entreprise/view.html.twig', [
             'view_student'  => $viewStudent,
+            'viewAccept' => $viewAccept,
         ]);
     }
 
@@ -336,6 +338,9 @@ class EntrepriseController extends AbstractController
      */
     public function ajaxAllowStudent()
     {
+        //$entityManager = $this->getDoctrine()->getManager();
+        //$studentIdEmail = $entityManager->getManager(USers::class)->find($id);
+
         if(!empty($_POST)){
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
