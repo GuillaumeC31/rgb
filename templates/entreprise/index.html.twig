@@ -8,6 +8,28 @@
     <h3 class="text-center">Bienvenue sur Entreprise</h3>
   </section>
 
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-4 border p-2 m-4">
+        <h4 class="text-center">Informations</h4>
+        <table>
+          <tbody>
+            <tr>
+              <th>Centre de formation : </th>
+            </tr>
+            <tr>
+              {% for schoolIndex in indexSchool %}
+                <th>{{ schoolIndex.identity }}</th>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+
 
 {% endblock %}
 

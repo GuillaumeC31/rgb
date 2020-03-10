@@ -90,7 +90,7 @@ class HomeController extends AbstractController
                 $errors[] = 'Votre email est invalide';
             }
             if(!v::notEmpty()->length(2, null)->validate($post['password'])){
-                $errors[] = 'Votre mot de passe est erroné!';
+                $errors[] = 'Votre mot de passe n\'est pas valide!';
             }
             if($post['password'] !== $post['passwordConfirm']){
                 $errors[] = 'les mots de passe ne sont pas identiques';
@@ -219,9 +219,7 @@ class HomeController extends AbstractController
 
                     $this->addFlash(
                         'register',
-                        'Votre demande d\'enregistrement à bien été prise en compte<br>
-                        Un mail vous a été envoyer avec vos identifiant!<br>
-                        Bonne recherche.'
+                        'Votre demande d\'enregistrement a bien été prise en compte<br>Un mail vous a été envoyé avec vos identifiants!<br>Bonne recherche.'
                     );
 
                     $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
