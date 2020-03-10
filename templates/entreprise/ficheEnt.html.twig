@@ -3,11 +3,11 @@
 {% block title %}Section Entreprise{% endblock %}
 {% block javascripts %}
 
-  {% for message in app.flashes('addSchool') %}
+  {% for message in app.flashes('modifEnt') %}
     <script type="text/javascript">
     Swal.fire({
       icon: 'success',
-      title: '{{ message }}',
+      html: '{{ message|raw }}',
       showClass: {
         popup: 'animated fadeInDown faster'
       },
@@ -24,7 +24,7 @@
 
     <!--==== SECTION LISTE ETUDIANTS ====-->
     <section class="container mt-5">
-      <h1 class="text-center">Fiche de {{ app.user.identity }} / {{ app.user.id }}</h1>
+      <h1 class="text-center">Profil : {{ app.user.identity }}</h1>
       <hr>
 
       <div class="container-fluid mt-5 mx-1">
@@ -71,7 +71,7 @@
             <a type="button" class="btn btn-outline-warning" href="{{ path('modifficheEnt', {id: app.user.id }) }}">Modifier</a>
           </div>
           <div class="col-12 col-md-7">
-            <h5 class="text-center">Identité de l'entreprise
+            <h5 class="text-center">Identité de votre entreprise
               <button type="button" class="btn btn-info btn-sm rounded-circle" data-toggle="tooltip" data-placement="right" title="informations depuis api siren">?
               </button>
             </h5>

@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
+
 {% block javascripts %}
 
   {% for messages in app.flashes('register') %}
-    <script type="text/javascript">
+   <script type="text/javascript">
     Swal.fire({
       icon: 'success',
       title: 'Félicitation',
-      text: '{{ messages }}',
+      html:  "{{ messages|raw }}",
       icon: 'success',
       showClass: {
         popup: 'animated fadeInDown faster'
@@ -21,8 +22,8 @@
   {% endfor %}
 
 {% endblock %}
-{% block body %}
 
+{% block body %}
 
 
 <div class="container ">
@@ -34,7 +35,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            You are logged in as {{ app.user.firstname }} {{ app.user.lastname }} , <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
 

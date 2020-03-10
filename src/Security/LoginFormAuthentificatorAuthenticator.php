@@ -71,8 +71,11 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
         $user = $this->entityManager->getRepository(Users::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            // Aucun utilisateur trouvé en fonction de l'adresse email
+            throw new CustomUserMessageAuthenticationException('Email non inscrit.');
+        }
+        elseif(in_array('ROLE_ENTREPRISE', $user->getRoles()) && $user->getConnect() == 'false'){
+            throw new CustomUserMessageAuthenticationException('Votre compte n\'est pas encore validé. Veuillez Attendre l\'autorisation du centre de formation');
         }
 
         return $user;

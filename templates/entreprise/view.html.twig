@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Section Entreprise{% endblock %}
+{% block stylesheets %}
 
+<style type="text/css">
+
+</style>
+
+{% endblock %}
 
   {% block body %}
 
-    <section>
+    {#<section>
       <h4>Id Entreprise : {{ app.user.id }}</h4>
       <h4>Id Etudiant : {{ view_student.id }}</h4>
-    </section>
+    </section>#}
 
 
     <!--==== SECTION LISTE ETUDIANTS ====-->
@@ -97,7 +103,7 @@
                   <td>
                     <form method="post">
                       <div class="custom-control custom-switch">
-                        <input type="checkbox" name="allow_contact" class="custom-control-input" id="switchAccept" value="">
+                        <input type="checkbox" name="allow_contact" class="custom-control-input" id="switchAccept" {{ viewAccept }}>
                         <label class="custom-control-label" for="switchAccept"></label>
                       </div>
                     </form>
@@ -127,6 +133,7 @@
 <script>
 $('[name="allow_contact"]').on('change', function(e){
   var statusCheckbox = $(this).is(':checked');
+  console.log(statusCheckbox);
 
   $.post('{{ path('allow_student_contact') }}', {
     new_status: statusCheckbox,
@@ -136,9 +143,8 @@ $('[name="allow_contact"]').on('change', function(e){
       // dataResult cocntiendra le resultat de mon script PHP (s'il en renvoi un)
       console.log(dataResult);
   });
-
-
 });
+
 
 </script>
 

@@ -42,8 +42,17 @@ class EntrepriseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ENTREPRISE', 'ROLE_ADMIN');
         $users = $this->getUser();
-        return $this->render('entreprise/index.html.twig', [
 
+        $entityManager = $this->getDoctrine()->getManager();
+        $indexSchool = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_SCHOOL');
+        $indexStudent = $entityManager->getRepository(USers::class)->findAllByRole('ROLE_STUDENT');
+        $indexFormation = $entityManager->getRepository(Section::class)->findAll();
+
+
+        return $this->render('entreprise/index.html.twig', [
+            'indexSchool' => $indexSchool,
+            'indexStudent' => $indexStudent,
+            'indexFormation' => $indexFormation,
         ]);
     }
 
@@ -74,28 +83,24 @@ class EntrepriseController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $viewStudent = $entityManager->getRepository(Users::class)->find($id);
-        $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findAll();
 
-        /*
-        if ($_POST['switchAccept'] == 1 ) {
-            $EntStudAccept = new EntStudAccept();
+        $findOneBy = array('stud_id' => $id, 'ent_id' => $this->getUser()->getId());
+        $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy($findOneBy);
 
-            $EntStudAccept->setRoles(['ROLE_STUDENT']);
-
-            dump($EntStudAccept->setentId('app.user'));
-            dump($EntStudAccept->setstudId('$viewStudent.id'));
-            dump($EntStudAccept->setAccept($_POST['switchAccept']));
-            die;
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($EntStudAccept);
-            $entityManager->flush();
-        }*/
-
+        if ($viewAccept->getAccept() == 'true') {
+            $viewAccept = 'checked';
+            $img = 'on';
+        } else {
+            $viewAccept = '';
+            $img = 'off';
+        }
+        //dump($viewAccept);
+        //die;
 
         return $this->render('entreprise/view.html.twig', [
             'view_student'  => $viewStudent,
             'viewAccept' => $viewAccept,
+            'img' => $img,
         ]);
     }
 
@@ -105,9 +110,11 @@ class EntrepriseController extends AbstractController
      */
     public function ficheSchool()
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $schoolIdentity = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_SCHOOL');
 
         return $this->render('entreprise/ficheEco.html.twig', [
-
+            'schoolIdentity' => $schoolIdentity,
         ]);
     }
 
@@ -151,34 +158,34 @@ class EntrepriseController extends AbstractController
         if (!empty($_POST)) {
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
-            if(!v::length(2,null)->validate($post['firstnameModif'])){
+            if(!empty($post['firstnameModif']) && !v::length(2,null)->validate($post['firstnameModif'])){
                 $errors[] = 'Le prénom est invalide';
             }
-            if(!v::length(2,null)->validate($post['lastnameModif'])){
+            if(!empty($post['lastnameModif']) && !v::length(2,null)->validate($post['lastnameModif'])){
                 $errors[] = 'Le nom est invalide';
             }
-            if(!v::length(2,null)->validate($post['addressModif'])){
+            if(!empty($post['addressModif']) && !v::length(2,null)->validate($post['addressModif'])){
                 $errors[] = 'Adresse invalide';
             }
-            if(!v::length(2,null)->validate($post['zipcodeModif'])){
+            if(!empty($post['zipcodeModif']) && !v::length(2,null)->validate($post['zipcodeModif'])){
                 $errors[] = 'le code postal est invalide';
             }
-            if(!v::length(2,null)->validate($post['cityModif'])){
+            if(!empty($post['cityModif']) && !v::length(2,null)->validate($post['cityModif'])){
                 $errors[] = 'la ville est invalide';
             }
-            if(!v::phone()->validate($post['phoneModif'])){
+            if(!empty($post['phoneModif']) && !v::phone()->validate($post['phoneModif'])){
                 $errors[] = 'Le téléphone est invalide';
             }
-            if(!v::email()->validate($post['emailModif'])){
+            if(!empty($post['emailModif']) && !v::email()->validate($post['emailModif'])){
                 $errors[] = 'Votre email est invalide';
             }
-            if(!v::length(0,null)->validate($post['webModif'])){
+            if(!empty($post['webModif']) && !v::length(0,null)->validate($post['webModif'])){
                 $errors[] = 'Votre site web n\'est invalide';
             }
-            if(!v::length(0,null)->validate($post['githubModif'])){
+            if(!empty($post['githubModif']) && !v::length(0,null)->validate($post['githubModif'])){
                 $errors[] = 'Votre github n\'est invalide';
             }
-            if(!v::length(0,null)->validate($post['passwordModif'])){
+            if(!empty($post['passwordModif']) && !v::length(0,null)->validate($post['passwordModif'])){
                 $errors[] = 'Votre mot de passe est erroné!';
             }
             if($post['passwordModif'] !== $post['passwordConfirmModif']){
@@ -195,6 +202,8 @@ class EntrepriseController extends AbstractController
                 $ficheEntUpdate->setZipcode($post['zipcodeModif']);
                 $ficheEntUpdate->setCity($post['cityModif']);
                 $ficheEntUpdate->setPhone($post['phoneModif']);
+                $ficheEntUpdate->setWeb($post['webModif']);
+                $ficheEntUpdate->setGithub($post['githubModif']);
                 $ficheEntUpdate->setEmail($post['emailModif']);
                 $ficheEntUpdate->setPassword($this->passwordEncoder->encodePassword($ficheEntUpdate, $post['passwordModif']));
 
@@ -217,11 +226,6 @@ class EntrepriseController extends AbstractController
             'ficheEntUpdate' => $ficheEntUpdate,
         ]);
     }
-
-
-
-
-
 
 
     /**
@@ -357,12 +361,12 @@ class EntrepriseController extends AbstractController
 
                 if(!empty($entStudAccept)){
                     // Mise à jour
+
                     $entStudAccept->setEntId($post['id_entreprise']);
                     $entStudAccept->setStudId($post['id_student']);
                     $entStudAccept->setAccept($post['new_status']);
 
                     $entityManager->flush();
-
                 }
                 else {
                     // Insert
@@ -375,8 +379,6 @@ class EntrepriseController extends AbstractController
                     $entityManager->flush();
                 }
 
-
-
                     /*
                     $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
                     $message.= '<br> Bienvenue sur la plateforme RGB :';
@@ -385,7 +387,6 @@ class EntrepriseController extends AbstractController
                     $message.= '<br> mot de passe : '.$post['password'];
                     $message.= '<br>A très bientôt sur RGB.';
                     $message.= '</p>';
-
 
                     $email = (new Email())
                         ->from('hello@rgb.fr')
@@ -397,8 +398,10 @@ class EntrepriseController extends AbstractController
                     $sentEmail = $mailer->send($email);
                     */
 
-
-                return $this->json(['status' => 'ok']);
+                return $this->json([
+                    'status' => 'ok',
+                    'entStudAccept' => $entStudAccept,
+                ]);
             }
         }
 

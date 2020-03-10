@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +21,20 @@ class SecurityController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if($this->getUser()){
-          if(in_array('ROLE_ENTREPRISE', $this->getUser()->getRoles())){
+
+        if($user){
+            if(in_array('ROLE_ENTREPRISE', $user->getRoles())){
                 return $this->redirectToRoute('indexEnt');
-          }
-          if(in_array('ROLE_SCHOOL', $this->getUser()->getRoles())){
+                //si le ROLE_ENTREPRISE doit être rediriger vers une page attente....
+                /*if($user->getConnect() == 'true'){
+                    return $this->redirectToRoute('indexEnt');
+                }
+                else {
+                    return $this->redirectToRoute('attentePage');
+                }*/
+            }
+
+            if(in_array('ROLE_SCHOOL', $user->getRoles())){
                 return $this->redirectToRoute('index_school');
           }
           if(in_array('ROLE_STUDENT', $this->getUser()->getRoles())){
@@ -32,7 +42,7 @@ class SecurityController extends AbstractController
           }
           if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
                 return $this->redirectToRoute('index_admin');
-          }
+            }
         }
 
         // get the login error if there is one
