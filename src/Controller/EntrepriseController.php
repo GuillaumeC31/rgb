@@ -46,11 +46,13 @@ class EntrepriseController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $indexSchool = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_SCHOOL');
         $indexStudent = $entityManager->getRepository(USers::class)->findAllByRole('ROLE_STUDENT');
+        $indexFormation = $entityManager->getRepository(Section::class)->findAll();
 
 
         return $this->render('entreprise/index.html.twig', [
             'indexSchool' => $indexSchool,
             'indexStudent' => $indexStudent,
+            'indexFormation' => $indexFormation,
         ]);
     }
 
