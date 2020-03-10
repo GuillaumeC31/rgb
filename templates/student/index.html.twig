@@ -19,12 +19,7 @@
                     <div class="form-group">
                         <label for="title">Objet</label>
                         <input type="text" class="form-control" name="title" id="title">
-                    </div>
-
-                    <div class="">
-                        <select name="to" class=" to custom-select" id="to">
-                        <option value=""></option>
-                        </select>
+                        <input type="hidden" name="action" value="sendmessage">
                     </div>
 
                     <div class="form-group">
@@ -33,9 +28,20 @@
                     </div>
                     <div class="d-flex justify-content-around">
                         <button name="submit" type="submit" class="btn btn-primary">Envoyer</button>
-                        <a class="btn btn-warning">Boite de réception</a>
+                         <a class="mailboxFlip btn btn-danger text-white" name="mailboxFlip" id="mailboxFlip">Boîte de réception</a>
                     </div>
-                </form>
+        
+                        
+              
+                <div class="d-flex align-content-center flex-column mt-3" id="mailboxToggle">
+                    {% for message in reception %}
+                        <h2 class="text-center"> {{message.title}}</h2>
+                        <ul class="list-group text-center">
+                           <li><p class="text-center text-lead">{{message.content}}</p></li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            </form>
 
                 <div class="jumbotron d-flex flex-column justify-content-between align-items-center">
                     <div id="jsb_container" class="jsb_holder">
@@ -67,7 +73,7 @@
 
         <div class="col-sm-12 col-lg-8 col-md-12 mb-5">
             <div class="d-flex justify-content-center profilImage">
-                <img src="{{asset('assets/img/man.png')}}" alt="" id="profilImage" srcset="">
+                <img src="{{asset('assets/uploads/' ~ filePath)}}" alt="" id="profilImage" srcset="">
             </div>
 
 <div class="sandbox col-12">
@@ -104,18 +110,15 @@
 <script src="{{asset('assets/packages/core/locales-all.js')}}"></script>
 <script src="{{asset('assets/js/calendar.js')}}"></script>
 <script src="{{asset('assets/js/calendar.min.js')}}"></script>
-<script src="{{asset('assets/js/script.js')}}"></script>
+<script src="{{asset('assets/js/justFlipIt.min.js')}}"></script>
 
     <!-- Fin Joobble API recherche -->
     <script type="text/javascript" src="{{asset('assets/js/SearchBox.js')}}" language="javascript"></script>
     
     
     <script>
-var searchBox = new JSearchBox('jsb_container', 0, '320', '7', '#0000ff',
 
-
-			'#60bf60', '#555555', '#ffffff', '#0000ff', '#555555', '#60bf60',
-            'Verdana', '11', '#b1b1b3', '', '');
+        var searchBox = new JSearchBox('jsb_container', 0, '320', '7', '#0000ff', '#60bf60', '#555555', '#ffffff', '#0000ff', '#555555', '#60bf60', 'Verdana', '11', '#b1b1b3', '', '');
 
 
         let pays = 'country=fr';
@@ -161,6 +164,15 @@ var searchBox = new JSearchBox('jsb_container', 0, '320', '7', '#0000ff',
                 let metreSecondeEnKM = Math.round(json.wind.speed * 3.6);
                 document.querySelector("#vitesseVent").innerHTML = metreSecondeEnKM;
                 document.querySelector("#fleche").style.transform = 'rotateZ(' + json.wind.deg + 'deg)';*/
+
+    $(document).ready(function(){
+
+     
+     $('#mailboxFlip').on("click", function(event){
+            event.preventDefault();
+            $("#mailboxToggle").slideToggle();  //ou slideToggle
+        });
+    }); // Affichage la boîte de réception quand on clique sur le boutton Boite de réception
     </script>
 
 {% endblock %}

@@ -66,7 +66,7 @@ class SchoolController extends AbstractController
             'listApe'           => $listApe,
             'listApeSchool'     => $listApeSchool,
             'validationForm'    => $validationForm ?? null,
-            'errorForm'         => $errorForm,
+
         ]);
     }
 
