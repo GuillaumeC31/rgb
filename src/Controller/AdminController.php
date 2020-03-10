@@ -49,7 +49,7 @@ class AdminController extends AbstractController
     public function addSchool()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        #$viewCity = $entityManager->getRepository(City::class)->findAll();
+        $post = [];
         $errors = [];
 
         if (!empty($_POST)) {
@@ -59,27 +59,22 @@ class AdminController extends AbstractController
             if(!v::notEmpty()->length(2,null)->validate($post['identity'])){
                 $errors[] = 'Le nom du centre de formation est invalide';
             }
-            if(!v::notEmpty()->length(2,null)->validate($post['adress_pro'])){
-                $errors[] = 'L\'adresse est invalide';
-            }
-            if(!v::notEmpty()->length(2,null)->validate($post['zipcode_pro'])){
-                $errors[] = 'le code postal est invalide';
-            }
-            if(!v::notEmpty()->length(2,null)->validate($post['city_pro'])){
-                $errors[] = 'la ville est invalide';
-            }
-            if(!v::notEmpty()->phone()->validate($post['phone_pro'])){
+            if(!v::notEmpty()->phone()->validate($post['phonePro'])){
                 $errors[] = 'Le téléphone est invalide';
             }
-            if(!v::notEmpty()->email()->validate($post['email_pro'])){
+            if(!v::notEmpty()->email()->validate($post['emailPro'])){
                 $errors[] = 'votre email est invalide';
             }
-            if(!v::notEmpty()->length(2,null)->validate($post['web_pro'])){
+            if(!v::notEmpty()->length(2,null)->validate($post['webPro'])){
                 $errors[] = 'votre site web est invalide';
             }
-            if(v::length(14,14)->validate($post['siret'])){
+
+
+            if(!v::notEmpty()->numeric()->length(9,14)->validate($post['num_siret'])){
                 $errors[] = 'votre numéro de siret web est invalide';
             }
+
+
             if(!v::notEmpty()->length(2,null)->validate($post['firstname'])){
                 $errors[] = 'votre prénom est invalide';
             }
@@ -102,28 +97,64 @@ class AdminController extends AbstractController
 
                 $school = new Users();
 
+                # Centre de formation
+                $school->setIdentity($post['identity']);
+                $school->setPhonePro($post['phonePro']);
+                $school->setEmailPro($post['emailPro']);
+                $school->setWebPro($post['webPro']);
+
+                #Info de l'API
+                $school->setApeCode($post['sirene_code_ape']);
+                $school->setApeName($post['denomination']);
+                $school->setSiret($post['siret']);
+                $school->setSiren($post['siren']);
+                $school->setNic($post['nic']);
+                $school->setAdressPro($post['adresse']);
+                $school->setZipcodePro($post['codepostal']);
+                    #$ent->setIdentity($post['denomination']);
+                $school->setCityPro($post['commune']);
+                $school->setDepartement($post['departement']);
+                $school->setCodeDepartement($post['codedepartement']);
+                $school->setRegion($post['region']);
+                $school->setActivite($post['activite']);
+                $school->setApeName($post['groupeent']);
+
+                # Responsable de l'école
                 $school->setFirstname($post['firstname']);
                 $school->setLastname($post['lastname']);
-                $school->setAdressPro($post['adress_pro']);
-                $school->setZipcodePro($post['zipcode_pro']);
-                $school->setCityPro($post['city_pro']);
-                $school->setPhonePro($post['phone_pro']);
-                $school->setEmailPro($post['email_pro']);
                 $school->setEmail($post['email']);
-                $school->setWebPro($post['web_pro']);
-                $school->setSiret($post['siret']);
-                $school->setIdentity($post['identity']);
-
 
                 $school->setPassword($this->passwordEncoder->encodePassword($school, $post['password']));
                 //$stud->setPassword($post['password']);
                 $school->setDateRegistration(new \dateTime('now'));
                 $school->setRoles(['ROLE_SCHOOL']);
 
+                # Divers
+                $school->setUserId('0');
+                $school->setPhotoProfileId('0');
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($school);
                 $entityManager->flush();
 
+                $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                $message.= '<br> Bienvenue sur la plateforme RGB :';
+                $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                $message.= '<br> login : '.$post['email'];
+                $message.= '<br> mot de passe : '.$post['password'];
+                $message.= '<br>A très bientôt sur RGB.';
+                $message.= '</p>';
+
+                /*
+                $email = (new Email())
+                    ->from('hello@rgb.fr')
+                    ->to('you@example.fr')
+                    ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
+                    ->text(strip_tags($message))
+                    ->html($message);
+
+                $sentEmail = $mailer->send($email);
+                */
                 $this->addFlash(
                     'addSchool', 'le centre de formation '.$post['identity'].' a bien été crée!'
                 );
@@ -140,6 +171,10 @@ class AdminController extends AbstractController
             'formValid' => $formValid ?? null,
             'errors'    => $errors ?? [] ,
         ]);
+
+
+
+
     }
 
     /**

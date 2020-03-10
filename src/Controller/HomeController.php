@@ -34,6 +34,14 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
+    /**
+     * @Route("/attenteValidation", name="attentePage")
+     */
+    public function attente()
+    {
+        return $this->render('home/attente.html.twig');
+    }
+
      /**
      * @Route("/home/registration", name="home_registration")
      */
@@ -42,19 +50,16 @@ class HomeController extends AbstractController
     {
         $post = [];
         $errors = [];
-        $info =[];
+        $comparaison = [];
 
         $entityManager = $this->getDoctrine()->getManager();
-        $apeSchool = $entityManager->getRepository(Apeschool::class)->findAll();
+
+        /* JE RENSEIGNE LES DONNEES */
 
         if(!empty($_POST)){
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
-            #dump($post);
-            #die;
-
             /* RENSEIGNEMENTS ENTREPRISE */
-
             if(!v::notEmpty()->length(2,null)->validate($post['identity'])){
                 $errors[] = 'Le nom  d\'entreprise est invalide';
             }
@@ -67,12 +72,11 @@ class HomeController extends AbstractController
             if(!v::notEmpty()->phone()->validate($post['phonePro'])){
                 $errors[] = 'Votre numéro de téléphone est invalide';
             }
-            if(!v::notEmpty()->length(2,null)->validate($post['webPro'])){
+            if(!empty($post['webPro']) && !v::notEmpty()->length(2,null)->validate($post['webPro'])){
                 $errors[] = 'Le site web est invalide';
             }
 
             /* RENSEIGNEMENTS CONTACT */
-
             if(!v::notEmpty()->length(2,null)->validate($post['firstname'])){
                 $errors[] = 'Le prénom est invalide';
             }
@@ -92,19 +96,29 @@ class HomeController extends AbstractController
                 $errors[] = 'les mots de passe ne sont pas identiques';
             }
 
-            /*
-            if(isset($apeSchool) !== $post['sirene_code_ape'] ){
-                $info = 'votre code ape ne correspond pas à une connexion automatique, une demande de validation manuel viens d\'être envoyée à l\'administrateur du centre de formation!';
-            } else {
-                $info = 'votre demande a bien été prise en compte, vous allez recevoir un email de confirmation.'
-            }
-            */
+            /* JE COMPARE LES CODE APE API ET BDD */
 
-            /*
-            if(in_array(.. , [... ])){
-                // Validation auto
+            $validationAutoAPE = false;
+
+            if(isset($post['sirene_code_ape']) && !empty($post['sirene_code_ape'])){
+
+                $apeSchool = $entityManager->getRepository(Apeschool::class)->findOneBy([
+                    'code' => $post['sirene_code_ape'],
+                ]);
+
+                if(empty($apeSchool)){
+                    $infoFalse = 'votre code ape ne correspond pas à une connexion automatique, une demande de validation manuel viens d\'être envoyée à l\'administrateur du centre de formation!';
+                }
+                else {
+                    $validationAutoAPE = true;
+                    $infoTrue = 'votre demande a bien été prise en compte, vous allez recevoir un email de confirmation.';
+                }
             }
-            */
+            //dump($apeSchool);
+            //dump($post['sirene_code_ape']);
+            //die;
+
+            /* SI IL EXISTE PAS D'ERREUR -> ENREGISTREMENT DE L'ENTREPRISE */
 
             if(count($errors) === 0){
                 $formValid = true ;
@@ -113,7 +127,6 @@ class HomeController extends AbstractController
 
                 # entreprise :
                 $ent->setIdentity($post['identity']);
-                    #$ent->setSiret($post['siret']);
                 $ent->setPhonePro($post['phonePro']);
                 $ent->setEmailPro($post['emailPro']);
                 $ent->setWebPro($post['webPro']);
@@ -126,7 +139,6 @@ class HomeController extends AbstractController
                 $ent->setNic($post['nic']);
                 $ent->setAdressPro($post['adresse']);
                 $ent->setZipcodePro($post['codepostal']);
-                    #$ent->setIdentity($post['denomination']);
                 $ent->setCityPro($post['commune']);
                 $ent->setDepartement($post['departement']);
                 $ent->setCodeDepartement($post['codedepartement']);
@@ -138,8 +150,9 @@ class HomeController extends AbstractController
                 $ent->setFirstname($post['firstname']);
                 $ent->setLastname($post['lastname']);
                 $ent->setPhone($post['phone']);
-                $ent->setemail($post['email']);
+                $ent->setEmail($post['email']);
                 $ent->setPassword($this->passwordEncoder->encodePassword($ent, $post['password']));
+
                 #divers
                 $ent->setDateRegistration(new \dateTime('now'));
                 $ent->setRoles(['ROLE_ENTREPRISE']);
@@ -148,75 +161,102 @@ class HomeController extends AbstractController
                 $ent->setUserId('0');
                 $ent->setPhotoProfileId('0');
 
-                /*
-                if(count($info) === 0){
-                    $infoValid = true;
-                    $ent->setConnect('auto');
+
+                //$ent->setConnect(($validationAutoAPE) ? 'true' : 'false'); // Version Axel
+
+                if ($validationAutoAPE == false) {
+                    $ent->setConnect('false'); // envoie un false à la BDD - Connexion NON VALIDEE
                 } else {
-                    $infoValid = false;
-                    $ent->setConnect('manuel');
+                    $ent->setConnect('true'); // envoie un true à la BDD - Connexion AUTO / VALIDEE
                 }
-                */
 
-                /* RECUPERATION DES INFORMATION API dans home/index.html.twig
-<input type="hidden" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
-<input type="hidden" name="denomination" id="denomination" value="denomination">
-<input type="hidden" name="denomination2" id="denomination2" value="denomination2">
-<input type="hidden" name="siret" id="siret" value="siret">
-<input type="hidden" name="siren" id="siren" value="siren">
-<input type="hidden" name="nic" id="nic" value="nic">
-<input type="hidden" name="adresse" id="adresse" value="adresse">
-<input type="hidden" name="codepostal" id="codepostal" value="codepostal">
-<input type="hidden" name="codepostal2" id="codepostal2" value="codepostal2">
-<input type="hidden" name="commune" id="commune" value="commune">
-<input type="hidden" name="departement" id="departement" value="departement">
-<input type="hidden" name="codedepartement" id="codedepartement" value="codedepartement">
-<input type="hidden" name="region" id="region" value="region">
-<input type="hidden" name="activite" id="activite" value="activite">
-<input type="hiden" name="groupeent" id="groupeent" value="groupeent">
-                */
-
-
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($ent);
                 $entityManager->flush();
 
-                $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
-                $message.= '<br> Bienvenue sur la plateforme RGB :';
-                $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
-                $message.= '<br> login : '.$post['email'];
-                $message.= '<br> mot de passe : '.$post['password'];
-                $message.= '<br>A très bientôt sur RGB.';
-                $message.= '</p>';
+                /* VERIFICATION ENREGISTREMENT AUTOMATIQUE OU MANUEL D'UNE ENTREPRISE si pas d'erreur */
 
+                if ($validationAutoAPE == false) { // Si validation non validée
 
-                $email = (new Email())
-                    ->from('hello@rgb.fr')
-                    ->to('you@example.fr')
-                    ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
-                    ->text(strip_tags($message))
-                    ->html($message);
+                    $comparaison = false;
 
-                $sentEmail = $mailer->send($email);
+                    # Connexion Auto :
+                    //$ent->setConnect('false'); // envoie un false à la BDD
 
-                $this->addFlash(
-                    'register',
-                    'Votre demande d\enregistrement à bien été prise en compte<br>
-                    Un mail vous a été envoyer avec vos identifiant!<br>
-                    Bonne recherche.'
-                );
-                return $this->redirectToRoute('app_login');
-             }
-            else {
+                    $mesConnect = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                    $mesConnect.= '<br> Une inscription à la plateforme RGB réclame votre attention.';
+                    $mesConnect.= '<br> l\'entreprise '.$post['identity'].' souhaite s\'inscrire mais son APE ne correspond pas à vos critères';
+                    $mesConnect.= '<br> voici les informations de cette entité : ';
+                    $mesConnect.= '<br> Nom : '.$post['firstname'].' '.$post['lastname'];
+                    $mesConnect.= '<br> email contact : '.$post['email'];
+                    $mesConnect.= '<br> email société : '.$post['emailPro'];
+                    $mesConnect.= '<br> téléphone contact : '.$post['phone'];
+                    $mesConnect.= '<br> téléphone société : '.$post['phonePro'];
+                    $mesConnect.= '<br> ';
+                    $mesConnect.= '<br> Veuillez porter attention à cette entreprise et valider son accès si possible.';
+                    $mesConnect.= '<br>A très bientôt sur RGB.';
+                    $mesConnect.= '</p>';
+
+                    $mailConnect = (new Email()) // envoie un mail au CENTRE DE FORMATION
+                                    ->from($post['email']) //
+                                    ->to('you@example.fr') // envoie un message à Centre de Formation
+                                    ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
+                                    ->text(strip_tags($mesConnect))
+                                    ->html($mesConnect);
+
+                    $sentEmail = $mailer->send($mailConnect);
+
+                    // ENVOPIE UN MAIL A ENTREPRISE
+                    // lui indiquer qu'il est en attente manuel de connexion
+                    // le rediriger vers une page d'attente. (=> Connect = False)
+
+                    return $this->redirectToRoute('attentePage');
+
+                } else { // Envoie d'un TRUE a la BDD - Connexion AUTOMATIQUE
+
+                    $comparaison = true;
+
+                    # Connexion Auto :
+
+                    $this->addFlash(
+                        'register',
+                        'Votre demande d\'enregistrement à bien été prise en compte<br>
+                        Un mail vous a été envoyer avec vos identifiant!<br>
+                        Bonne recherche.'
+                    );
+
+                    $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                    $message.= '<br> Bienvenue sur la plateforme RGB :';
+                    $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                    $message.= '<br> login : '.$post['email'];
+                    $message.= '<br> mot de passe : '.$post['password'];
+                    $message.= '<br>A très bientôt sur RGB.';
+                    $message.= '</p>';
+
+                    $email = (new Email())
+                        ->from('hello@rgb.fr')
+                        ->to('you@example.fr')
+                        ->subject('Inscription au site RGB en date du '.date('d/m/Y'))
+                        ->text(strip_tags($message))
+                        ->html($message);
+
+                    $sentEmail = $mailer->send($email);
+
+                    return $this->redirectToRoute('app_login'); // Redirection page login
+                }
+
+            } else {
                 $formValid = false;
             }
-    }
+        }
 
         return $this->render('home/registration.html.twig', [
             'status_form'    => $formValid ?? null,
             'errors_form'    => $errors ?? [] ,
-
-
+            'comparaison'    => $comparaison ?? null,
         ]);
+
     }
+
+
+
 }

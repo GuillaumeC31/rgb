@@ -28,7 +28,7 @@
         <div class="form-row  mb-3">
           <label for="num_siret" class="col-form-label col-4">N° SIRET</label>
           <div for="num_siret" class="col-12 col-md-8">
-            <input type="text" name="num_siret" id="num_siret" class="form-control" placeholder="N° Siret">
+            <input type="text" name="num_siret" id="num_siret" class="form-control" placeholder="N° Siret" required>
           </div>
         </div>
         <hr>
@@ -36,7 +36,7 @@
         <div class="form-row mb-3  ">
           <label for="identity" class="col-form-label col-4">Nom de l'entreprise</label>
           <div for="identity" class="col-12 col-md-8">
-            <input type="text" name="identity" id="identity" class="form-control" placeholder="Nom entreprise">
+            <input type="text" name="identity" id="identity" class="form-control" placeholder="Nom entreprise" required>
           </div>
         </div>
         <hr>
@@ -44,7 +44,7 @@
         <div class="form-row mb-3  ">
           <label for="phonePro" class="col-form-label col-4">Téléphone (Standard)</label>
           <div for="phonePro" class="col-12 col-md-8">
-            <input type="phone" name="phonePro" id="phonePro" class="form-control" placeholder="Téléphone">
+            <input type="phone" name="phonePro" id="phonePro" class="form-control" placeholder="Téléphone" required>
           </div>
         </div>
         <hr>
@@ -52,7 +52,7 @@
         <div class="form-row  mb-3">
           <label for="emailPro" class="col-form-label col-4">Email société</label>
           <div  class="col-12 col-md-8">
-            <input type="email" name="emailPro" id="emailPro" class="form-control" placeholder="Votre email">
+            <input type="email" name="emailPro" id="emailPro" class="form-control" placeholder="Votre email" required>
           </div>
         </div>
         <hr>
@@ -71,7 +71,7 @@
         <div class="form-row  mb-3">
           <label for="lastname" class="col-form-label col-4">Nom de Famille</label>
           <div for="lastname" class="col-12 col-md-8">
-            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de Famille">
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de Famille" required>
           </div>
         </div>
         <hr>
@@ -79,7 +79,7 @@
         <div class="form-row  mb-3">
           <label for="firstname" class="col-form-label col-4">Prénom</label>
           <div for="firstname" class="col-12 col-md-8">
-            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom">
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom" required>
           </div>
         </div>
         <hr>
@@ -87,7 +87,7 @@
         <div class="form-row  mb-3">
           <label class="col-form-label col-4">Telephone Contact</label>
           <div for="phone" class="col-12 col-md-8">
-            <input type="text" name="phone" id="phone" class="form-control" placeholder="Téléphone">
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Téléphone" required>
           </div>
         </div>
         <hr>
@@ -95,7 +95,7 @@
         <div class="form-row  mb-3">
           <label for="email" class="col-form-label col-4">Email contact</label>
           <div  class="col-12 col-md-8">
-            <input type="email" name="email" id="email" class="form-control" placeholder="Votre email">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Votre email" required>
           </div>
         </div>
         <hr>
@@ -103,7 +103,7 @@
         <div class="form-row  mb-3">
           <label class="col-form-label col-4" for="Password">Password</label>
           <div for="phone" class="col-12 col-md-8">
-            <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
+            <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe" required>
           </div>
         </div>
         <hr>
@@ -111,7 +111,7 @@
         <div class="form-row  mb-3">
           <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
           <div for="phone" class="col-12 col-md-8">
-            <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
+            <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe" required>
           </div>
         </div>
       </div>
@@ -126,88 +126,75 @@
 
     <div class="row">
       <div class="col-12 text-center">
-        <h5 class="text-center my-4 border-bottom pb-2 d-flex justify-content-center">Information selon SIRET</h5>
+        <h5 class="text-center my-4 border-bottom pb-2 d-flex justify-content-center">Informations du numéro SIRET</h5>
 
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">SIRET</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="siret" id="siret" value="siret">
-            {#<input type="hiden" class="form-control" name="siret" id="siret" value="siret">#}
-            <div id="siret" class="form-control"></div>
+            <input type="text" class="form-control" name="siret" id="siret" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">CODE APE/NAF</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">
-            {#<input type="hiden" class="form-control" name="sirene_code_ape" id="sirene_code_ape" value="sirene_code_ape">#}
+            <input type="text" class="form-control" name="sirene_code_ape" id="sirene_code_ape" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">SIREN</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="siren" id="siren" value="siren">
-            {#<input type="hiden" class="form-control" name="siren" id="siren" value="siren" disabled>#}
+            <input type="text" class="form-control" name="siren" id="siren" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">NIC</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="nic" id="nic" value="nic">
-            {#<input type="hiden" class="form-control" name="nic" id="nic" value="nic" disabled>#}
+            <input type="text" class="form-control" name="nic" id="nic" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">ADRESSE</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="adresse" id="adresse" value="adresse">
-            {#<input type="hiden" class="form-control" name="adresse" id="adresse" value="adresse" disabled>#}
+            <input type="text" class="form-control" name="adresse" id="adresse" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">CP</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="codepostal" id="codepostal" value="codepostal">
-            {#<input type="hiden" class="form-control" name="codepostal" id="codepostal" value="codepostal" disabled>#}
+            <input type="text" class="form-control" name="codepostal" id="codepostal" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">COMMUNE</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="commune" id="commune" value="commune">
-            {#<input type="hiden" class="form-control" name="commune" id="commune" value="commune" disabled>#}
+            <input type="text" class="form-control" name="commune" id="commune" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">DEPARTEMENT</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="departement" id="departement" value="departement">
-            {#<input type="hiden" class="form-control" name="departement" id="departement" value="departement" disabled>#}
+            <input type="text" class="form-control" name="departement" id="departement" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">N° DEPARTEMENT</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="codedepartement" id="codedepartement" value="codedepartement">
-            {#<input type="hiden" class="form-control" name="codedepartement" id="codedepartement" value="codedepartement" disabled>#}
+            <input type="text" class="form-control" name="codedepartement" id="codedepartement" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">REGION</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="region" id="region" value="region">
-            {#<input type="hiden" class="form-control" name="region" id="region" value="region" disabled>#}
+            <input type="text" class="form-control" name="region" id="region" readonly>
           </div>
         </div>
         <div class="form-row  mb-3">
           <label class="col-form-label col-3">ACTIVITE</label>
           <div class="col-12 col-md-9">
-            <input type="hidden" class="form-control" name="activite" id="activite" value="activite">
-            {#<input type="hiden" class="form-control" name="activite" id="activite" value="activite" disabled>#}
+            <input type="text" class="form-control" name="activite" id="activite" readonly>
           </div>
         </div>
 
-      <input type="hidden" class="form-control" name="commune" id="commune" value="commune">
       <input type="hidden" class="form-control" name="denomination" id="denomination" value="denomination">
       <input type="hidden" class="form-control" name="groupeent" id="groupeent" value="groupeent">
       </div>

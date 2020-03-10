@@ -12,6 +12,9 @@
 
 
   <section class="container">
+      <div class="col-12 d-flex justify-content-center flex-wrap my-3">
+        <h4>Liste des Etudiants</h4>
+      </div>
 
       <div class="col-12 d-flex justify-content-center flex-wrap my-3">
         <nav class="navbar navbar-light bg-light">
@@ -27,7 +30,7 @@
 
       {% for student_listing in studentList %}
         <div class="card mx-2 my-2 project {{ student_listing.formation }}" style="width: 18rem;">
-          <img src="{{asset('assets/img/student.jpg')}}" class="card-img-top" alt="...">
+          <img src="{{asset('assets/img/man.png')}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-center">{{ student_listing.lastname }} {{ student_listing.firstname }}</h5>
             <p class="card-text text-center">{{ student_listing.formation }}</p>

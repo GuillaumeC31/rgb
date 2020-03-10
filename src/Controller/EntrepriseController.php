@@ -74,28 +74,24 @@ class EntrepriseController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $viewStudent = $entityManager->getRepository(Users::class)->find($id);
-        $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findAll();
 
-        /*
-        if ($_POST['switchAccept'] == 1 ) {
-            $EntStudAccept = new EntStudAccept();
+        $findOneBy = array('stud_id' => $id, 'ent_id' => $this->getUser()->getId());
+        $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy($findOneBy);
 
-            $EntStudAccept->setRoles(['ROLE_STUDENT']);
-
-            dump($EntStudAccept->setentId('app.user'));
-            dump($EntStudAccept->setstudId('$viewStudent.id'));
-            dump($EntStudAccept->setAccept($_POST['switchAccept']));
-            die;
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($EntStudAccept);
-            $entityManager->flush();
-        }*/
-
+        if ($viewAccept->getAccept() == 'true') {
+            $viewAccept = 'checked';
+            $img = 'on';
+        } else {
+            $viewAccept = '';
+            $img = 'off';
+        }
+        //dump($viewAccept);
+        //die;
 
         return $this->render('entreprise/view.html.twig', [
             'view_student'  => $viewStudent,
             'viewAccept' => $viewAccept,
+            'img' => $img,
         ]);
     }
 
@@ -105,9 +101,11 @@ class EntrepriseController extends AbstractController
      */
     public function ficheSchool()
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $schoolIdentity = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_SCHOOL');
 
         return $this->render('entreprise/ficheEco.html.twig', [
-
+            'schoolIdentity' => $schoolIdentity,
         ]);
     }
 
@@ -217,11 +215,6 @@ class EntrepriseController extends AbstractController
             'ficheEntUpdate' => $ficheEntUpdate,
         ]);
     }
-
-
-
-
-
 
 
     /**
@@ -357,12 +350,12 @@ class EntrepriseController extends AbstractController
 
                 if(!empty($entStudAccept)){
                     // Mise à jour
+
                     $entStudAccept->setEntId($post['id_entreprise']);
                     $entStudAccept->setStudId($post['id_student']);
                     $entStudAccept->setAccept($post['new_status']);
 
                     $entityManager->flush();
-
                 }
                 else {
                     // Insert
@@ -375,8 +368,6 @@ class EntrepriseController extends AbstractController
                     $entityManager->flush();
                 }
 
-
-
                     /*
                     $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
                     $message.= '<br> Bienvenue sur la plateforme RGB :';
@@ -385,7 +376,6 @@ class EntrepriseController extends AbstractController
                     $message.= '<br> mot de passe : '.$post['password'];
                     $message.= '<br>A très bientôt sur RGB.';
                     $message.= '</p>';
-
 
                     $email = (new Email())
                         ->from('hello@rgb.fr')
@@ -397,8 +387,10 @@ class EntrepriseController extends AbstractController
                     $sentEmail = $mailer->send($email);
                     */
 
-
-                return $this->json(['status' => 'ok']);
+                return $this->json([
+                    'status' => 'ok',
+                    'entStudAccept' => $entStudAccept,
+                ]);
             }
         }
 
