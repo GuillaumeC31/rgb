@@ -1,3 +1,5 @@
+
+
 /*CSS FINAL STUDENT */
 
 body{
@@ -103,13 +105,30 @@ font-size: 1.8em;
     padding-top: 40px;
 }
 
-.rondCards{
+.rondCardsblue{
     height: 75px;
     width: 75px;
     background-color: #4285f4;
     position: relative;
     top:-100px;
 }
+
+.rondCardsgreen{
+    height: 75px;
+    width: 75px;
+    background-color: #19bc8b;
+    position: relative;
+    top:-100px;
+}
+
+.rondCardsred{
+    height: 75px;
+    width: 75px;
+    background-color: #cb72aa;
+    position: relative;
+    top:-100px;
+}
+
 .jumbotronActivites{
     margin-top: 30px;
 }

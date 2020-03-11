@@ -14,6 +14,7 @@ use App\Entity\Users;
 use App\Entity\Langages;
 use App\Entity\Framework;
 use App\Entity\EntStudAccept;
+use App\Entity\Uploads;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -71,10 +72,16 @@ class EntrepriseController extends AbstractController
         $studentList = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_STUDENT');
         $sectionList = $entityManager->getRepository(Section::class)->findAll();
 
+        $userId = $this->getUser()->getId();
+        $filePath = $entityManager->getRepository(Users::class)->findAll($userId);
+
+        $photoEtu = $entityManager->getRepository(Uploads::class)->findAll($filePath);
+
 
         return $this->render('entreprise/ficheEtu.html.twig', [
             'studentList' => $studentList,
             'sectionList' => $sectionList,
+            'filePath' => $filePath,
         ]);
     }
 
@@ -142,8 +149,11 @@ class EntrepriseController extends AbstractController
         $ficheEnt = $entityManager->getRepository(Users::class)->findAll();
 
 
+
+
         return $this->render('entreprise/ficheEnt.html.twig', [
             'ficheEnt' => $ficheEnt,
+
         ]);
     }
 
@@ -363,6 +373,7 @@ class EntrepriseController extends AbstractController
                     'stud_id' => (int) $post['id_student'],
                 ]);
 
+
                 if(!empty($entStudAccept)){
                     // Mise à jour
 
@@ -405,6 +416,7 @@ class EntrepriseController extends AbstractController
                 return $this->json([
                     'status' => 'ok',
                     'entStudAccept' => $entStudAccept,
+
                 ]);
             }
         }
