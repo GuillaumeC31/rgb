@@ -10,6 +10,8 @@ use App\Entity\Users;
 use App\Entity\Uploads;
 use Behat\Transliterator\Transliterator as tr;
 use Intervention\Image\ImageManager;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 
 class StudentController extends AbstractController
@@ -73,10 +75,10 @@ class StudentController extends AbstractController
     // }//Fermeture index
 
 
-       /**
+    /**
      * @Route("/student", name="student_home")
      */
-    public function index(){
+    public function index(MailerInterface $mailer){
 
         if($this->getUser()){
             $id = $this->getUser()->getId(); 
@@ -119,6 +121,7 @@ class StudentController extends AbstractController
                             $chars_replace= ['-', 'e', 'e', 'a', 'u'];
 
                             $finalFileName = str_replace($chars_search, $chars_replace, time().'-'.$_FILES['upload_image']['name']);
+                            $finalFileName.= tr::transliterate($finalFileName);
 
                             if(!is_dir($uploadDir)){ 
                                 if(!mkdir($uploadDir, 0777)){ 
@@ -141,8 +144,7 @@ class StudentController extends AbstractController
                         $errors[] = 'Ce type de fichier n\'est pas autorisé';
                     }
 
-
-                
+        
                     if (count($errors) == 0) {
                         $formValid = true;
                         $entityManager = $this->getDoctrine()->getManager();
@@ -164,81 +166,100 @@ class StudentController extends AbstractController
                         return $this->redirectToRoute('student_home_home');
                 
 
-                    }else {
+                    }//Fermeture COUNT ERROR
+                    else {
                         $formValid = false;
                     }
-                    
                 }//Fermeture not empty FILES
-            }
+
+            }//Fermeture if $post['action'] == 'sendfile'
             elseif($post['action'] == 'sendmessage'){
+              
+            
+                $entityManager = $this->getDoctrine()->getManager();
+                $messages = new Messages;
+    
+                $messages->setUserId($this->getUser()->getId());
+                $messages->setCreatedAt(new \DateTime('now'));
+                if (!empty($post['content']) || !empty($post['title'])) {
+                
+                    $messages->setContent($post['content']);
+                    $messages->setTitle($post['title']);
+                }
+                
+                $entityManager->persist($messages);
+                $entityManager->flush();
+                    
+                
+                $uploads = $entityManager->getRepository(Uploads::class)->findAll();
+                $users = $entityManager->getRepository(Users::class)->findAll();
+        
+                foreach ($users as $user) {
+                    $userConnected = $user;
+                }
+                $userId = $userConnected->getUserId() ;
+                $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
+                $filePath = $uploadUser->getFilePath();
 
+                $mail = '<p>Bonjour '. $this->getUser()->getFirstname();
+                $mail.= ', vous allez bien j\'espère.';
+                $mail.= '<br> Votre contenu :' .'<span style="font-weight:italic"><i>'  . $post['content'].'.'.'</i></span>';
+                $mail.= ' A été envoyé à l\'administration !';
+                $mail.= '<br>A très bientôt sur RGB.';
+                $mail.= '</p>';
+
+
+                $email = (new Email())
+                    ->from('hello@rgb.fr')
+                    ->to('you@example.fr')
+                    ->subject('Votre email à été envoyé à l\'administration !' )
+                    ->text(strip_tags($mail))
+                    ->html($mail);
+
+                $sentEmail = $mailer->send($email);
+        
+                return $this->render('student/index.html.twig', [
+                    //'errors' => $messages ?? null, 
+                    'id' => $id, 
+                    'uploads' => $uploads,
+                    'filePath' => $filePath,
+                ]);
             }
-
-
-
-
         }//Fermeture not empty POST
 
+        
         $entityManager = $this->getDoctrine()->getManager();
         $uploads = $entityManager->getRepository(Uploads::class)->findAll();
-
         
+        $userId = $this->getUser()->getId() ;
+        $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
+        $filePath = $uploadUser->getFilePath();
+        $idMessage = 7;
+        $messages = $entityManager->getRepository(Messages::class)->searchUserIdMessages(7);
+       
+
+     
+  
+        $reception = $messages; 
+
         return $this->render('student/index.html.twig', [
             'errors' => $errors ?? null,  
             'uploads' => $uploads ?? null ,
             'id' => $id ?? null, 
+            'userId' => $userId,
+            'uploadUser' => $uploadUser,
+            'filePath' => $filePath,
+            'reception' => $reception
         ]);
 
 
     }//Fermeture function INDEX
-
-
-
-
-    public function sendMessage($id){
-     
-
-        if (!empty($_POST)) {
-              
-            $entityManager = $this->getDoctrine()->getManager();
-            $messages = new Messages;
-            $users = $entityManager->getRepository(Users::class)->findAll();
-
-            foreach ($users as $user) {
-            $userId = $user->getId();
-            }
-
-            if (empty($_POST['content']) || empty($_POST['title'])) {
-                $messages->setContent('');
-                $messages->setTitle('');
-            }
-            $messages->setUserId($id);
-            $messages->setCreatedAt(new \DateTime('now'));
-            if (!empty($_POST['content']) || !empty($_POST['title'])) {
-            
-            $messages->setContent($_POST['content']);
-            $messages->setTitle($_POST['title']);
-            }
-         
-            $entityManager->persist($messages);
-            $entityManager->flush();
-            
-        }
-        $entityManager = $this->getDoctrine()->getManager();
-        $uploads = $entityManager->getRepository(Uploads::class)->findAll();
-    
-        return $this->render('student/index.html.twig', [
-        //'errors' => $messages ?? null, 
-        'id' => $id, 
-        'uploads' => $uploads,
-       
-        ]);
-    }
+ 
 
      /**
-     * @Route("/student-update/{id}", name="student_update")
+     * @Route("/student-update", name="student_update")
      */
-    public function profileUpdate($id){
+    public function profileUpdate(){
         $errors = [];
         $mimeTypesAllowed = [
         'png', 

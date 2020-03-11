@@ -19,22 +19,21 @@ class MessagesRepository extends ServiceEntityRepository
         parent::__construct($registry, Messages::class);
     }
 
-    // /**
-    //  * @return Messages[] Returns an array of Messages objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Messages[] Returns an array of Messages objects
+    */
+   
+    public function searchUserIdMessages($user_id)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('m.user_id = 7')
             ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+     
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Messages
