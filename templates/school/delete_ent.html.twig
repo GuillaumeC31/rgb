@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Backoffice{% endblock %}
+{% block title %}Backoffice
+{% endblock %}
 
 {% block body %}
 
 {% block styles %}
 	<style>
-	body{
-  background-color:#f2f2f2;
+		body {
+	 background-color:#f2f2f2;
 
 }
 h1{
@@ -20,15 +21,16 @@ color: #4285F4;
 {% endblock styles %}
 
 
-<div class="container  justify-content-center my-5">
-  <div class="row">
-    <div class="col justify-content-center">
-        <h1 class="text-center my-5">Entreprise</h1>
 
-         <form method="post" class="justify-content-center">
-           <h2>{{users.identity}}</h2><br>
 
-         <table class="table">
+<div class="container my-5">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="text-center my-5">Suppresion de utilisateur
+				<span class="font-weight-bold">"{{ users.identity }}"</span><br>
+			</h1>
+
+			  <table class="table">
       <tbody>
           <tr>
            <th>Nom entreprise</th>
@@ -82,49 +84,31 @@ color: #4285F4;
           </tr>
 
            <tr>
-             <th>Validation manuelle</th>
-              <td>
-              <div class="custom-control custom-switch">
-                <input type="checkbox" name="validate_ape" class="custom-control-input" id="switchAccept" {{ viewAccept }}>
-                <label class="custom-control-label" for="switchAccept"></label>
-              </div>
-            </td>
-          </tr>
-
-           <tr>
                <th>Date d'enregistrement</th>
                 <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
           </tr>
+
           </tbody>
         </table>
-          <a class="btn btn-outline-warning " href="{{ path('list_valid') }}" class="text-success">Retour</a>
+			<div class="d-flex mt-5">
+				<div class="mx-auto">
+					<div class="alert alert-danger">Attention si vous supprimez cet utilisateur ça sera définitif</div>
+				</div>
+			</div>
 
-      </form>
-    </div>
-  </div>
+			<form class="d-flex" method="post">
+				<div class="mx-auto">
+					<p class="text-center h4">Supprimer cet utilisateur ?</p>
+					<div class="d-flex">
+						<div class="mx-auto my-5">
+							<a href="{{ path('list_valid') }}" class="btn btn-outline-warning">Retour</a>
+							<input type="hidden" name="delete" value="yes">
+							<button type="submit" class="btn btn-outline-danger">Supprimer</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 {% endblock %}
-
-
-{% block javascripts %}
-<script>
-$('[name="validate_ape"]').change(function(e){
-  var statusCheckbox = $(this).is(':checked');
-  console.log('current status : ' + statusCheckbox);
-
-
-
-  $.post('{{ path('validate_ape_entreprise') }}', {
-    new_status: statusCheckbox,
-    id_entreprise: '{{ users.id }}'
-  }, function(dataResult){
-      // dataResult cocntiendra le resultat de mon script PHP (s'il en renvoi un)
-      console.log(dataResult);
-  });
-
-});
-
-</script>
-
-{% endblock %}
-

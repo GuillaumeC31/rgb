@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+
+{% block styles %}
+	<style>
+	body {
+	 background-color:#f2f2f2;
+
+}
+h1{
+color: #4285F4;
+}
+.table{
+  background-color:#d9d9d9;
+}
+	</style>
+{% endblock styles %}
+
+
+
+<h1 class="text-center my-5"><strong>Liste des messages</strong></h1>
+
+
+<div class="container-fluid  my-5">
+  <div class="row">
+    <div class="col justify-content-center">
+
+
+      <table class="table ">
+        <tr class="bg-dark text-light">
+          <th>Nom de l'utlisateur</th>
+          <th>Email</th>
+          <th>Titre </th>
+          <th>Message</th>
+
+        </tr>
+
+         {% for mess in messages %}
+        <tr>
+          <td>{{mess.lastname}} </td>
+          <td>{{mess.email}} </td>
+          <td><i>{{mess.title}}</i></td>
+          <td>{{mess.content}}</td>
+          <td>
+            <form>
+
+              <a class="btn btn-info btn-sm" href="{{ path('view_message', {id: mess.id}) }}" class="text-info">Voir
+                voir message</a>
+            </form></td>
+          </tr>
+        {% endfor %}
+      </table>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-outline-warning m-5" href="{{ path('school_index') }}" class="text-info">Retour</a>
+{% endblock %}

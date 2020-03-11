@@ -4,93 +4,198 @@
 
 {% block body %}
 
-<div class="container justify-content-center mt-5">
-  <div class="row">
-    <div class="col">
-      <h1> Bienvenue dans le BackOffice</h1>
 
-{% if validationForm is not null and validationForm == true %}
-    <div class="alert alert-success text-center">
-      Elève enregistrer dans la base de données<br>
-      - l'équipe de RGB -
-    </div>
-  {% elseif validationForm is not null and validationForm == false %}
-    <div class="alert alert-danger text-center">
-      {{ errorForm|join('<br>')|raw }}
-    </div>
-  {% endif %}
+{% block stylesheets %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
+{% endblock stylesheets %}
+
+{% block styles %}
+<style>
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+ 
+  font-size: x-large;
+
+}
+header{
+  background-color:#A9C0FF;
+  
+  
+}
+h1{
+  text-align: center;
+  color:white ;
+  font-family: lobster,sans-serif;
+  font-size: 13rem;
+  margin: 0;
+  letter-spacing: 5px;
+  width: 100%;
+  height: 35rem;
+
+}
 
 
-        <div class="container mt-5">
-          <div class="row">
-            <div class="col-6">
-              <h2>Ajout manuel utilisateurs</h2><br>
-              <a class="btn btn-success m-3 rounded-0" href="{{ path('add_user') }}" class="text-info">Ajouter</a>
-            </div>
+.box{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82rem;
+  height: 35rem;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  color: black;
+  font-weight: 100;
+  padding: 8.5rem;
 
-            <div class="col-6">
-              <h2>Liste complete des utilisateurs</h2><br>
-              <a class="btn btn-info m-3 rounded-0" href="{{ path('list_school') }}" class="text-info">BDD</a>
-            </div>
-          </div>
+}
+h2{
+  font-size: 4rem;
+  font-family: lobster,sans-serif;
+  line-height: 1.25rem;
+  color: black;
+  margin-top:7rem;
+}
+
+
+.learn{
+  background: transparent;
+  color: white;
+  border: 5px solid white);
+  padding: 1.5rem;
+  width: 25rem;
+  transition: all 0.4s ease-in;
+  font-size: 1.8rem;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+}
+.learn:hover{
+background:black;
+  color: white;
+}
+.block1{
+  background-color:#738ED9;
+  height: 80rem;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+ 
+}
+
+.block2{
+  background-color:#DEDEDE;
+  height: 80rem;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  
+}
+.block3{
+  background-color:#4165C8;
+  height: 80rem;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+ 
+}
+.block4{
+  background-color:#A9C0FF;
+  height: 80rem;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  
+}
+.box1 {
+ opacity: 0.8;
+ transition: all 0.4s linear;
+
+}
+
+.box2 {
+ opacity: 0.8;
+ transition: all 0.4s linear;
+
+}
+
+.box3 {
+ opacity: 0.8;
+ transition: all 0.4s linear;
+
+}
+.box4 {
+ opacity: 0.8;
+ transition: all 0.4s linear;
+
+}
+</style>
+{% endblock styles %}
+
+  <header>
+    <h1 class="text-center my-5"><strong>Backoffice <i>RGB</strong></i></h1>
+   
+  </header>
+
+
+  <section>
+    <div class="block1 text-center pt-5">
+      <h2><strong>Liste complete des utilisateurs</strong></h2>
+      <div class="box box1">
+        <div class="text">RGB remplace les e-mails dans votre entreprise à vos étudiants.
+          Veillez à ce que vos conversations restent organisées et centrées sur leur sujet grâce à <i>RGB</i>, une alternative intelligente à l’e-mail.
         </div>
-
-        <div class="container">
-          <h5>liste des code APE</h5>
-
-          <div class="my-5">
-            <form method="post">
-
-              <div class="form-row mb-3">
-                <label for="ape_code" class="col-form-label col-4">CODE APE / NAF</label>
-                <div class="col-8">
-                  <input type="text" name="ape_code" id="ape_code" placeholder="code ape NAFRev2">
-                </div>
-              </div>
-
-              <div class="form-row mb-3">
-                <label for="ape_name" class="col-form-label col-4">DESIGNATION</label>
-                <div class="col-8">
-                  <input type="text" name="ape_name" id="ape_name" placeholder="désignation ape NAFRev2">
-                </div>
-              </div>
-
-              <div class="text-center">
-                <button type="submit" class="btn btn-outline-success  m-3 rounded-0">Enregistrer</button>
-              </div>
-            </form>
-          </div>
-
-          <h4>Entreprise autorisée automatiquement</h4>
-          <table class="table">
-            <thead>
-
-              <tr>
-                <th scope="col">APE</th>
-                <th scope="col">Designation</th>
-              </tr>
-
-            </thead>
-            <tbody>
-              {% for ApeSchool in listApeSchool %}
-              <tr>
-                <td>{{ ApeSchool.code }}</td>
-                <td>{{ ApeSchool.nameape }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-
+        <a class="learn mt-5" href="{{ path('list_valid') }}">Base de donnée</a>
       </div>
     </div>
-  </div>
+  </section>
 
-{% endblock %}
+  <section>
+    <div class="block2 text-center pt-5">
+      <h2 ><strong> Boite de reception </strong></h2>
+      <div class="box box2">
+        <div class="text">Le Liban, ce « pays ruisselant de lait et de miel » selon les textes bibliques, est aussi celui
+          des mezze, symboles de
+          partage et de convivialité. Dans leur version simple, ils peuvent se résumer à quelques graines de courge
+        </div><br>
+        <a href="{{ path('list_message') }}" class="learn mt-5">boite de réception</a>
+      </div>
+    </div>
+  </section>
 
-{% block javascripts %}
-<script>
 
-</script>
+
+  <section>
+    <div class="block3 text-center text-light pt-5">
+      <h2><strong> Inscription élèves</strong></h2>
+      <div class="box box3">
+        <div class="text">La Thaïlande, ce sont des plages à perte de vue, la mer s’étendant à l’infini, le soleil sur la
+          peau… mais aussi une
+          destination culinaire des plus étonnantes et savoureuses. Vous vous êtes décidés à réaliser un apéritif
+          thaïlandais et à
+        </div><br>
+        <a href="{{ path('add_student') }}" class="learn mt-5">Inscription étudiant</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="block4 text-center text-center pt-5">
+      <h2><strong>Inscription d'entreprise</strong></h2>
+      <div class="box box4">
+        <div class="text">Souvent, quand on prépare des plats comme le gaspacho andalou ou la ratatouille, il vous reste
+          des tomates dont vous ne
+          savez pas quoi faire. Je vous propose une recette facile et savoureuse de tartines ibériques, idéales pour un
+        </div><br>
+        <a href="{{ path('add_ent') }}" class="learn mt-5">Inscription entreprise</a>
+      </div>
+    </div>
+  </section>
+
+
 {% endblock %}
