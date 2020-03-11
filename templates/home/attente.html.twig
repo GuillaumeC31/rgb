@@ -2,13 +2,13 @@
 
 {% block title %}{% endblock %}
   {% block stylesheets %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style type="text/css">
-      .image {
-        background-image: url('https://zupimages.net/viewer.php?id=20/11/oxku.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
+    .image {
+      background-image: url('https://zupimages.net/viewer.php?id=20/11/oxku.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
     </style>
   {% endblock %}
@@ -16,65 +16,67 @@
   {% block body %}
 
     <section class="container">
-      <header class="">
+      <header class="my-5">
         <h2 class="text-center">Demande de connexion</h2>
-        <h1 class="text-center">Mise en attente...</h1>
+        <h1 class="text-center">Mise en attente de validation</h1>
       </header>
 
     </section>
 
+    <section class="container-fluid p-3 mb-2 bg-light text-dark rounded-lg">
+      <div class="container">
+        <div class="row">
 
+          <div class="col-12 col-md-6">
+            <div class=" text-justify">
+              <p>Votre demande d'inscription a été mise en attente de validation pour la raison suivante : <br>
+               <b><i>Votre entreprise ne correspond pas aux critères demandés par le centre de formation.</i></b><br>
+               <br>
+               Toutefois, même si votre secteur d'activité n'est pas lié au monde de l'informatique et que vous recherchez des personnes en liens avec ce domaine, n'hésitez pas à écrire et à expliquer le motif de votre recherche au centre de formation en charge de votre validation.
+               Pour celà, utiliser le formulaire ci dessous. Un membre de l'équipe vous répondra dans les plus bref délais. <br>
+               Nous vous remercions de l'intêret que vous porter à notre plateforme.
+             </p>
+             <hr>
+           </div>
+         </div>
+         <div class="col-12 col-md-6">
 
-
-    <article class="image">
-
-      {#<img src="{{ asset('assets/img/horloge.jpg') }}">#}
-
-      <div class="container p-3 mb-2 bg-light text-dark rounded-lg">
-        <header class="">
-          <h2 class="text-center">Demande de connexion</h2>
-          <h1 class="text-center">Mise en attente...</h1>
-        </header>
-        <hr>
-
-        <div class=" text-justify">
-          <p>Votre demande d'inscription a été mise en attente de validation pour la raison suivante : <br>
-           <b><i>Votre entreprise ne correspond pas aux critères demandés par le centre de formation.</i></b><br>
-           <br>
-           Toutefois, même si votre secteur d'activité n'est pas lié au monde de l'informatique et que vous recherchez des personnes en liens avec ce domaine, n'hésitez pas à écrire et à expliquer le motif de votre recherche au centre de formation en charge de votre validation.
-           Pour celà, utiliser le formulaire ci dessous. Un membre de l'équipe vous répondra dans les plus bref délais. <br>
-           Nous vous remercions de l'intêret que vous porter à notre plateforme.
-         </p>
-         <hr>
-         <form method="post" class="">
-
+           <form method="post">
             <div class="form-group row">
               <label for="email" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-8">
+              <div class="col-sm-5">
                 <input type="email" class="form-control" id="email">
               </div>
             </div>
             <div class="form-group row">
-              <label for="password" class="col-sm-2 col-form-label">Password</label>
-              <div class="col-sm-8">
+              <label for="password" class="col-sm-2 col-form-label">Nom / Prénom</label>
+              <div class="col-sm-5">
                 <input type="password" class="form-control" id="password">
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
               <label for="textarea">Example textarea</label>
-              <textarea class="form-control" id="textarea" rows="3"></textarea>
+              <div class="col-sm-5">
+                <textarea class="form-control" id="textarea" rows="3"></textarea>
+              </div>
             </div>
             <div class="form-group row">
-              <div class="col-12 col-md-6">
+              <div class="col-sm-8">
                 <button type="submit" class="btn btn-primary">Envoyer</button>
               </div>
             </div>
+          </form>
 
-        </form>
+        </div>
+      </div>
 
-       </div>
-     </div>
-   </article>
+    </div>
+  </div>
+</section>
+
+
+
+
 {% endblock %}
 
 {% block javascripts %}
