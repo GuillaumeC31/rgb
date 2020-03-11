@@ -247,7 +247,7 @@ class StudentController extends AbstractController
             'id' => $id ?? null,
             'userId' => $userId,
             'uploadUser' => $uploadUser,
-           // 'filePath' => $filePath,
+            'filePath' => $filePath ?? '',
             'reception' => $reception
         ]);
 

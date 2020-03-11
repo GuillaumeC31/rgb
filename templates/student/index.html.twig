@@ -67,7 +67,11 @@
     <div class="col-sm-12 col-lg-8 col-md-12 mb-5">
         <div class="d-flex justify-content-center flex-column align-items-center">
             <div class="profilImage">
+            {% if filePath is not empty %}
                 <img src="{{asset('assets/uploads/' ~ filePath)}}" alt="" id="profilImage" srcset="">
+            {% else %}
+                <img src="{{asset('assets/img/man.jpg')}}" alt="" id="profilImage" srcset="">
+            {% endif %}
             </div>
 
             <div class="sandbox">
