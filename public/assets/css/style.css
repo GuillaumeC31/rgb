@@ -6,17 +6,13 @@ body{
     font-family: 'Lato',
     sans-serif;
     font-size: 1em;
+    color:#3c4249;
 }
 
 
 footer{
     height:220px;
     padding: 10px;
-}
-
-#calendar{
-        max-width: 700px;
-        margin-top: 244px;
 }
 
 .sandbox{
@@ -31,12 +27,6 @@ footer{
     width: 100px;
     border-radius: 50px;
 }
-
-.profilImage{
-    margin-top: 45px;
-    margin-bottom: 5px;
-}
-
 
 .row{
     margin-left: 0px !important;
@@ -53,14 +43,6 @@ footer{
 
     height: 150px;
     margin-top: 17px;
-}
-
-.actuality{
-    margin-top: 100px;
-    height: 500px;
-    width: 718px;
-    overflow: scroll;
-    overflow-x: hidden;
 }
 
 .fc-toolbar.fc-header-toolbar{
@@ -81,12 +63,6 @@ footer{
 
 .partenaires{
     margin-top :250px;
-}
-
-.files{
-    overflow: scroll;
-    max-height: 400px;
-    overflow-x: hidden;
 }
 
 .titres {
@@ -206,6 +182,7 @@ h2 {
 
 .form-bg{
     background-color:#f8f8f8;
+    margin-top:40px;
 }
 
 #mailboxToggle{
@@ -229,7 +206,53 @@ h2 {
 }
 .jsb_btn{
     margin-top:22px;
+    width: 100% !important;
+    height: 30px !important;
+    color:white !important;
+    border-radius: 22px;
 }
 .flat{
     border-radius: 15px !important;
+}
+.display-3{
+    font-size:2em;
+}
+.files h2{
+    font-size: 1.5em;
+}
+
+.profilImage{
+    margin-top: 61px;
+}
+
+#calendar{
+    max-width: 700px;
+    margin-top: 200px;
+}
+
+.files{
+    overflow: scroll;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+.actuality{
+    margin-top: 7px !important;
+    max-height: 925px;
+    width: 718px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-top: 30px;
+    background-color:#f8f8f8;
+    scrollbar-color: #4285f4;
+    scrollbar-width: thin;
+}
+.custom-file-label{
+    font-size: 0.9em;
+}
+.form-bg{
+    margin-top: 10px;
+}
+.btnProposerEntreprise{
+    background-color: #4285f4;
+    color: white;
 }

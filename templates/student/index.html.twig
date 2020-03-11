@@ -7,81 +7,74 @@
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-lg-4 col-md-12 col-sm-12">
-            <div id="calendar">
+<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+        <div id="calendar">
 
-            </div>
+        </div>
 
-            <div class="mailForm">
-                <form class="form rounded p-4 form-bg" id="mailSend" method="POST">
+        <div class="mailForm">
+            <form class="form rounded p-4 form-bg" id="mailSend" method="POST">
                 <h2 class="text-center text-lead">Envoyer un message à l'administration</h2>
-                    <div class="form-group mt-4">
-                        <label for="title">Objet</label>
-                        <input type="text" class="form-control rounded-pill border-0" name="title" id="title" placeholder="Votre objet...">
-                        <input type="hidden" name="action" value="sendmessage">
-                    </div>
+                <div class="form-group mt-4">
+                    <label for="title">Objet</label>
+                    <input type="text" class="form-control rounded-pill border-0" name="title" id="title"
+                        placeholder="Votre objet...">
+                    <input type="hidden" name="action" value="sendmessage">
+                </div>
 
-                    <div class="form-group">
-                        <label for="content">Message</label>
-                        <textarea type="text" class="form-control border-0" placeholder="Entrez votre message..." name="content" id="content" rows="5"></textarea>
-                    </div>
-                    <div class="d-flex justify-content-around">
-                        <button name="submit" type="submit" class="btn btnMailEnvoyer text-light rounded-pill">Envoyer</button>
-                         <a class="mailboxFlip rounded-pill btn text-dark btnReception" name="mailboxFlip" id="mailboxFlip">Boîte de réception</a>
-                    </div>
+                <div class="form-group">
+                    <label for="content">Message</label>
+                    <textarea type="text" class="form-control border-0" placeholder="Entrez votre message..."
+                        name="content" id="content" rows="5"></textarea>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button name="submit" type="submit"
+                        class="btn btnMailEnvoyer text-light rounded-pill">Envoyer</button>
+                    <a class="mailboxFlip rounded-pill btn text-dark btnReception" name="mailboxFlip"
+                        id="mailboxFlip">Boîte de réception</a>
+                </div>
 
 
 
                 <div class="d-flex align-content-center flex-column mt-3" id="mailboxToggle">
                     {% for message in reception %}
-                        <h2 class="text-center"> {{message.title}}</h2>
-                        <ul class="list-group text-center">
-                           <li><p class="text-center text-lead">{{message.content}}</p></li>
-                        </ul>
+                    <h2 class="text-center"> {{message.title}}</h2>
+                    <ul class="list-group text-center">
+                        <li>
+                            <p class="text-center text-lead">{{message.content}}</p>
+                        </li>
+                    </ul>
                     {% endfor %}
                 </div>
             </form>
 
-                <div class="jumbotron jumbotronJobSearch d-flex flex-column justify-content-between align-items-center">
-                    <div id="jsb_container" class="jsb_holder">
+            <div class="jumbotron jumbotronJobSearch d-flex flex-column justify-content-between align-items-center">
+                <div id="jsb_container" class="jsb_holder">
 
-                        <a href="https://fr.jooble.org/" class="cgl" rel="nofollow">Recherche de stage</a>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-5 col-md-12 ads">
-                        <div class="container">
-                            <h2 class="text-center mt-3">Rechercher une entreprise</h2>
-                            <div class="d-flex align-items-center p-2">
-                                <input type="text" class="form-control" placeholder="Entrez votre recherche">
-                                <a class="btn btn-success">
-                                    <i class="fa fa-search" class=""></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                 </div>
+                    <a href="https://fr.jooble.org/" class="cgl" rel="nofollow">Recherche de stage</a>
+                </div>
 
             </div>
 
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-success mb-5">Proposer une entreprise</button>
-            </div>
         </div>
 
-        <div class="col-sm-12 col-lg-8 col-md-12 mb-5">
-            <div class="d-flex justify-content-center profilImage">
-                {#<img src="{{asset('assets/uploads/' ~ filePath)}}" alt="" id="profilImage" srcset="">#}
+        <div class="d-flex justify-content-center">
+            <button class="btn btnProposerEntreprise rounded-pill mb-5">Proposer une entreprise</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-8 col-md-12 mb-5">
+        <div class="d-flex justify-content-center flex-column align-items-center">
+            <div class="profilImage">
+                <img src="{{asset('assets/uploads/' ~ filePath)}}" alt="" id="profilImage" srcset="">
             </div>
 
-
-<div class="sandbox col-12">
+            <div class="sandbox">
 
 
                 <div class="d-flex justify-items-center flex-column">
-                <h1 class="display-3 d-flex justify-content-center">Vos fichiers</h1>
+                    <h1 class="display-3 d-flex justify-content-center">Vos fichiers</h1>
 
                     {% embed "filemanager.html.twig" %}
 
@@ -90,16 +83,15 @@
             </div>
 
         </div>
+        <div class=" actualityDiv mt-5">
+            <div class="d-flex justify-content-center">
+                <ul class="col-sm-12 col-lg-12 col-md-12 jumbotron actuality mt-3" id="actuality">
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
 
-<div class=" actualityDiv mt-5">
-
-        <ul class="col-sm-12 col-lg-12 col-md-12 jumbotron actuality mt-3" id="actuality">
-
-
-        </ul>
-
-    </div>
 {% endblock %}
 
 {% block javascripts %}
