@@ -107,7 +107,7 @@ function JSearchBox(holderId, useRedirect, formWidth, resultsOnPage, formColor, 
                     'text-decoration: none; width: 85px; height: 23px; cursor: pointer; ' +
                     'font-size: ' + (big + 1) + 'px;' +
                     'line-height: 23px; ' +
-                    'text-align: center; padding: ' + btnPadding + 'px 0; } ' +
+                    'text-align: center; padding: ' + btnPadding + 'px 10; } ' +
                     
                     '.cgl { color: ' + this.textColor + ' !important; margin: 0px 10px 0px 10px; display: inherit; left: 10px; } ' +
                     'a.cgl { background: none; text-decoration: none; }' +
@@ -129,16 +129,16 @@ function JSearchBox(holderId, useRedirect, formWidth, resultsOnPage, formColor, 
     var tblSr = document.createElement('div');
     if(this.formWidth < 480) {
         tblSr.innerHTML = '<table id="sf" class="jsb_sr" cellpadding="0" cellspacing="0">' +
-            '<tr><td class="fwb">quoi ?:</td></tr><tr><td><input class="flat" type="text" id="position" onkeypress="searchBox.click(event);" value="' + this.positionText + '"></td></tr>' +
-            '<tr class="jsb_sfh"><td class="jsb_example"><span onclick="document.getElementById(\'position\').value = this.innerHTML;">graphiste</span></td></tr><tr><td class="fwb">où ?:</td></tr>' +
+            '<tr><td class="fwb">Quel poste ?:</td></tr><tr><td><input class="flat" type="text" id="position" onkeypress="searchBox.click(event);" value="' + this.positionText + '"></td></tr>' +
+            '<tr class="jsb_sfh"><td class="jsb_example"><span onclick="document.getElementById(\'position\').value = this.innerHTML;">graphiste</span></td></tr><tr><td class="fwb">Où ?:</td></tr>' +
             '<tr><td><input onkeypress="searchBox.click(event);" class="flat" type="text" id="region" value="' + this.regionText + '"></td></tr>' +
-            '<tr class="jsb_sfh"><td></td></tr><tr><td style="padding-top: 5px"><div id="jbtnsearch" class="jsb_btn" onclick="searchBox.search(' + this.resultsOnPage + 
+            '<tr class="jsb_sfh"><td></td></tr><tr><td style="margin-top: 5px"><div id="jbtnsearch" class="jsb_btn" onclick="searchBox.search(' + this.resultsOnPage + 
             ',1);">Rechercher</div></td></tr></table>';
     } else {
-        tblSr.innerHTML = '<table id="sf" class="jsb_sr" cellpadding="0" cellspacing="0"><tr><td class="fwb">quoi ?:</td><td class="fwb">où ?:</td><td></td></tr>' +
+        tblSr.innerHTML = '<table id="sf" class="jsb_sr" cellpadding="0" cellspacing="0"><tr><td class="fwb">Quel poste ?:</td><td class="fwb">Où ?:</td><td></td></tr>' +
             '<tr><td><input class="flat" type="text" id="position" onkeypress="searchBox.click(event);" value="' + this.positionText + '"></td><td><input onkeypress="searchBox.click(event);" class="flat" ' +
             'type="text" id="region" value="' + this.regionText + '"></td><td><div id="jbtnsearch" class="jsb_btn" onclick="searchBox.search(' + this.resultsOnPage + ',1);">Rechercher</div></td></tr>' +
-            '<tr class="jsb_sfh"><td class="jsb_example">exemple : <span onclick="document.getElementById(\'position\').value = this.innerHTML;">graphiste</span></td><td></td><td></td></table>';
+            '<tr class="jsb_sfh"><td class="jsb_example">exemple : <span onclick="document.getElementById(\'position\').value = this.innerHTML;">Ex stage dev symfony</span></td><td></td><td></td></table>';
     }
     
     var divResults = document.createElement('div');

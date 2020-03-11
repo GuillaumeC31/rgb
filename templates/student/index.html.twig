@@ -13,22 +13,22 @@
 
             </div>
 
-            <div class="mail">
-                <form class="form rounded p-3 form-bg" id="mailSend" method="POST">
+            <div class="mailForm">
+                <form class="form rounded p-4 form-bg" id="mailSend" method="POST">
                 <h2 class="text-center text-lead">Envoyer un message à l'administration</h2>
-                    <div class="form-group">
+                    <div class="form-group mt-4">
                         <label for="title">Objet</label>
-                        <input type="text" class="form-control" name="title" id="title">
+                        <input type="text" class="form-control rounded-pill border-0" name="title" id="title" placeholder="Votre objet...">
                         <input type="hidden" name="action" value="sendmessage">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Message</label>
-                        <textarea type="text" class="form-control" placeholder="Entrez votre message..." name="content" id="content" rows="5"></textarea>
+                        <textarea type="text" class="form-control border-0" placeholder="Entrez votre message..." name="content" id="content" rows="5"></textarea>
                     </div>
                     <div class="d-flex justify-content-around">
-                        <button name="submit" type="submit" class="btn btn-primary">Envoyer</button>
-                         <a class="mailboxFlip btn btn-danger text-white" name="mailboxFlip" id="mailboxFlip">Boîte de réception</a>
+                        <button name="submit" type="submit" class="btn btnMailEnvoyer text-light rounded-pill">Envoyer</button>
+                         <a class="mailboxFlip rounded-pill btn text-dark btnReception" name="mailboxFlip" id="mailboxFlip">Boîte de réception</a>
                     </div>
         
                         
@@ -43,7 +43,7 @@
                 </div>
             </form>
 
-                <div class="jumbotron d-flex flex-column justify-content-between align-items-center">
+                <div class="jumbotron jumbotronJobSearch d-flex flex-column justify-content-between align-items-center">
                     <div id="jsb_container" class="jsb_holder">
 
                         <a href="https://fr.jooble.org/" class="cgl" rel="nofollow">Recherche de stage</a>
@@ -118,7 +118,7 @@
     
     <script>
 
-        var searchBox = new JSearchBox('jsb_container', 0, '320', '7', '#0000ff', '#60bf60', '#555555', '#ffffff', '#0000ff', '#555555', '#60bf60', 'Verdana', '11', '#b1b1b3', '', '');
+        var searchBox = new JSearchBox('jsb_container', 0, '320', '7', ''/*bordure*/ , '#4285f4' /*background recherche*/, '#555555' /*font-color*/, '#ffffff', '#4285f4', '#555555', '#60bf60', 'Verdana', '13', '#555555'/*small input*/, '', '');
 
 
         let pays = 'country=fr';
