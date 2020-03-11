@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+{% block styles %}
+	<style>
+		body {
+	 background-color:#f2f2f2;
+
+}
+h1,label{
+color: #4285F4;
+}
+#form{
+  background-color:#d9d9d9;
+}
+	</style>
+{% endblock styles %}
+
+
+<div>
+
+  <h1 class="text-center my-5"><strong>Enregistrement manuel</strong></h1>
+   <div id="form" class="container border mt-5 p-2">
+
+  {% if status_form is not null and status_form == true %}
+    <div class="alert alert-success text-center">
+      Votre demande d'enregistrement a bien été effectuée!<br>
+      <br>
+      Merci pour votre inscription.<br>
+    </div>
+  {% elseif status_form is not null and status_form == false %}
+    <div class="alert alert-danger text-center">
+      {{ errors_form|join('<br>')|raw }} {# équivalent du implode('<br>', $errors) #}
+    </div>
+  {% endif %}
+    <div  class="row ">
+      <div class="col ">
+        <form method="post" class="m-5 justify-content-center">
+          <div class="form-row mb-3  ">
+            <label for="firstname" class="col-form-label col-4">Prénom</label>
+            <div for="firstname" class="col-8">
+              <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom"
+                value="{{ post.firstname ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label class="col-form-label col-4">Nom</label>
+            <div for="lastname" class="col-8">
+              <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom"
+                value="{{ post.lastname ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="address" class="col-form-label col-4">Adresse</label>
+            <div for="address" class="col-8">
+              <input type="text" name="address" id="address" class="form-control" placeholder="adresse"
+                value="{{ post.address ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="zipcode" class="col-form-label col-4">Code postale</label>
+            <div for="zipcode" class="col-8">
+              <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Code postale"
+                value="{{ post.zipcode ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="city" class="col-form-label col-4">Ville</label>
+            <div for="city" class="col-8">
+              <input type="text" name="city" id="city" class="form-control" placeholder="Ville"
+                value="{{ post.city ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="phone" class="col-form-label col-4">Numéro de téléphone</label>
+            <div for="phone" class="col-8">
+              <input type="text" name="phone" id="phone" class="form-control" placeholder="Numéro de téléphone"
+                value="{{ post.phone ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="birthdate" class="col-form-label col-4">Date de naissance</label>
+            <div for="birthdate" class="col-8">
+              <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Date de naissance"
+                value="{{ post.birthdate ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label for="mark" class="col-form-label col-4">Moyenne des notes</label>
+            <div for="mark" class="col-8">
+              <input type="text" name="mark" id="mark" class="form-control" placeholder="Moyenne des notes"
+                value="{{ post.mark ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label class="col-form-label col-4">Email</label>
+            <div class="col-8">
+              <input type="email" name="email" id="email" class="form-control" placeholder="Votre email"
+                value="{{ post.email ?? '' }}">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label class="col-form-label col-4" for="Password">Password</label>
+            <div for="phone" class="col-8">
+              <input type="password" name="password" id="Password" class="form-control"
+                placeholder="Votre mot de passe ">
+            </div>
+          </div>
+          <hr>
+          <div class="form-row  mb-3">
+            <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
+            <div for="phone" class="col-8">
+              <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control"
+                placeholder="Veuillez confirmer votre mot de passe ">
+            </div>
+          </div>
+
+          <div class="text-center mt-5">
+            <a href="{{ path('school_index')}}" class="btn  btn-outline-warning">Retour</a>
+            <button type="submit" class="btn btn-outline-success ">Inscription </button>
+          </div>
+       </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+{% endblock %}
+

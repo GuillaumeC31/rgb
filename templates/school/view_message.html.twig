@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+
+{% block body %}
+{% block styles %}
+	<style>
+		body {
+			background-color: #DEDEDE;
+
+			font-size: 1.1rem;
+
+		}
+		.table {
+			background-color: #4165C8;
+
+		}
+	</style>
+{% endblock styles %}
+
+
+
+  <div class="container  justify-content-center my-5">
+  <div class="row">
+    <div class="col-8 ">
+        <h1 class="m-5">Messages : {{mess.title}}</h1><br>
+
+
+         <form method="post" class="justify-content-center mt-5">
+
+         <table class="table">
+        <tbody>
+
+          <tr>
+            <th>Message</th>
+            <td>{{mess.content}}</td>
+          </tr>
+
+           <tr>
+               <th>Date d'envoi</th>
+              <td>{{mess.createdAt|date('d/m/Y  H:i')}}</td>
+          </tr>
+          </tbody>
+        </table>
+          <a class="btn btn-warning mt-5" href="{{ path('list_message') }}" class="text-success">Retour</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+

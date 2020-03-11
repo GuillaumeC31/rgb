@@ -2,141 +2,116 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Users;
-use App\Entity\Ape;
-use App\Entity\Apeschool;
+use App\Entity\School;
+use App\Entity\Messages;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\Mapping;
 use Respect\Validation\Validator as v;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\ORM\EntityManager ;
-
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 
 class SchoolController extends AbstractController
 {
     const ALLOW_CHARS = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØŒŠþÙÚÛÜÝŸàáâãäåæçèéêëìíîïðñòóôõöøœšÞùúûüýÿß%- ';
 
-    /**
-     * @Route("/school", name="index_school")
-     *
-     * @IsGranted("ROLE_SCHOOL")
-     */
-    public function index()
+
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-        $post = [];
-        $errorForm = [];
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $listApe = $entityManager->getRepository(Ape::class)->findAll();
-        $listApeSchool = $entityManager->getRepository(Apeschool::class)->findAll();
-
-        if (!empty($POST)) {
-            $post = array_map('trim', array_map('strip_tags', $_POST));
-
-            if(!v::notEmpty()->length(2,7)->validate($post['ape_code'])){
-                $errorForm[] = 'Le code APE est invalide';
-            }
-
-            if(!v::notEmpty()->length(2,null)->validate($post['ape_name'])){
-                $errorForm[] = 'La désignation APE est invalide';
-            }
-
-            if(count($errorForm) == 0){
-                $validationForm = true;
-
-                $ape = new Apeschool();
-
-                $ape->setCode($post['ape_code']);
-                $ape->setNameape($post['ape_name']);
-                $ape->setSchoolId('app.user');
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($ape);
-                $entityManager->flush();
-
-            } else {
-                $validationForm = false;
-            }
-        }
-
-        return $this->render('school/index.html.twig', [
-            'listApe'           => $listApe,
-            'listApeSchool'     => $listApeSchool,
-            'validationForm'    => $validationForm ?? null,
-
-        ]);
+      $this->passwordEncoder = $passwordEncoder;
     }
 
     /**
-     * @Route("/school/liste", name="listEnt")
+     * @Route("/school/index", name="school_index")
      */
-    public function listEnt()
+    public function indexSearch()
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $EntList = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_ENTREPRISE');
-        $apeSchoolValid = $entityManager->getRepository(Apeschool::class)->findAll();
+        $em = $this->getDoctrine()->getManager();
+        if(isset($_GET['search']) AND !empty($_GET['search'])){
 
-        return $this->render('school/listEnt.html.twig', [
-            'entList'     =>  $EntList,
-            'apeSchoolValid' => $apeSchoolValid,
+            $search = htmlspecialchars($_GET['search']);
 
+            $userFound = $em->getRepository(Users::class)->findAll($search);
+
+        return $this->redirectToRoute('school/school_result.html.twig');
+
+          }
+         return $this->render('school/index.html.twig', [
+                 'userFound' => $userFound ?? null,
+                 'search'    => $search ?? '',
         ]);
     }
 
-    /**
-     * @Route("/school/liste", name="list_school")
+/*************************************AFFICHAGE DES UTILISSATEURS**************************************************/
+     /**
+     * @Route("/school/list_valid", name="list_valid")
      */
-    public function listStudent()
+    public function list()
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Users::class);
 
-        $listStudent = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_STUDENT');
-        $EntList = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_ENTREPRISE');
+        $studentList = $repository->findAllByRole('ROLE_STUDENT');
+        $entList = $repository->findAllByRole('ROLE_ENTREPRISE');
 
 
 
-        return $this->render('school/list_school.html.twig', [
-            'listStudent' =>  $listStudent,
-            'entList'     =>  $EntList,
-
+        return $this->render('school/list_valid.html.twig', [
+            'studentList' => $studentList,
+            'entList'     => $entList,
         ]);
     }
+
+    /************************AFFICHE MESSAGE***********************************************/
+     /**
+     * @Route("/school/list_message", name="list_message")
+     */
+    public function listMessage()
+    {
+    	$repository = $this->getDoctrine()->getRepository(Messages::class);
+        $mesStudent = $repository->findAllWithUsers();
+
+
+        return $this->render('school/list_message.html.twig', [
+			'messages' => $mesStudent,
+        ]);
+    }
+
+    /**************************MODIFIER ELEVES*******************************************/
 
      /**
+     *
      * @Route("/school/modif_student/{id}", name="modif_student")
      */
 
-    public function modif( int $id)
+    public function modiffUser( int $id)
     {
+
+        $repositoryUser = $this->getDoctrine()->getRepository(Users::class);
+        $oldUser = $repositoryUser->find($id);
+
         $post = [];
         $errors = [];
-
-         $entityManager = $this->getDoctrine()->getManager();
-         $sectionStudent = $entityManager->getRepository(Users::class)->find($id);
-
 
         if(!empty($_POST)){
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
-            if(!v::notEmpty()->length(2,null)->validate($post['firstname'])){
-                $errors[] = 'Le prénom étudiant est invalide';
-            }
-
-            if(!v::notEmpty()->length(2,null)->validate($post['lastname'])){
-                $errors[] = 'Le nom étudiant est invalide';
-            }
 
             if(!v::notEmpty()->length(2,null)->validate($post['address'])){
                 $errors[] = 'Adresse invalide';
             }
-
             if(!v::notEmpty()->length(2,null)->validate($post['zipcode'])){
                 $errors[] = 'le code postal est invalide';
             }
-
             if(!v::notEmpty()->length(2,null)->validate($post['city'])){
                 $errors[] = 'la ville est invalide';
             }
@@ -145,57 +120,67 @@ class SchoolController extends AbstractController
                 $errors[] = 'Le téléphone est invalide';
             }
 
-
-            if(!v::notEmpty()->date()->validate($post['birthdate'])){
-                $errors[] = 'La date de naissance est invalide';
-            }
-
             if(!v::notEmpty()->email()->validate($post['email'])){
                 $errors[] = 'Votre email est invalide';
-            }
-
-            if(!v::notEmpty()->length(2, null)->validate($post['password'])){
-                $errors[] = 'Votre mot de passe est erroné!';
-            }
-
-            if($post['password'] !== $post['passwordConfirm']){
-                $errors[] = 'les mots de passe ne sont pas identiques';
             }
 
             if(count($errors) === 0){
                 $formValid = true ;
 
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = $entityManager->getRepository(Users::class)->find($id);
+
+                $user->setAddress($post['address']);
+                $user->setZipcode($post['zipcode']);
+                $user->setCity($post['city']);
+                $user->setPhone($post['phone']);
+                $user->setEmail($post['email']);
+                $user->setWeb($post['web']);
+                $user->setGithub($post['github']);
+                $user->setDateRegistration(new \dateTime('now'));
+                $user->setRoles(['ROLE_STUDENT']);
+                $user->setUserId($this->getUser()->getId());
+                $user->setPhotoProfileId($this->getUser()->getId());
 
 
-                $users->setFirstname($post['firstname']);
-                $users->setLastname($post['lastname']);
-                $users->setAddress($post['address']);
-                $users->setZipcode($post['zipcode']);
-                $users->setCity($post['city']);
-                $users->setPhone($post['phone']);
-                $users->setEmail($post['email']);
-                $users->setMark($post['mark']);
-                $users->setBirthdate(new \dateTime($post['birthdate']));
-                $users->setSchool($post['school']);
-                $users->setDateRegistration(new \dateTime('now'));
-                $users->setRoles(['ROLE_STUDENT']);
-
-                $entityManager->persist($users);
                 $entityManager->flush();
-
              }
             else {
                 $formValid = false;
+                    }
             }
+                return $this->render('school/modif_student.html.twig', [
+                    'formValid'    => $formValid ?? null,
+                    'errors'    => $errors ?? [] ,
+                    'user' => $oldUser,
+                ]);
     }
-        return $this->render('school/modif_student.html.twig', [
-            'user' => $users,
+
+    /****************************MODIFIER ENTREPRISE*************************************************/
+     /**
+     * @Route("/school/modif_ent/{id}", name="modif_ent")
+     *
+     */
+    public function modifEnt(int $id)
+    {
+
+        $repositoryUser = $this->getDoctrine()->getRepository(Users::class);
+        $ent = $repositoryUser->find($id);
+
+
+        return $this->render('school/modif_ent.html.twig' ,[
+
+            'formValid'      => $formValid ?? null,
+            'errors'         => $errors ?? [] ,
+
         ]);
     }
+    /*****************************AJOUT ENTREPRISE***********************************************/
      /**
-     * @Route("/school/add_user", name="add_user")
+     *
+     * @Route("/school/add_ent", name="add_ent")
      */
-    public function addEnt()
+    public function addEnt(MailerInterface $mailer)
      {
         $post = [];
         $errors = [];
@@ -212,39 +197,178 @@ class SchoolController extends AbstractController
                     if(!v::notEmpty()->alnum()->length(5,null)->validate($post['zipcode_pro'])){
                         $errors[] = 'Le code postale est invalide';
                     }
-                    if(!v::notEmpty()->alnum()->length(14,14)->validate($post['num_siret'])){
+                     if(!v::notEmpty()->numeric()->length(9,14)->validate($post['num_siret'])){
                         $errors[] = 'Votre numéro de SIRET est invalide';
                     }
-
-
+                    if(!v::notEmpty()->email()->validate($post['email'])){
+                        $errors[] = 'Votre email est invalide';
+                    }
+                     if(!v::notEmpty()->length(2, null)->validate($post['password'])){
+                        $errors[] = 'Votre mot de passe est erroné!';
+                    }
+                    if($post['password'] !== $post['passwordConfirm']){
+                        $errors[] = 'les mots de passe ne sont pas identiques';
+                    }
 
             if(count($errors) === 0){
-
                 $formValid = true ;
 
                 $ent = new Users();
+
                 $ent->setIdentity($post['name_ent']);
                 $ent->setSiret($post['num_siret']);
                 $ent->setAdressPro($post['address_pro']);
                 $ent->setZipcodePro($post['zipcode_pro']);
+                $ent->setEmail($post['email']);
+                $ent->setPassword($this->passwordEncoder->encodePassword($ent, $post['password']));
                 $ent->setDateRegistration(new \dateTime('now'));
                 $ent->setRoles(['ROLE_ENTREPRISE']);
+                $ent->setUserId("0");
+                $ent->setPhotoProfileId("0");
 
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($ent);
                 $entityManager->flush();
 
+                 $email = '<p>Bonjour , ';
+                $email.= '<br> Bienvenue sur RGB :';
+
+                $email = new Email();
+                $email->from('Papercut@papercut.com');
+                $email->to('alexanderfry@live.fr');
+                $email->replyTo($post['email']);
+                $email->subject('[Contact du site ] Nouveau message du site le '.date('d/m/Y H:i'));
+                $email->text('RGB vous souhaite la bienvenue');
+                $email->html('<p></p>');
+
+                $sentEmail = $mailer->send($email);
+
+                $this->addFlash(
+                    'register',
+                    'Votre demande d\enregistrement à bien été prise en compte<br>
+                    Un mail vous a été envoyer avec vos identifiant!<br>
+                    Bonne recherche.'
+                );
+
           }
             else {
                 $formValid = false;
             }
         }
-         return $this->render('school/add_user.html.twig', [
+         return $this->render('school/add_ent.html.twig', [
+              'post'          => $post ?? [],
             'status_form'     =>  $formValid ?? null,
             'errors_form'     =>  $errors ,
         ]);
     }
+
+    /**********************************************AJOUT ELEVES******************************************/
+    /**
+     *
+     * @Route("/school/add_student", name="add_student")
+     */
+    public function addStudent(MailerInterface $mailer)
+     {
+        $post = [];
+        $errors = [];
+
+            if(!empty($_POST)){
+                    $post = array_map('trim', array_map('strip_tags', $_POST));
+
+                    if(!v::notEmpty()->length(2,null)->alpha(self::ALLOW_CHARS)->validate($post['firstname'])){
+                        $errors[] = 'Prénom est invalide';
+                    }
+                     if(!v::notEmpty()->length(2,null)->validate($post['lastname'])){
+                    $errors[] = 'Nom invalide';
+                    }
+                     if(!v::notEmpty()->length(5,null)->validate($post['address'])){
+                    $errors[] = 'Adresse invalide';
+                    }
+                     if(!v::notEmpty()->length(2,null)->validate($post['city'])){
+                    $errors[] = 'Ville invalide';
+                    }
+                     if(!v::notEmpty()->alnum()->length(10,null)->validate($post['phone'])){
+                        $errors[] = 'Le Numéro de téléphone est invalide';
+                    }
+                    if(!v::notEmpty()->alnum()->length(5,null)->validate($post['zipcode'])){
+                        $errors[] = 'Le code postale est invalide';
+                    }
+                     if(!v::notEmpty()->date()->validate($post['birthdate'])){
+                        $errors[] = 'Date de naissance est invalide';
+
+                    }
+                    if(!v::notEmpty()->numeric()->length(2,null)->validate($post['mark'])){
+                        $errors[] = 'Moyenne des notes est invalide';
+                    }
+                    if(!v::notEmpty()->email()->validate($post['email'])){
+                        $errors[] = 'Votre email est invalide';
+                    }
+                     if(!v::notEmpty()->length(8, null)->validate($post['password'])){
+                        $errors[] = 'Votre mot de passe est erroné!';
+                    }
+                    if($post['password'] !== $post['passwordConfirm']){
+                        $errors[] = 'les mots de passe ne sont pas identiques';
+                    }
+
+            if(count($errors) === 0){
+                $formValid = true ;
+
+                $student = new Users();
+
+                $student->setFirstname($post['firstname']);
+                $student->setLastname($post['lastname']);
+                $student->setAddress($post['address']);
+                $student->setZipcode($post['zipcode']);
+                $student->setCity($post['city']);
+                $student->setPhone($post['phone']);
+                $student->setBirthdate(new \DateTime($post['birthdate']));
+                $student->setMark($post['mark']);
+                $student->setEmail($post['email']);
+                $student->setPassword($this->passwordEncoder->encodePassword($student, $post['password']));
+                $student->setDateRegistration(new \dateTime('now'));
+                $student->setRoles(['ROLE_STUDENT']);
+                $student->setUserId("0");
+                $student->setPhotoProfileId("0");
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($student);
+                $entityManager->flush();
+
+                $email = '<p>Bonjour , ';
+                $email.= '<br> Bienvenue sur RGB :';
+                 $email.= '<br> vos identifient  :</p>';
+
+
+                $email = new Email();
+                $email->from('Papercut@papercut.com');
+                $email->to('alexanderfry@live.fr');
+                $email->replyTo($post['email']);
+                $email->subject(' Votre demande a bien été validé le :'.date('d/m/Y H:i'));
+                $email->text('RGB vous souhaite la bienvenue');
+                $email->html('<p></p>');
+
+                $sentEmail = $mailer->send($email);
+
+                $this->addFlash(
+                    'register',
+                    'Votre demande d\enregistrement à bien été prise en compte<br>
+                    Un mail vous a été envoyer avec vos identifiant!<br>
+                    Bonne recherche.'
+                );
+
+          }
+            else {
+                $formValid = false;
+            }
+        }
+         return $this->render('school/add_student.html.twig', [
+            'post'          => $post ?? [],
+            'status_form'   => $formValid ?? null,
+            'errors_form'   => $errors ,
+        ]);
+    }
+    /****************************************VUE STUDENT***********************************/
 
     /**
      * @Route("/school/view_student/{id}", name="view_student")
@@ -253,15 +377,16 @@ class SchoolController extends AbstractController
     public function viewStudent(int $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $users = $entityManager->getRepository(Users::class)->find($id);
+        $usersStudent = $entityManager->getRepository(Users::class)->find($id);
 
         return $this->render('school/view_student.html.twig',  [
-            'users'    => $users,
+            'users'    => $usersStudent
+            ,
 
         ]);
-
     }
 
+    /**************************VUE ENTREPRISE***********************************************************************/
     /**
      * @Route("/school/view_ent/{id}", name="view_ent")
      *
@@ -269,13 +394,141 @@ class SchoolController extends AbstractController
     public function viewEntreprise(int $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $users = $entityManager->getRepository(Users::class)->find($id);
+        $usersEnt = $entityManager->getRepository(Users::class)->find($id);
 
-        return $this->render('school/view_ent.html.twig',  [
-            'users'    => $users,
+        $repositoryUser = $this->getDoctrine()->getRepository(Users::class);
+        $entAccept = $repositoryUser->find($id);
+
+
+
+        if ($entAccept->getConnect() == 'true') {
+            $entAccept = 'checked';
+        } else {
+            $entAccept = '';
+        }
+
+        return $this->render('school/view_ent.html.twig' ,[
+             'users'         => $usersEnt,
+             'viewAccept'    => $entAccept,
+
 
         ]);
+    }
+/****************************VUE MESSAGE*******************************************************/
+    /**
+     * @Route("/school/view_message/{id}", name="view_message")
+     *
+     */
+    public function viewMessage(int $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $messStudent = $entityManager->getRepository(Messages::class)->find($id);
+
+        return $this->render('school/view_message.html.twig',  [
+            'mess'    => $messStudent,
+
+
+        ]);
+    }
+/************************************SUPP ENTREPRISE*********************************************************/
+    /**
+     * @Route("/delete_ent/{id}", name="delete_ent")
+     */
+    public function deleteEnt(int $id)
+    {
+
+    	$entityManager = $this->getDoctrine()->getManager();
+        $users = $entityManager->getRepository(Users::class)->find($id);
+
+
+        if(!empty($_POST)){
+
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(isset($post['delete']) && $post['delete'] == 'yes'){
+                $entityManager->remove($users);
+                $entityManager->flush();
+                $this->redirectToRoute('list_valid');
+            }
+
+        }
+
+        return $this->render('school/delete_ent.html.twig', [
+        	'users' => $users,
+        ]);
+    }
+/******************************SUPP ELEVES***************************************************************/
+    /**
+     * @Route("/delete_student/{id}", name="delete_student")
+     */
+    public function deletestudent(int $id)
+    {
+
+    	$entityManager = $this->getDoctrine()->getManager();
+        $users = $entityManager->getRepository(Users::class)->find($id);
+
+
+        if(!empty($_POST)){
+
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(isset($post['delete']) && $post['delete'] == 'yes'){
+                $entityManager->remove($users);
+                $entityManager->flush();
+                $this->redirectToRoute('list_valid');
+            }
+
+        }
+
+        return $this->render('school/delete_student.html.twig', [
+             'users' => $users,
+
+        ]);
+    }
+
+   /**
+    * @Route("/school_result", name="school_result" )
+    */
+    public function result()
+    {
+
+        return $this->render('school/school_result.html.twig', [
+
+        ]);
+    }
+    /**
+     * Permet de valider manuellement une entreprise via Ajax
+     * @Route("/ajax/validate-ape-entreprise", name="validate_ape_entreprise")
+     */
+    public function ajaxValidateApeEntreprise()
+    {
+
+        if(!empty($_POST)){
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            // Je vérifie que le statut est bien défini et non vide.
+            // Pareil pour l'id_entreprise et en plus je m'assure que ça soit un numerique
+            if(isset($post['new_status']) && !empty($post['new_status'])
+                && isset($post['id_entreprise']) && !empty($post['id_entreprise']) && is_numeric($post['id_entreprise'])){
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                // $currentEntreprise contient les données de l'entreprise sélectionnée
+                $currentEntreprise = $entityManager->getRepository(Users::class)->find((int) $post['id_entreprise']);
+
+                if(!empty($currentEntreprise)){
+
+                    $currentEntreprise->setConnect($post['new_status']);
+                    $entityManager->flush();
+
+                    return $this->json([
+                        'status' => 'ok mise à jour valide',
+                    ]);
+                }
+            }
+        }
 
     }
+
 
 }

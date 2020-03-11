@@ -4,8 +4,8 @@
 
 {% block javascripts %}
 
-{% for messages in app.flashes('register') %}
-  <script type="text/javascript">
+  {% for messages in app.flashes('register') %}
+   <script type="text/javascript">
     Swal.fire({
       icon: 'success',
       title: 'Félicitation',
@@ -20,6 +20,7 @@
     });
     </script>
   {% endfor %}
+
 {% endblock %}
 
 {% block body %}

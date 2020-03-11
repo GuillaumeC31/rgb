@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion
+{% endblock %}
+
+{% block body %}
+{% block styles %}
+	<style>
+		body {
+	 background-color:#f2f2f2;
+
+}
+h1{
+color: #4285F4;
+}
+.table{
+  background-color:#d9d9d9;
+}
+	</style>
+{% endblock styles %}
+
+	<h1 class="text-center my-5">Modifier entreprise</h1>
+
+	{% if formValid is not null and formValid == true %}
+		<div class="alert alert-success text-center">
+			Elève à été modifié dans la base de données<br>
+			- l'équipe de RGB -
+		</div>
+	{% elseif formValid is not null and formValid == false %}
+		<div class="alert alert-danger text-center">
+			{{ errors|join('<br>')|raw }}
+		</div>
+	{% endif %}
+
+
+	<div class="container justify-content-center my-5">
+		<div class="row">
+			<div class="col-8">
+
+
+				<form method="post">
+					<div class="form mb-3  ">
+						<label for="identity" class="col-form-label">Nom entreprise</label>
+						<div for="identity">
+							<input type="text" name="address" id="identity" class="form-control" value="{{ user.identity }}">
+						</div>
+					</div>
+
+					<div class="form  mb-3">
+						<label for="adress_pro" class="form-label">Adresse</label>
+						<div for="adress_pro">
+							<input type="text" name="adress_pro" id="adress_pro" class="form-control" value="{{ user.adressPro }}">
+
+						</div>
+					</div>
+
+					<div class="form  mb-3">
+						<label for="city" class="form-label">Ville</label>
+						<div for="city">
+							<input type="text" name="city" id="city" class="form-control" value="{{ user.cityPro }}">
+						</div>
+					</div>
+
+
+					<div class="form mb-3  ">
+						<label for="email" class="col-form-label">Email</label>
+						<div for="email">
+							<input type="text" name="email" id="email" class="form-control" value="{{ user.emailPro }}">
+						</div>
+					</div>
+
+					<div class="form  mb-3">
+						<label for="phone" class="form-label">Téléphone</label>
+						<div for="phone">
+							<input type="text" name="phone" id="phone" class="form-control" value="{{ user.phonePro
+                             }}">
+						</div>
+					</div>
+
+					<div class="form mb-3  ">
+						<label for="web" class="col-form-label">Web site</label>
+						<div for="web">
+							<input type="text" name="web" id="web" class="form-control" value="{{ user.web }}">
+						</div>
+					</div>
+
+					<div class="form mb-3  ">
+						<label for="connect" class="col-form-label">Validation</label>
+						<div for="connect">
+							<input type="text" name="connect" id="connect" class="form-control" value="{{ user.cocnnect }}">
+						</div>
+					</div>
+
+
+					<div class="form mb-3  ">
+						<label for="siren" class="col-form-label">Siren</label>
+						<div for="siren">
+							<input type="text" name="siren" id="siren" class="form-control" value="{{ user.siren }}">
+						</div>
+					</div>
+					<a class="btn btn-outline-warning" href="{{ path('list_valid') }}">Retour</a>
+					<a href="" class="btn btn-outline-success">modifier</button>
+          <button type="submit" class="btn btn-outline-info">Validation APE</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
