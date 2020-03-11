@@ -199,7 +199,7 @@ class StudentController extends AbstractController
                 }
                 $userId = $userConnected->getUserId() ;
                 $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-                $filePath = $uploadUser->getFilePath();
+               
 
                 $mail = '<p>Bonjour '. $this->getUser()->getFirstname();
                 $mail.= ', vous allez bien j\'espère.';
@@ -217,12 +217,16 @@ class StudentController extends AbstractController
                     ->html($mail);
 
                 $sentEmail = $mailer->send($email);
+                $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
+                $reception = $messages;
+                $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
 
                 return $this->render('student/index.html.twig', [
                     //'errors' => $messages ?? null,
                     'id' => $id,
                     'uploads' => $uploads,
-                    'filePath' => $filePath,
+                    'reception' => $reception,
+                    'filePath' => $filePath ?? '',
                 ]);
             }
         }//Fermeture not empty POST
@@ -234,7 +238,6 @@ class StudentController extends AbstractController
         $userId = $this->getUser()->getId() ;
         $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
         $filePath = $uploadUser->getFilePath();
-        $idMessage = 7;
         $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
 
 
@@ -248,7 +251,7 @@ class StudentController extends AbstractController
             'userId' => $userId,
             'uploadUser' => $uploadUser,
             'filePath' => $filePath ?? '',
-            'reception' => $reception
+            'reception' => $messages
         ]);
 
 
