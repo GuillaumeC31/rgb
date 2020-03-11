@@ -154,3 +154,10 @@ font-size: 1.8em;
 .footer{
     margin-top: 40px;
 }
+#inputEmail,  #inputPassword{
+    font-size: 1.2em ;
+}
+
+.form-row label{
+    font-size: 1em;
+}
