@@ -241,7 +241,15 @@ h2 {
 .files{
     overflow: scroll;
     max-height: 400px;
+    scrollbar-width: thin;
     overflow-x: hidden;
+}
+
+iframe{
+    scrollbar-width: thin !important;
+    overflow-x: hidden !important;
+    background-color:#f8f8f8 !important;
+    scrollbar-color: #4285f4 !important;
 }
 .actuality{
     margin-top: 7px !important;
