@@ -75,7 +75,7 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
             throw new CustomUserMessageAuthenticationException('Email non inscrit.');
         }
         elseif(in_array('ROLE_ENTREPRISE', $user->getRoles()) && $user->getConnect() == 'false'){
-            throw new CustomUserMessageAuthenticationException('Votre compte n\'est pas encore validé. Veuillez Attendre l\'autorisation du centre de formation');
+            throw new CustomUserMessageAuthenticationException('Votre compte n\'est pas encore validé. Veuillez Attendre l\'autorisation de connexion ou vous rapprocher du centre de formation');
         }
 
         return $user;

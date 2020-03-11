@@ -25,6 +25,7 @@ class SecurityController extends AbstractController
         if($user){
             if(in_array('ROLE_ENTREPRISE', $user->getRoles())){
                 return $this->redirectToRoute('indexEnt');
+
                 //si le ROLE_ENTREPRISE doit être rediriger vers une page attente....
                 /*if($user->getConnect() == 'true'){
                     return $this->redirectToRoute('indexEnt');
