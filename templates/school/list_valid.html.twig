@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice{% endblock %}
+{% block javascripts %}
+
+  {% for message in app.flashes('modifEnt') %}
+    <script type="text/javascript">
+    Swal.fire({
+      title: '{{ message }}',
+      icon: 'success',
+      showClass: {
+        popup: 'animated fadeInDown faster'
+      },
+      hideClass: {
+        popup: 'animated fadeOutUp faster'
+      }
+    });
+    </script>
+  {% endfor %}
+
+    <script>
+    $(document).ready(function(){
+      $("#array").on("keyup",function(){
+        var value = $(this).val().toLowerCase();
+        $("#body tr").filter(function(){
+          $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+        });
+      });
+    });
+  </script>
+
+{% endblock %}
+
+{% block body %}
+
+{% block styles %}
+<style>
+body{
+  background-color:#f2f2f2;
+
+}
+h1{
+color: #4285F4;
+}
+.table{
+  background-color:#d9d9d9;
+}
+</style>
+{% endblock styles %}
+
+
+<h1 class="text-center my-5"><strong>Registre d'utilisateurs</strong></h1>
+
+
+
+<div class="container-fluid  my-5">
+  <div class="row">
+    <h1 class"text-center">Registre entreprise</h1>
+      <div class="col justify-content-center">
+      <div class="col">
+      <form class="form-inline " method="get" action="{{ path('school_index') }}">
+        <input class="form-control mr-sm-2 " type="search" name="search" placeholder="rechercher" aria-label="Search">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ok</button>
+      </form>
+      </div>
+    </div>
+      <table id="array" class="table ">
+        <thead>
+        <tr class="bg-dark text-light">
+          <th>Nom entreprise</th>
+          <th>N° Siret </th>
+          <th>Code postale</th>
+          <th>Ville</th>
+          <th>Numero de teléphone</th>
+          <th>Email</th>
+           <th>Site web</th>
+          <th>Validé</th>
+        </tr>
+    </thead>
+    <tbody id="body">
+        {% for ent in entList %}
+        <tr>
+          <td>{{ent.identity}} </td>
+          <td><i>{{ent.siret}}</i></td>
+          <td>{{ent.zipcodePro}}</td>
+          <td>{{ent.cityPro}}</td>
+          <td>{{ent.phonePro}}</td>
+          <td>{{ent.web}}</td>
+          <td>{{ent.email}}</td>
+           <td>{{ent.connect}}</td>
+          <td class="p-0">
+            <form>
+              <a class="btn btn-info btn-sm" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">Voir
+                entreprise</a>
+              <a href="{{ path('delete_ent', {id: ent.id} ) }}"  class="btn btn-danger btn-sm">supprimer</button>
+            </form></td>
+          </tr>
+        {% endfor %}
+         </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container-fluid my-5">
+  <div class="row">
+  <h1 class="text-center">Registre élèves</h1>
+   <div class="col justify-content-center">
+    <div class="col">
+       <form class="form-inline " method="get" action="{{ path('school_index') }}">
+        <input class="form-control mr-sm-2 " type="search" name="search" placeholder="rechercher" aria-label="Search">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ok</button>
+      </form>
+    </div>
+  </div>
+      <table class="table ">
+        <tr class="bg-dark text-light">
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Ville</th>
+          <th>Numero de teléphone</th>
+          <th>Email</th>
+          <th>Date de naissance</th>
+        </tr>
+        {% for stu in studentList %}
+        <tr>
+          <td>{{stu.firstname}} </td>
+          <td><i>{{stu.lastname}}</i></td>
+          <td>{{stu.address}}</td>
+          <td>{{stu.city}}</td>
+          <td>{{stu.phone}}</td>
+          <td>{{stu.email}}</td>
+          <td>{{stu.birthdate|date('d/m/Y ') }}</td>
+          <td>
+          <form>
+          <a class="btn btn-info btn-sm " href="{{ path('view_student', {id: stu.id}) }}" class="text-info">Voir élève</a>
+          <a type="submit"  class="btn btn-danger btn-sm" href="{{ path('delete_student', {id: stu.id} ) }}">supprimer</a>
+
+            </form></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <a class="btn btn-outline-warning m-5" href="{{ path('school_index') }}" class="text-info">Retour</a>
+{% endblock %}

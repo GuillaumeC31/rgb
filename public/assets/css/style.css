@@ -16,10 +16,7 @@ footer{
         max-width: 700px;
         margin-top: 244px;
 }
-.mail,
-.jumbotron {
-    margin-top: 30px;
-}
+
 .sandbox{
     height: 300px;
     width: 730px;
@@ -97,18 +94,8 @@ footer{
     font-size: 1em;
 }
 
-.form-bg{
-    background-color:#e3e6e9;
-}
-
 li{
     list-style: none;
-}
-
-#mailboxToggle{
-    max-height: 450px;
-    overflow: scroll;
-    overflow-x: hidden;
 }
 
 /*CSS FINAL */
@@ -157,6 +144,73 @@ font-size: 1.8em;
     font-size: 1.2em ;
 }
 
-.form-row label{
-    font-size: 1em;
+.form label{
+    font-size: 1.1em;
+}
+.formConnexion{
+    width: 90%;
+}
+
+/*MEDIA QUERIES*/
+
+@media screen and (max-width: 800px) {
+    #calendar {
+      margin-top: 0px;
+    }
+    .fondConnexion{
+        display: none;
+    }
+  }
+
+h2 {
+    font-size:1.5em;
+  }
+.btnMailEnvoyer{
+  background-color: #4285f4;
+}
+.btnReception{
+    background-color: white;
+}
+.fc-button-group button{
+        background-color: #4285f4;
+        border: none;
+}
+.fc-today-button, .fc-dayGridMonth-button {
+    background-color: #F8F8F8 !important;
+    border:none !important;
+    color:black !important;
+    font-weight: bold;
+}
+.fc-right button{
+    width: 150px;
+}
+
+.form-bg{
+    background-color:#f8f8f8;
+}
+
+#mailboxToggle{
+    max-height: 450px;
+    overflow: scroll;
+    overflow-x: hidden; 
+    scrollbar-color: #4285f4;
+    scrollbar-width: thin;
+}
+
+.jumbotronJobSearch {
+    margin-top: 30px;
+    background-color:#f8f8f8;
+    scrollbar-color: #4285f4;
+    scrollbar-width: thin;
+}
+
+.jsb_holder{
+    border:none !important;
+    padding: 4px;
+}
+.jsb_btn{
+    margin-top:22px;
+}
+.flat{
+    border-radius: 15px !important;
 }

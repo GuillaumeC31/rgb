@@ -233,9 +233,9 @@ class StudentController extends AbstractController
 
         $userId = $this->getUser()->getId() ;
         $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-       // $filePath = $uploadUser->getFilePath();
-        $messages = $entityManager->getRepository(Messages::class)->searchUserIdMessages(10);
-
+        $filePath = $uploadUser->getFilePath();
+        $idMessage = 7;
+        $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers(7);
 
 
 
@@ -354,4 +354,3 @@ class StudentController extends AbstractController
 
 
 }//Fermeture controller
-
