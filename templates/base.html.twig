@@ -43,7 +43,7 @@
 
         <!-- NAVBAR ENTREPRISE -->
         {% if is_granted('ROLE_ENTREPRISE') %}
-        <div class="d-flex justify-content-center">
+
           <li class="nav-item">
             <a class="nav-item nav-link active" href="{{ path('indexEnt') }}">Accueil</a>
           </li>
@@ -56,7 +56,7 @@
           <li class="nav-item">
             <a class="nav-item nav-link" href="{{ path('ficheEnt') }}">Profil</a>
           </li>
-        </div>
+
         {% endif %}
 
         <!-- NAVBAR STUDENT -->
@@ -72,16 +72,10 @@
         <!-- NAVBAR SCHOOL -->
         {% if is_granted('ROLE_SCHOOL') %}
           <li class="nav-item">
-            <a class="nav-item nav-link active" href="{{ path('index_school') }}">Accueil</a>
+            <a class="nav-item nav-link active" href="{{ path('school_index') }}">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-item nav-link" href="">Etudiants</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-item nav-link" href="{{ path('listEnt') }}">Entreprises</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-item nav-link" href="">Centre de Formation</a>
+            <a class="nav-item nav-link" href="{{ path('list_valid') }}">Utilisateurs</a>
           </li>
         {% endif %}
 
@@ -103,7 +97,7 @@
 
         </ul>
         <!-- CONNECT / DISCONNECT -->
-        <div class="form-inline my-2 text-white">
+        <div class="form-inline my-2">
           {% if is_granted('ROLE_ENTREPRISE') %}
               <div class="my-1">Bonjour {{ app.user.firstname }}</div>
           {% endif %}

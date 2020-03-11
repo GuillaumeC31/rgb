@@ -235,7 +235,7 @@ class StudentController extends AbstractController
         $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
         $filePath = $uploadUser->getFilePath();
         $idMessage = 7;
-        $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers(7);
+        $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
 
 
 

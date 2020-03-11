@@ -138,7 +138,7 @@ class Users implements UserInterface
     private $ape_code;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $section_id;
 
@@ -196,6 +196,16 @@ class Users implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $photo_profile_id;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $langages;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $framework;
 
 
 
@@ -657,6 +667,30 @@ class Users implements UserInterface
     public function setPhotoProfileId(?int $photo_profile_id): self
     {
         $this->photo_profile_id = $photo_profile_id;
+
+        return $this;
+    }
+
+    public function getLangages(): ?string
+    {
+        return $this->langages;
+    }
+
+    public function setLangages(?string $langages): self
+    {
+        $this->langages = $langages;
+
+        return $this;
+    }
+
+    public function getFramework(): ?string
+    {
+        return $this->framework;
+    }
+
+    public function setFramework(?string $framework): self
+    {
+        $this->framework = $framework;
 
         return $this;
     }

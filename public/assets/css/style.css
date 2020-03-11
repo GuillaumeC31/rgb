@@ -192,7 +192,7 @@ h2 {
 #mailboxToggle{
     max-height: 450px;
     overflow: scroll;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     scrollbar-color: #4285f4;
     scrollbar-width: thin;
 }
