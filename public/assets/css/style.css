@@ -10,6 +10,7 @@ body{
 footer{
     height:220px;
     padding: 10px;
+    background-color: #F8F8F8;
 }
 
 #calendar{
@@ -149,4 +150,7 @@ font-size: 1.8em;
 }
 .jumbotronActivites{
     margin-top: 30px;
+}
+.footer{
+    margin-top: 40px;
 }
