@@ -39,6 +39,10 @@ class HomeController extends AbstractController
      */
     public function attente()
     {
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+
         return $this->render('home/attente.html.twig');
     }
 

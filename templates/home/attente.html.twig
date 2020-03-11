@@ -32,41 +32,39 @@
               <p>Votre demande d'inscription a été mise en attente de validation pour la raison suivante : <br>
                <b><i>Votre entreprise ne correspond pas aux critères demandés par le centre de formation.</i></b><br>
                <br>
-               Toutefois, même si votre secteur d'activité n'est pas lié au monde de l'informatique et que vous recherchez des personnes en liens avec ce domaine, n'hésitez pas à écrire et à expliquer le motif de votre recherche au centre de formation en charge de votre validation.
-               Pour celà, utiliser le formulaire ci dessous. Un membre de l'équipe vous répondra dans les plus bref délais. <br>
-               Nous vous remercions de l'intêret que vous porter à notre plateforme.
-             </p>
-             <hr>
-           </div>
-         </div>
-         <div class="col-12 col-md-6">
-
+               Toutefois, même si votre secteur d'activité n'est pas lié au monde de l'informatique et que vous recherchez des personnes en liens avec ce domaine, n'hésitez pas à écrire et à expliquer le motif de votre recherche au centre de formation en charge de votre validation.</p>
+               <p>Pour celà, utiliser le formulaire ci dessous. Un membre de l'équipe vous répondra dans les plus bref délais.</p>
+                <p>Nous vous remercions de l'intêret que vous porter à notre plateforme.</p>
+               </p>
+               <hr>
+             </div>
+             <div class="col-12 d-flex justify-content-center mt-5">
+              <a type="button" class="btn btn-outline-info" href="{{ path('home_index')}}">Retour</a>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <img class="img-fluid" src="{{asset('assets/img/logorgb.png')}}" alt="">
+{#
            <form method="post">
-            <div class="form-group row">
-              <label for="email" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-5">
-                <input type="email" class="form-control" id="email">
-              </div>
+            <div class="form-group">
+              <label for="enterprise">Entreprise</label>
+              <input type="text" class="form-control" id="enterprise" placeholder="">
             </div>
-            <div class="form-group row">
-              <label for="password" class="col-sm-2 col-form-label">Nom / Prénom</label>
-              <div class="col-sm-5">
-                <input type="password" class="form-control" id="password">
-              </div>
+            <div class="form-group">
+              <label for="enterprise">Nom / Prenom</label>
+              <input type="text" class="form-control" id="enterprise" placeholder="">
             </div>
-            <div class="form-group row">
-              <label for="textarea">Example textarea</label>
-              <div class="col-sm-5">
-                <textarea class="form-control" id="textarea" rows="3"></textarea>
-              </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="">
             </div>
-            <div class="form-group row">
-              <div class="col-sm-8">
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-              </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control" id="message" rows="3"></textarea>
             </div>
+            <button type="submit" class="btn btn-outline-warning">Submit</button>
           </form>
-
+#}
         </div>
       </div>
 
