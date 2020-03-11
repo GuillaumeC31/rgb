@@ -12,11 +12,10 @@
 
 
   <section class="container">
-    <div class="row">
-      <div class="col-12 d-flex justify-content-center flex-wrap my-3">
-        <h4>Centre de Formation</h4>
+    <div class="col-12">
+        <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Centre de Formation</h4>
+        <hr class="mb-5">
       </div>
-    </div>
     <div class="row">
 
       <div class="col-12 col-md-5 d-flex justify-content-center">
@@ -38,6 +37,8 @@
               <div class="text-center">{{ listSchool.firstname }} {{ listSchool.lastname }}</div>
               <div class="text-center">{{ listSchool.phonePro }}</div>
               <div class="text-center">{{ listSchool.email }}</div>
+              <hr>
+              <div class="text-center"><a href="https://{{ listSchool.webPro }}" target="_blanck">{{ listSchool.webPro }}</a></div>
             </li>
           </ul>
         </div>

@@ -36,7 +36,7 @@ class SecurityController extends AbstractController
             }
 
             if(in_array('ROLE_SCHOOL', $user->getRoles())){
-                return $this->redirectToRoute('index_school');
+                return $this->redirectToRoute('school_index');
           }
           if(in_array('ROLE_STUDENT', $this->getUser()->getRoles())){
                 return $this->redirectToRoute('student_home');

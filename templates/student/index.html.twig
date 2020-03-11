@@ -107,8 +107,8 @@
 
     <!-- Fin Joobble API recherche -->
     <script type="text/javascript" src="{{asset('assets/js/SearchBox.js')}}" language="javascript"></script>
-    
-    
+
+
     <script>
 
         var searchBox = new JSearchBox('jsb_container', 0, '320', '7', ''/*bordure*/ , '#4285f4' /*background recherche*/, '#555555' /*font-color*/, '#ffffff', '#4285f4', '#555555', '#60bf60', 'Verdana', '13', '#555555'/*small input*/, '', '');
@@ -135,7 +135,7 @@
                         titreArticles.innerHTML = article.title;    //On lui rajoute du texte
                         let listeTitreArticles = document.querySelector('#actuality');    //On sélectionne une liste
                         listeTitreArticles.appendChild(titreArticles);    //On lui ajoute la balise <li> précédemment créée
-                     
+
                         let contenuArticles = document.createElement('p');    //On créer une nouvelle balise <li>
                         contenuArticles.className = "text-lead content";
 
@@ -144,8 +144,8 @@
                         let listeContenuArticles = document.querySelector('#actuality');    //On sélectionne une liste
                         listeContenuArticles.appendChild(contenuArticles);    //On lui ajoute la balise
 
-                      
-                    
+
+
 
         };//Fermeture fetch
 })
@@ -160,7 +160,7 @@
 
     $(document).ready(function(){
 
-     
+
      $('#mailboxFlip').on("click", function(event){
             event.preventDefault();
             $("#mailboxToggle").slideToggle();  //ou slideToggle
