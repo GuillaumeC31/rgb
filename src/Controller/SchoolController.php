@@ -36,19 +36,10 @@ class SchoolController extends AbstractController
      */
     public function indexSearch()
     {
-        $em = $this->getDoctrine()->getManager();
-        if(isset($_GET['search']) AND !empty($_GET['search'])){
 
-            $search = htmlspecialchars($_GET['search']);
-
-            $userFound = $em->getRepository(Users::class)->findAll($search);
-
-        return $this->redirectToRoute('school/school_result.html.twig');
-
-          }
          return $this->render('school/index.html.twig', [
                  'userFound' => $userFound ?? null,
-                 'search'    => $search ?? '',
+
         ]);
     }
 
@@ -63,14 +54,11 @@ class SchoolController extends AbstractController
         $studentList = $repository->findAllByRole('ROLE_STUDENT');
         $entList = $repository->findAllByRole('ROLE_ENTREPRISE');
 
-
-
         return $this->render('school/list_valid.html.twig', [
             'studentList' => $studentList,
             'entList'     => $entList,
         ]);
     }
-
     /************************AFFICHE MESSAGE***********************************************/
      /**
      * @Route("/school/list_message", name="list_message")
@@ -80,20 +68,17 @@ class SchoolController extends AbstractController
     	$repository = $this->getDoctrine()->getRepository(Messages::class);
         $mesStudent = $repository->findAllWithUsers();
 
-
         return $this->render('school/list_message.html.twig', [
 			'messages' => $mesStudent,
         ]);
     }
-
     /**************************MODIFIER ELEVES*******************************************/
 
      /**
      *
      * @Route("/school/modif_student/{id}", name="modif_student")
      */
-
-    public function modiffUser( int $id)
+    public function modiffStudent( int $id)
     {
 
         $repositoryUser = $this->getDoctrine()->getRepository(Users::class);
@@ -139,11 +124,12 @@ class SchoolController extends AbstractController
                 $user->setGithub($post['github']);
                 $user->setDateRegistration(new \dateTime('now'));
                 $user->setRoles(['ROLE_STUDENT']);
-                $user->setUserId($this->getUser()->getId());
-                $user->setPhotoProfileId($this->getUser()->getId());
-
+                $user->setUserId('0');
+                $user->setPhotoProfileId('0');
 
                 $entityManager->flush();
+
+                return $this->redirectToRoute('school/list_valid.html.twig');
              }
             else {
                 $formValid = false;
@@ -231,8 +217,13 @@ class SchoolController extends AbstractController
                 $entityManager->persist($ent);
                 $entityManager->flush();
 
-                 $email = '<p>Bonjour , ';
-                $email.= '<br> Bienvenue sur RGB :';
+                $message = '<p>Bonjour '.$post['name_ent'].',';
+                 $message.= '<br> Bienvenue sur la plateforme RGB :';
+                $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                $message.= '<br> login : '.$post['email'];
+                $message.= '<br> mot de passe : '.$post['password'];
+                $message.= '<br>A très bientôt sur RGB.';
+                $message.= '</p>';
 
                 $email = new Email();
                 $email->from('Papercut@papercut.com');
@@ -240,16 +231,9 @@ class SchoolController extends AbstractController
                 $email->replyTo($post['email']);
                 $email->subject('[Contact du site ] Nouveau message du site le '.date('d/m/Y H:i'));
                 $email->text('RGB vous souhaite la bienvenue');
-                $email->html('<p></p>');
+                $email->html($message);
 
                 $sentEmail = $mailer->send($email);
-
-                $this->addFlash(
-                    'register',
-                    'Votre demande d\enregistrement à bien été prise en compte<br>
-                    Un mail vous a été envoyer avec vos identifiant!<br>
-                    Bonne recherche.'
-                );
 
           }
             else {
@@ -323,7 +307,6 @@ class SchoolController extends AbstractController
                 $student->setCity($post['city']);
                 $student->setPhone($post['phone']);
                 $student->setBirthdate(new \DateTime($post['birthdate']));
-                $student->setMark($post['mark']);
                 $student->setEmail($post['email']);
                 $student->setPassword($this->passwordEncoder->encodePassword($student, $post['password']));
                 $student->setDateRegistration(new \dateTime('now'));
@@ -335,9 +318,13 @@ class SchoolController extends AbstractController
                 $entityManager->persist($student);
                 $entityManager->flush();
 
-                $email = '<p>Bonjour , ';
-                $email.= '<br> Bienvenue sur RGB :';
-                 $email.= '<br> vos identifient  :</p>';
+                $message = '<p>Bonjour '.$post['firstname'].' '.$post['lastname'].',';
+                $message.= '<br> Bienvenue sur la plateforme RGB :';
+                $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                $message.= '<br> login : '.$post['email'];
+                $message.= '<br> mot de passe : '.$post['password'];
+                $message.= '<br>A très bientôt sur RGB.';
+                $message.= '</p>';
 
 
                 $email = new Email();
@@ -346,16 +333,10 @@ class SchoolController extends AbstractController
                 $email->replyTo($post['email']);
                 $email->subject(' Votre demande a bien été validé le :'.date('d/m/Y H:i'));
                 $email->text('RGB vous souhaite la bienvenue');
-                $email->html('<p></p>');
+                $email->html($message);
 
                 $sentEmail = $mailer->send($email);
 
-                $this->addFlash(
-                    'register',
-                    'Votre demande d\enregistrement à bien été prise en compte<br>
-                    Un mail vous a été envoyer avec vos identifiant!<br>
-                    Bonne recherche.'
-                );
 
           }
             else {
@@ -369,7 +350,6 @@ class SchoolController extends AbstractController
         ]);
     }
     /****************************************VUE STUDENT***********************************/
-
     /**
      * @Route("/school/view_student/{id}", name="view_student")
      *
@@ -385,7 +365,6 @@ class SchoolController extends AbstractController
 
         ]);
     }
-
     /**************************VUE ENTREPRISE***********************************************************************/
     /**
      * @Route("/school/view_ent/{id}", name="view_ent")
@@ -399,18 +378,17 @@ class SchoolController extends AbstractController
         $repositoryUser = $this->getDoctrine()->getRepository(Users::class);
         $entAccept = $repositoryUser->find($id);
 
-
-
         if ($entAccept->getConnect() == 'true') {
             $entAccept = 'checked';
-        } else {
-            $entAccept = '';
-        }
 
+        }
+          else {
+            $entAccept = '';
+
+         }
         return $this->render('school/view_ent.html.twig' ,[
              'users'         => $usersEnt,
              'viewAccept'    => $entAccept,
-
 
         ]);
     }
@@ -426,8 +404,6 @@ class SchoolController extends AbstractController
 
         return $this->render('school/view_message.html.twig',  [
             'mess'    => $messStudent,
-
-
         ]);
     }
 /************************************SUPP ENTREPRISE*********************************************************/
@@ -461,7 +437,7 @@ class SchoolController extends AbstractController
     /**
      * @Route("/delete_student/{id}", name="delete_student")
      */
-    public function deletestudent(int $id)
+    public function deleteStudent(int $id)
     {
 
     	$entityManager = $this->getDoctrine()->getManager();
@@ -486,21 +462,11 @@ class SchoolController extends AbstractController
         ]);
     }
 
-   /**
-    * @Route("/school_result", name="school_result" )
-    */
-    public function result()
-    {
-
-        return $this->render('school/school_result.html.twig', [
-
-        ]);
-    }
     /**
      * Permet de valider manuellement une entreprise via Ajax
      * @Route("/ajax/validate-ape-entreprise", name="validate_ape_entreprise")
      */
-    public function ajaxValidateApeEntreprise()
+    public function ajaxValidateApeEntreprise(MailerInterface $mailer)
     {
 
         if(!empty($_POST)){
@@ -516,19 +482,43 @@ class SchoolController extends AbstractController
                 // $currentEntreprise contient les données de l'entreprise sélectionnée
                 $currentEntreprise = $entityManager->getRepository(Users::class)->find((int) $post['id_entreprise']);
 
-                if(!empty($currentEntreprise)){
+                    if(!empty($currentEntreprise)){
 
-                    $currentEntreprise->setConnect($post['new_status']);
-                    $entityManager->flush();
+                            $message = '<p>Bonjour '.$currentEntreprise->getIdentity().',';
+                            $message.= '<br> Bienvenue sur la plateforme RGB :';
+                            $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                            $message.= '<br> login : '.$currentEntreprise->getEmail();
+                        //   $message.= '<br> votre mot de passe est le meme';
+                            $message.= '<br>A très bientôt sur RGB.';
+                            $message.= '</p>';
+
+
+                            $email = new Email();
+                            $email->from('Papercut@papercut.com');
+                            $email->to('alexanderfry@live.fr');
+                            $email->replyTo($currentEntreprise->getEmail());
+                            $email->subject('Nouveau message du site le '.date('d/m/Y H:i'));
+                            $email->text('RGB vous souhaite la bienvenue');
+                            $email->html($message);
+
+                            $sentEmail = $mailer->send($email);
+
+
+
+                            $currentEntreprise->setConnect($post['new_status']);
+                            $entityManager->flush();
 
                     return $this->json([
-                        'status' => 'ok mise à jour valide',
+                        'status'   => 'ok mise à jour valide',
+
                     ]);
-                }
+                 }
             }
         }
 
     }
+
+
 
 
 }

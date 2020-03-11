@@ -5,67 +5,25 @@
 {% block body %}
 
 
-{% block stylesheets %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
-{% endblock stylesheets %}
-
 {% block styles %}
 <style>
-
-html{
-  font-size: 62.5%;
-}
-
-body{
- 
-  font-size: x-large;
-
-}
 header{
-  background-color:#A9C0FF;
-  
-  
+background:#4285F4;
+color: white;
 }
-h1{
-  text-align: center;
-  color:white ;
-  font-family: lobster,sans-serif;
-  font-size: 13rem;
-  margin: 0;
-  letter-spacing: 5px;
-  width: 100%;
-  height: 35rem;
+#block1{
 
 }
-
-
-.box{
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 82rem;
-  height: 35rem;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
-  color: black;
-  font-weight: 100;
-  padding: 8.5rem;
+#block2{
 
 }
-h2{
-  font-size: 4rem;
-  font-family: lobster,sans-serif;
-  line-height: 1.25rem;
-  color: black;
-  margin-top:7rem;
-}
+#block3{
 
+}
 
 .learn{
   background: transparent;
-  color: white;
+  color: black;
   border: 5px solid white);
   padding: 1.5rem;
   width: 25rem;
@@ -75,127 +33,61 @@ h2{
   font-weight: 600;
 }
 .learn:hover{
-background:black;
-  color: white;
-}
-.block1{
-  background-color:#738ED9;
-  height: 80rem;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
- 
+background:#4285F4;
+color: white;
 }
 
-.block2{
-  background-color:#DEDEDE;
-  height: 80rem;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  
-}
-.block3{
-  background-color:#4165C8;
-  height: 80rem;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
- 
-}
-.block4{
-  background-color:#A9C0FF;
-  height: 80rem;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  
-}
-.box1 {
- opacity: 0.8;
- transition: all 0.4s linear;
 
-}
-
-.box2 {
- opacity: 0.8;
- transition: all 0.4s linear;
-
-}
-
-.box3 {
- opacity: 0.8;
- transition: all 0.4s linear;
-
-}
-.box4 {
- opacity: 0.8;
- transition: all 0.4s linear;
-
-}
 </style>
 {% endblock styles %}
 
-  <header>
+<header>
     <h1 class="text-center my-5"><strong>Backoffice <i>RGB</strong></i></h1>
-   
-  </header>
+    <h2>Row Guidelines Board</h2>
+</header>
 
-
-  <section>
-    <div class="block1 text-center pt-5">
-      <h2><strong>Liste complete des utilisateurs</strong></h2>
-      <div class="box box1">
-        <div class="text">RGB remplace les e-mails dans votre entreprise à vos étudiants.
-          Veillez à ce que vos conversations restent organisées et centrées sur leur sujet grâce à <i>RGB</i>, une alternative intelligente à l’e-mail.
-        </div>
+<div id="block1" class="container">
+  <div class="row">
+    <div class="col">
+       <h2><strong>Liste complete des utilisateurs</strong></h2>
         <a class="learn mt-5" href="{{ path('list_valid') }}">Base de donnée</a>
-      </div>
     </div>
-  </section>
-
-  <section>
-    <div class="block2 text-center pt-5">
-      <h2 ><strong> Boite de reception </strong></h2>
-      <div class="box box2">
-        <div class="text">Le Liban, ce « pays ruisselant de lait et de miel » selon les textes bibliques, est aussi celui
-          des mezze, symboles de
-          partage et de convivialité. Dans leur version simple, ils peuvent se résumer à quelques graines de courge
-        </div><br>
-        <a href="{{ path('list_message') }}" class="learn mt-5">boite de réception</a>
-      </div>
-    </div>
-  </section>
-
-
-
-  <section>
-    <div class="block3 text-center text-light pt-5">
-      <h2><strong> Inscription élèves</strong></h2>
-      <div class="box box3">
-        <div class="text">La Thaïlande, ce sont des plages à perte de vue, la mer s’étendant à l’infini, le soleil sur la
-          peau… mais aussi une
-          destination culinaire des plus étonnantes et savoureuses. Vous vous êtes décidés à réaliser un apéritif
-          thaïlandais et à
-        </div><br>
+  </div>
+</div>
+<br>
+<br>
+<aside>
+<div id="block2" class="container">
+  <div class="row">
+    <div class="col-6">
+       <h2><strong> Inscription élèves</strong></h2>
         <a href="{{ path('add_student') }}" class="learn mt-5">Inscription étudiant</a>
-      </div>
     </div>
-  </section>
-
-
-  <section>
-    <div class="block4 text-center text-center pt-5">
-      <h2><strong>Inscription d'entreprise</strong></h2>
-      <div class="box box4">
-        <div class="text">Souvent, quand on prépare des plats comme le gaspacho andalou ou la ratatouille, il vous reste
-          des tomates dont vous ne
-          savez pas quoi faire. Je vous propose une recette facile et savoureuse de tartines ibériques, idéales pour un
-        </div><br>
+       <h2><strong> Inscription Entreprise</strong></h2>
         <a href="{{ path('add_ent') }}" class="learn mt-5">Inscription entreprise</a>
-      </div>
+    <div class="col-6">
     </div>
-  </section>
+  </div>
+</div>
+</aside>
+<br>
+<br>
+<div id="block3" class="container">
+  <div class="row">
+    <div class="col">
+     <h2 ><strong> Boite de reception </strong></h2>
+        <a href="{{ path('list_message') }}" class="learn mt-5">boite de réception</a>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+
 
 
 {% endblock %}
