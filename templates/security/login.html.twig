@@ -39,18 +39,16 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous identifier !</h1>
-    <br>
-    <div class="form-row  mb-3">
-      <label for="inputEmail" class="col-form-label col-3">Email</label>
-      <div class="col-12 col-md-9">
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+      <h1 class="h3 font-weight-normal text-center">Se connecter</h1>
+      <br>
+      <div class="form-row mb-3 ">
+        <label for="inputEmail" class="col-form-label col-3">Email</label>
+          <input type="email" value="{{ last_username }}" placeholder="Veuillez entrer votre email..." name="email" id="inputEmail" class="form-control rounded-pill p-4" required autofocus>  
       </div>
-    </div>
-    <div class="form-row  mb-3">
-      <label for="inputPassword" class="col-form-label col-3">Password</label>
-      <div class="col-12 col-md-9">
-        <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+      <div class="form-row  mb-3">
+        <label for="inputPassword" class="col-form-label col-3">Password</label>
+          <input type="password" name="password" placeholder="*****"  id="inputPassword" class="form-control rounded-pill p-4" required>
       </div>
     </div>
 
@@ -67,11 +65,13 @@
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
         </div>
-    #}
-    <div class="row">
-      <div class="col-12 text-center">
-        <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
-      </div>
+        #}
+        <div class="row">
+          <div class="col-12 text-center">
+            <button class="btn btn-lg btn-primary rounded-pill btn-block" type="submit">Connexion</button>
+          </div>
+        </div>
+      </form>
     </div>
 </form>
 </div>

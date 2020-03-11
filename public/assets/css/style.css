@@ -150,3 +150,13 @@ font-size: 1.8em;
 .jumbotronActivites{
     margin-top: 30px;
 }
+.footer{
+    margin-top: 40px;
+}
+#inputEmail,  #inputPassword{
+    font-size: 1.2em ;
+}
+
+.form-row label{
+    font-size: 1em;
+}
