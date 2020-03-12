@@ -199,7 +199,7 @@ class StudentController extends AbstractController
                 }
                 $userId = $userConnected->getUserId() ;
                 $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-               
+
 
                 $mail = '<p>Bonjour '. $this->getUser()->getFirstname();
                 $mail.= ', vous allez bien j\'espère.';
@@ -237,7 +237,7 @@ class StudentController extends AbstractController
 
         $userId = $this->getUser()->getId() ;
         $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-        $filePath = $uploadUser->getFilePath();
+        //$filePath = $uploadUser->getFilePath();
         $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
 
 
