@@ -2,116 +2,116 @@
 
 {% block title %}Backoffice{% endblock %}
 
-{% block body %}
+  {% block body %}
 
-{% block styles %}
-	<style>
-	body{
-  background-color:#f2f2f2;
-  }
-h1{
-font-size:4rem;
-background-color:#b54447;
-color:white;
-}
-h2{
-  font-size:3rem;
-}
-.table{
-  background-color:#d9d9d9;
-}
-	</style>
-{% endblock styles %}
+    {% block styles %}
+     <style>
+     body{
+      background-color:#f2f2f2;
+    }
+    h1{
+      font-size:4rem;
+      background-color:#b54447;
+      color:white;
+    }
+    h2{
+      font-size:3rem;
+    }
+    .table{
+      background-color:#d9d9d9;
+    }
+    </style>
+  {% endblock styles %}
 
-<h1 class="text-center my-5">
-  Entreprise<a href="{{ path('list_valid') }}">
+  <h1 class="text-center my-5">
+    Entreprise<a href="{{ path('list_valid') }}">
     <img src="{{asset('assets/img/ent.png')}}" class=" m-5" alt="icon bdd"></a>
-</h1>
-<br>
+  </h1>
+  <br>
 
-<div class="container  justify-content-center my-5">
-  <div class="row">
-    <div class="col justify-content-center">
+  <div class="container  justify-content-center my-5">
+    <div class="row">
+      <div class="col justify-content-center">
 
 
-         <form method="post" class="justify-content-center">
-           <h2 class="text-center">{{users.identity}}  :</h2>
-           <h4 class="text-center">N° Siret  {{users.siret}}</h4><br>
+       <form method="post" class="justify-content-center">
+         <h2 class="text-center">{{users.identity}}  :</h2>
+         <h4 class="text-center">N° Siret  {{users.siret}}</h4><br>
 
          <table class="table">
-       <tbody>
-          <tr>
-           <th class="text-danger">Nom entreprise</th>
-            <td>{{users.identity }}</td>
-          </tr>
+           <tbody>
+            <tr>
+             <th class="text-danger">Nom entreprise</th>
+             <td>{{users.identity }}</td>
+           </tr>
 
 
-          <tr>
+           <tr>
             <th class="text-danger">Adresse</th>
             <td>{{users.adressPro}}</td>
           </tr>
 
           <tr>
-            <th class="text-danger">Code postale</th>
+            <th class="text-danger">Code postal</th>
             <td>{{users.zipcodePro}}</td>
           </tr>
 
           <tr>
             <th class="text-danger">Ville</th>
-             <td>{{users.cityPro}}</td>
+            <td>{{users.cityPro}}</td>
           </tr>
 
           <tr>
             <th class="text-danger">Numero de teléphone</th>
             <td>{{users.phonePro}}</td>
+          </tr>
+
+          <tr>
+            <th class="text-danger">N° Siret</th>
+            <td>{{users.siret}}</td>
+          </tr>
+
+          <tr>
+           <th class="text-danger">N° Siren</th>
+           <td>{{users.siren}}</td>
          </tr>
 
-          <tr>
-            <th class="text-danger">N° Siret </th>
-             <td>{{users.siret}}</td>
-          </tr>
+         <tr>
+           <th class="text-danger">NIC</th>
+           <td>{{users.nic}}</td>
+         </tr>
 
-          <tr>
-             <th class="text-danger">N° Siren</th>
-              <td>{{users.siren}}</td>
-          </tr>
+         <tr>
+          <th class="text-danger">Code APE</th>
+          <td>{{users.apeCode}}</td>
+        </tr>
 
-          <tr>
-             <th class="text-danger"> NIC </th>
-            <td>{{users.nic}}</td>
-          </tr>
+        <tr>
+         <th class="text-danger">Email</th>
+         <td>{{users.email}}</td>
+       </tr>
 
-          <tr>
-            <th class="text-danger">Code APE </th>
-              <td>{{users.apeCode}}</td>
-          </tr>
+       <tr>
+         <th class="text-danger">Validation manuelle</th>
+         <td>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" name="validate_ape" class="custom-control-input" id="switchAccept" {{ viewAccept }}>
+            <label class="custom-control-label" for="switchAccept"></label>
+          </div>
+        </td>
+      </tr>
 
-          <tr>
-             <th class="text-danger">Email</th>
-              <td>{{users.email}}</td>
-          </tr>
+      <tr>
+       <th class="text-danger">Date d'enregistrement</th>
+       <td>{{users.dateRegistration|date('d/m/Y') }}</td>
+     </tr>
+   </tbody>
+ </table>
 
-           <tr>
-             <th class="text-danger">Validation manuelle</th>
-              <td>
-              <div class="custom-control custom-switch">
-                <input type="checkbox" name="validate_ape" class="custom-control-input" id="switchAccept" {{ viewAccept }}>
-                <label class="custom-control-label" for="switchAccept"></label>
-              </div>
-            </td>
-          </tr>
-
-           <tr>
-               <th class="text-danger">Date d'enregistrement</th>
-                <td>{{users.dateRegistration|date('d/m/Y') }}</td>
-          </tr>
-          </tbody>
-        </table>
-
-          <a type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Confirmation</a>
-      </form>
-    </div>
-  </div>
+ <a type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Confirmation</a>
+</form>
+</div>
+</div>
 </div>
 <a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
 
@@ -119,24 +119,24 @@ h2{
 
 
 {% block javascripts %}
-<script>
-$('[name="validate_ape"]').change(function(e){
-  var statusCheckbox = $(this).is(':checked');
-  console.log('current status : ' + statusCheckbox);
+  <script>
+  $('[name="validate_ape"]').change(function(e){
+    var statusCheckbox = $(this).is(':checked');
+    console.log('current status : ' + statusCheckbox);
 
 
 
-  $.post('{{ path('validate_ape_entreprise') }}', {
-    new_status: statusCheckbox,
-    id_entreprise: '{{ users.id }}'
-  }, function(dataResult){
+    $.post('{{ path('validate_ape_entreprise') }}', {
+      new_status: statusCheckbox,
+      id_entreprise: '{{ users.id }}'
+    }, function(dataResult){
       // dataResult cocntiendra le resultat de mon script PHP (s'il en renvoi un)
       console.log(dataResult);
+    });
+
   });
 
-});
-
-</script>
+  </script>
 
 {% endblock %}
 

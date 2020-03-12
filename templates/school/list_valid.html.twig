@@ -70,9 +70,9 @@
               <tr class="filters text-white">
                 <th><input type="text" class="form-control" placeholder="Nom entreprise" disabled></th>
                 <th><input type="text" class="form-control" placeholder="N° Siret" disabled></th>
-                <th><input type="text" class="form-control" placeholder="Code postale" disabled></th>
+                <th><input type="text" class="form-control" placeholder="Code postal" disabled></th>
                 <th><input type="text" class="form-control" placeholder="Ville" disabled></th>
-                <th><input type="text" class="form-control" placeholder="Numero de teléphone" disabled></th>
+                <th><input type="text" class="form-control" placeholder="Téléphone" disabled></th>
                 <th><input type="text" class="form-control" placeholder="Email" disabled></th>
                 <th><input type="text" class="form-control" placeholder="Site web" disabled></th>
                 <th><input type="text" class="form-control" placeholder="Validé" disabled></th>
@@ -95,7 +95,7 @@
                     <a class="btn btn-info btn-sm" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">Voir entreprise</a>
                   </td>
                   <td>
-                    <a href="{{ path('delete_ent', {id: ent.id} ) }}"  class="btn btn-danger btn-sm">supprimer</a>
+                    <a href="{{ path('delete_ent', {id: ent.id} ) }}" class="btn btn-danger btn-sm">supprimer</a>
                   </td>
                 </tr>
               {% endfor %}

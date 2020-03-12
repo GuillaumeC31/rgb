@@ -295,7 +295,7 @@ class SchoolController extends AbstractController
                     if(!v::notEmpty()->email()->validate($post['email'])){
                         $errors[] = 'Votre email est invalide';
                     }
-                     if(!v::notEmpty()->length(8, null)->validate($post['password'])){
+                     if(!empty($post['password']) && !v::notEmpty()->length(8, null)->validate($post['password'])){
                         $errors[] = 'Votre mot de passe est erroné!';
                     }
                     if($post['password'] !== $post['passwordConfirm']){
@@ -333,7 +333,6 @@ class SchoolController extends AbstractController
                 $message.= '<br>A très bientôt sur RGB.';
                 $message.= '</p>';
 
-
                 $email = new Email();
                 $email->from('Papercut@papercut.com');
                 $email->to('alexanderfry@live.fr');
@@ -343,7 +342,6 @@ class SchoolController extends AbstractController
                 $email->html($message);
 
                 $sentEmail = $mailer->send($email);
-
 
           }
             else {
