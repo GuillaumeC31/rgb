@@ -7,11 +7,16 @@
 	<style>
 		body{
   background-color:#f2f2f2;
-
 }
 h1{
-color: #4285F4;
+font-size:4rem;
+background-color:#b54447;
+color:white;
 }
+h2{
+  font-size:3rem;
+}
+
 .table{
   background-color:#d9d9d9;
 }
@@ -19,74 +24,78 @@ color: #4285F4;
 {% endblock styles %}
 
 
-<h1 class="text-center my-5"><strong>Fiche utilisateur</strong></h1>
 
 
-<div class="container justify-content-center mt-5  p-3">
+<h1 class="text-center my-5">
+	Fiche utilisateur <a href="{{ path('list_valid') }}">
+		<img src="{{asset('assets/img/student.png')}}" class=" m-5" alt="icon bdd"></a>
+</h1>
+<br>
+
+
+
+<div class="container justify-content-center my-5 ">
   <div class="row">
-    <div class="col-8">
+    <div class="col justify-content-center">
 
      <form method="post" class="my-5 justify-content-center">
-      <h2>{{users.firstname}}</h2><br>
+      <h2 class="text-center">{{users.firstname}}  {{users.lastname}}</h2><br>
+
 
   <table class="table">
       <tbody>
           <tr>
-            <th>Prénom :</th>
+            <th class="text-danger">Prénom :</th>
             <td>{{users.firstname}} </td>
           </tr>
 
           <tr>
-            <th>Nom de famille :</th>
+            <th class="text-danger">Nom de famille :</th>
             <td>{{users.lastname}}</td>
           </tr>
 
           <tr>
-            <th>Adresse actuelle :</th>
+            <th class="text-danger">Adresse actuelle :</th>
             <td>{{users.address}}</td>
           </tr>
 
           <tr>
-            <th>Code postale :</th>
+            <th class="text-danger">Code postal :</th>
             <td>{{users.zipcode}}</td>
           </tr>
 
           <tr>
-            <th>Ville résidente:</th>
+            <th class="text-danger">Ville résidente:</th>
             <td>{{users.city}}</td>
          </tr>
 
           <tr>
-            <th>Numero de teléphone :</th>
+            <th class="text-danger">Numero de teléphone :</th>
             <td>{{users.phone}}</td>
           </tr>
 
           <tr>
-            <th>Adresse email :</th>
+            <th class="text-danger">Adresse email :</th>
             <td>{{users.email}}</td>
           </tr>
 
           <tr>
-            <th>Moyenne générale :</th>
-            <td>{{users.mark}}</td>
-          </tr>
-
-          <tr>
-            <th>Date de naissance :</th>
+            <th class="text-danger">Date de naissance :</th>
             <td>{{users.birthdate|date('d/m/Y ') }}</td>
           </tr>
 
           <tr>
-            <th>Date d'enregistrement :</th>
-            <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+            <th class="text-danger">Date d'enregistrement :</th>
+            <td>{{users.dateRegistration|date('d/m/Y') }}</td>
           </tr>
           </tbody>
         </table><br>
-              <a class="btn btn-outline-warning " href="{{ path('list_valid') }}" class="text-light">Retour</a>
+
               <a type="submit" class="btn btn-outline-success" href="{{ path('modif_student', {id: users.id}) }}" class="text-light">modifier</a>
       </form>
     </div>
   </div>
 </div>
+<a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}"  class="m-3 bg-warning p-2" alt="icon bdd"></a>
 
 {% endblock %}

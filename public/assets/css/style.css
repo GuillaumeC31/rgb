@@ -105,6 +105,14 @@ font-size: 1.8em;
     padding-top: 40px;
 }
 
+.rondCards{
+    height: 75px;
+    width: 75px;
+    background-color: #4285f4;
+    position: relative;
+    top:-100px;
+}
+
 .rondCardsblue{
     height: 75px;
     width: 75px;

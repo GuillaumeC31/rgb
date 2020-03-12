@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Section Entreprise{% endblock %}
-{% block javascripts %}
+  {% block javascripts %}
 
-  {% for message in app.flashes('modifEnt') %}
-    <script type="text/javascript">
-    Swal.fire({
-      icon: 'success',
-      html: '{{ message|raw }}',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-    });
-    </script>
-  {% endfor %}
+    {% for message in app.flashes('modifEnt') %}
+      <script type="text/javascript">
+      Swal.fire({
+        icon: 'success',
+        html: '{{ message|raw }}',
+        showClass: {
+          popup: 'animated fadeInDown faster'
+        },
+        hideClass: {
+          popup: 'animated fadeOutUp faster'
+        }
+      });
+      </script>
+    {% endfor %}
 
-{% endblock %}
+  {% endblock %}
 
   {% block body %}
 
@@ -32,12 +32,13 @@
       <hr>
 
       <div class="container-fluid mt-5 mx-1">
-        <div class="jumbotron jumbotronActivites">
-          <div class="d-flex justify-content-center">
-            <div class="rounded-circle rondCards"></div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-md-5">
+
+        <div class="row">
+          <div class="col-12 col-md-5">
+            <div class="jumbotron jumbotronActivites">
+              <div class="d-flex justify-content-center">
+                <div class="rounded-circle rondCardsgreen"></div>
+              </div>
               <h5 class="text-center mb-5">Informations personnelles
                 <button type="button" class="btn btn-info btn-sm rounded-circle" data-toggle="tooltip" data-placement="right" title="informations personnelles modifiable">?
                 </button>
@@ -85,7 +86,13 @@
               <hr>
               <a type="button" class="btn text-light btnChasse rounded-pill" href="{{ path('modifficheEnt', {id: app.user.id }) }}">Modifier</a>
             </div>
-            <div class="col-12 col-md-7">
+          </div>
+
+          <div class="col-12 col-md-7">
+            <div class="jumbotron jumbotronActivites">
+              <div class="d-flex justify-content-center">
+                <div class="rounded-circle rondCardsred"></div>
+              </div>
               <h5 class="text-center mb-5">Identité de votre entreprise
                 <button type="button" class="btn btn-info btn-sm rounded-circle" data-toggle="tooltip" data-placement="right" title="informations depuis api siren">?
                 </button>
@@ -138,4 +145,4 @@
     </section>
 
 
-{% endblock %}
+  {% endblock %}

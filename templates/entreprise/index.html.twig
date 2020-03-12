@@ -1,115 +1,104 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Section Entreprise{% endblock %}
-{% block stylesheets %}
+  {% block stylesheets %}
 
-<style type="text/css">
-
-
-</style>
-
-{% endblock %}
-
-{% block body %}
-  <section class="container">
-    {#h3 class="text-center">IMAGE RGB</h3>#}
-  </section>
+    <style type="text/css">
 
 
+    </style>
 
+  {% endblock %}
 
+  {% block body %}
+    <section class="container">
+      {#h3 class="text-center">IMAGE RGB</h3>#}
+    </section>
 
-<section class="container-fluid mt-4">
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Centre de formation</h4>
-      <hr class="mb-5">
-      <div class="jumbotron jumbotronActivites">
-        <div class="d-flex justify-content-center">
-          <div class="rounded-circle rondCardsblue"></div>
-        </div>
-      {% for listSchool in indexSchool %}
-        <div class="d-flex justify-content-center">
-          <div class="card mx-2 my-2" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title text-center">{{ listSchool.identity }}</h5>
-              <p class="card-text text-center">Centre de Formation</p>
-              <div class="text-center">{{ listSchool.apeName }}</div>
+    <section class="container-fluid mt-4">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Centre de formation</h4>
+          <hr class="mb-5">
+          <div class="jumbotron jumbotronActivites">
+            <div class="d-flex justify-content-center">
+              <div class="rounded-circle rondCardsblue"></div>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <div class="text-center">{{ listSchool.adressPro }}</div>
-                <div class="text-center">{{ listSchool.zipcodePro }}  {{ listSchool.cityPro }}</div>
-                <div class="text-center">{{ listSchool.departement }}</div>
-              </li>
-            </ul>
-            <div class="card-body">
-              <a type="button" class="btn btn-outline-info" href="{{ path('ficheSchool') }}" class="card-link">en savoir plus</a>
-            </div>
+            {% for listSchool in indexSchool %}
+              <div class="d-flex justify-content-center">
+                <div class="card mx-2 my-2" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title text-center">{{ listSchool.identity }}</h5>
+                    <p class="card-text text-center">Centre de Formation</p>
+                    <div class="text-center">{{ listSchool.apeName }}</div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <div class="text-center">{{ listSchool.adressPro }}</div>
+                      <div class="text-center">{{ listSchool.zipcodePro }}  {{ listSchool.cityPro }}</div>
+                      <div class="text-center">{{ listSchool.departement }}</div>
+                    </li>
+                  </ul>
+                  <div class="card-body">
+                    <a type="button" class="btn btn-outline-info" href="{{ path('ficheSchool') }}" class="card-link">en savoir plus</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
-      {% endfor %}
-    </div>
-    </div>
 
-
-    <div class="col-12 col-md-4">
-      <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Les Formations</h4>
-      <hr class="mb-5">
-      <div class="jumbotron jumbotronActivites">
-        <div class="d-flex justify-content-center">
-          <div class="rounded-circle rondCardsgreen"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="rounded-circle rondCards"></div>
-        </div>
-      {% for formation in indexFormation %}
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{ formation.name }} / <small>(Nbre) Elèves Inscrit</small></li>
-        </ul>
-      {% endfor %}
-    </div>
-    </div>
-
-
-    <div class="col-12 col-md-4">
-      <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Langages et outils</h4>
-      <hr class="mb-5">
-      <div class="jumbotron jumbotronActivites">
-        <div class="d-flex justify-content-center">
-          <div class="rounded-circle rondCardsred"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="rounded-circle rondCards"></div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-lg-6">
-            <h6>Languages</h6>
-            {% for lang in indexLangages %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Les Formations</h4>
+          <hr class="mb-5">
+          <div class="jumbotron jumbotronActivites">
+            <div class="d-flex justify-content-center">
+              <div class="rounded-circle rondCardsgreen"></div>
+            </div>
+            {% for formation in indexFormation %}
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{ lang.langage }}</li>
+                <li class="list-group-item">{{ formation.name }} {#/ <small>(Nbre) Elèves Inscrit</small>#}</li>
               </ul>
             {% endfor %}
           </div>
-          <div class="col-12 col-sm-12 col-lg-6">
-            <h6>Outils/Framework</h6>
-            {% for frame in indexFramework %}
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{ frame.name }}</li>
-              </ul>
-            {% endfor %}
+        </div>
+
+
+        <div class="col-12 col-md-12 col-lg-4">
+          <h4 class="btn text-light btnChasse rounded-pill d-flex justify-content-center">Langages et outils</h4>
+          <hr class="mb-5">
+          <div class="jumbotron jumbotronActivites">
+            <div class="d-flex justify-content-center">
+              <div class="rounded-circle rondCardsred"></div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6">
+                <h6>Languages</h6>
+                {% for lang in indexLangages %}
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ lang.langage }}</li>
+                  </ul>
+                {% endfor %}
+              </div>
+              <div class="col-12 col-sm-12 col-lg-6">
+                <h6>Outils/Framework</h6>
+                {% for frame in indexFramework %}
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ frame.name }}</li>
+                  </ul>
+                {% endfor %}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
 
 
-{% endblock %}
+  {% endblock %}
 
 
 
-{% block javascripts %}{% endblock %}
+  {% block javascripts %}{% endblock %}

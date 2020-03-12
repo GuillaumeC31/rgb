@@ -17,6 +17,9 @@ use App\Entity\EntStudAccept;
 use App\Entity\Uploads;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 use Symfony\Bridge\Doctrine\Form\Type;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType as ck;
@@ -77,7 +80,6 @@ class EntrepriseController extends AbstractController
 
         $photoEtu = $entityManager->getRepository(Uploads::class)->findAll($filePath);
 
-
         return $this->render('entreprise/ficheEtu.html.twig', [
             'studentList' => $studentList,
             'sectionList' => $sectionList,
@@ -89,7 +91,7 @@ class EntrepriseController extends AbstractController
     /**
      * @Route("/entreprise/ficheEtudiant/view/{id}", name="viewStu")
      */
-    public function viewStudent(int $id)
+    public function viewStudent($id, MailerInterface $mailer)
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -98,9 +100,30 @@ class EntrepriseController extends AbstractController
         $findOneBy = array('stud_id' => $id, 'ent_id' => $this->getUser()->getId());
         $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy($findOneBy);
 
-        if ($viewAccept->getAccept() == 'true') {
+
+
+
+        if (!empty($viewAccept) && $viewAccept->getAccept() == 'true') {
             $viewAccept = 'checked';
             $img = 'on';
+            /*
+            $message = '<p>Bonjour,,';
+            $message.= '<br> Une entreprise souhaite un contact avec vous.';
+            $message.= '<br> Entreprise :'.$this->getUser()->getId();
+            $message.= '<br> Entreprise :'.$this->getUser()->getId();
+            $message.= '<br>A très bientôt sur RGB.';
+            $message.= '</p>';
+
+            $email = new Email();
+            $email->from('admin-rgb@rgb.com');
+            $email->to('etudiant@email.fr');
+            $email->replyTo('entreprise@email.com');
+            $email->subject(' demande de contact de :'.date('d/m/Y H:i'));
+            $email->text('RGB vous souhaite la bienvenue');
+            $email->html($message);
+
+            $sentEmail = $mailer->send($email);
+            */
         } else {
             $viewAccept = '';
             $img = 'off';
@@ -110,7 +133,7 @@ class EntrepriseController extends AbstractController
 
         return $this->render('entreprise/view.html.twig', [
             'view_student'  => $viewStudent,
-            'viewAccept' => $viewAccept,
+            'viewAccept' => $viewAccept ?? null,
             'img' => $img,
         ]);
     }

@@ -196,7 +196,7 @@ class StudentController extends AbstractController
                 }
                 $userId = $userConnected->getUserId() ;
                 $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-               
+
 
                 $mail = '<p>Bonjour '. $this->getUser()->getFirstname();
                 $mail.= ', vous allez bien j\'espère.';
