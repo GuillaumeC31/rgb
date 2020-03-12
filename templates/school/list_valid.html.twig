@@ -9,31 +9,38 @@
 <style>
 body{
   background-color:#f2f2f2;
-
 }
 h1{
-color: #4285F4;
+font-size:4rem;
+background-color:#b54447;
 }
 .table{
-  background-color:#d9d9d9;
+background-color:  #d9d9d9;
+
 }
 </style>
 {% endblock styles %}
 
 
-<h1 class="text-center my-5"><strong>Registre d'utilisateurs</strong></h1>
+<h1 class="text-center text-light m-5"><strong>
+Registre d'utilisateurs<a href="{{ path('school_index') }}">
+<img src="{{asset('assets/img/bdd.png')}}" class="m-5" alt="icon bdd"></a>
+</strong>
+</h1>
+<br>
+
 
 
 
 <div class="container-fluid  my-5">
   <div class="row">
-    <h1 class"text-center">Registre entreprise</h1>
-      <div class="col justify-content-center">
+    <h2 class"text-center text-danger mb-5">Registre entreprise </h2>
+      <div class="col justify-content-center"><br><br>
 
     </div>
       <table id="array" class="table ">
         <thead>
-        <tr class="bg-dark text-light">
+        <tr class="text-danger text-center" >
           <th>Nom entreprise</th>
           <th>N° Siret </th>
           <th>Code postale</th>
@@ -44,7 +51,7 @@ color: #4285F4;
           <th>Validé</th>
         </tr>
     </thead>
-    <tbody id="body">
+    <tbody id="body" class="text-center ">
         {% for ent in entList %}
         <tr>
           <td>{{ent.identity}} </td>
@@ -57,9 +64,9 @@ color: #4285F4;
            <td>{{ent.connect}}</td>
           <td class="p-0">
             <form>
-              <a class="btn btn-info btn-sm" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">Voir
+              <a class="btn btn-info btn-sm mt-2" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">Voir
                 entreprise</a>
-              <a href="{{ path('delete_ent', {id: ent.id} ) }}"  class="btn btn-danger btn-sm">supprimer</button>
+              <a href="{{ path('delete_ent', {id: ent.id} ) }}"  class="btn btn-danger btn-sm mt-2">supprimer</button>
             </form></td>
           </tr>
         {% endfor %}
@@ -73,12 +80,12 @@ color: #4285F4;
 <br>
 <div class="container-fluid my-5">
   <div class="row">
-  <h1 class="text-center">Registre élèves</h1>
+  <h2 class="text-center mb-3">Registre élèves</h2>
    <div class="col justify-content-center">
 
   </div>
       <table class="table ">
-        <tr class="bg-dark text-light">
+        <tr class=" text-danger text-center">
           <th>Prénom</th>
           <th>Nom</th>
           <th>Adresse</th>
@@ -88,7 +95,7 @@ color: #4285F4;
           <th>Date de naissance</th>
         </tr>
         {% for stu in studentList %}
-        <tr>
+        <tr class="text-center">
           <td>{{stu.firstname}} </td>
           <td><i>{{stu.lastname}}</i></td>
           <td>{{stu.address}}</td>
@@ -107,5 +114,6 @@ color: #4285F4;
         </table>
       </div>
     </div>
-    <a class="btn btn-outline-warning m-5" href="{{ path('school_index') }}" class="text-info">Retour</a>
+<a href="{{ path('school_index') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
+
 {% endblock %}

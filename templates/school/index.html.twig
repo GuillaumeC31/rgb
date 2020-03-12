@@ -7,87 +7,143 @@
 
 {% block styles %}
 <style>
-header{
-background:#4285F4;
-color: white;
+
+h1{
+  font-size:4rem;
+  background-color:#b54447;
+  color:white;
+  
 }
-#block1{
+h2,p{
+color:#b54447;
 
 }
-#block2{
+#block1,#block2,#block3{
+background:#b54447;
 
 }
-#block3{
+#rond{
+background:#b54447;
 
 }
-
-.learn{
-  background: transparent;
-  color: black;
-  border: 5px solid white);
-  padding: 1.5rem;
-  width: 25rem;
-  transition: all 0.4s ease-in;
-  font-size: 1.8rem;
-  letter-spacing: 0.1rem;
-  font-weight: 600;
-}
-.learn:hover{
-background:#4285F4;
-color: white;
-}
-
 
 </style>
 {% endblock styles %}
 
-<header>
-    <h1 class="text-center my-5"><strong>Backoffice <i>RGB</strong></i></h1>
-    <h2>Row Guidelines Board</h2>
-</header>
+<section>
+<h1 class="text-center my-5">
+	<strong>Backoffice
+		<i>RGB</strong>
+		<a href="{{ path('home_index') }}">
+			<img src="{{asset('assets/img/index.png')}}" class=" m-5" alt="icon bdd"></a>
+	</h1>
+	<br>
+</section>
 
-<div id="block1" class="container">
-  <div class="row">
-    <div class="col">
-       <h2><strong>Liste complete des utilisateurs</strong></h2>
-        <a class="learn mt-5" href="{{ path('list_valid') }}">Base de donnée</a>
+
+<div class="row">
+  <div class="fondPrincipal col-sm-12 col-md-12 col-lg-6">
+    <img src="{{asset('assets/img/fondPrincipal.png')}}" class="img-fluid" alt="fond ecran principal">
+  </div>
+  <div class="containerSlogan container">
+    <p class="slogan">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+    </p>
+    <p class="text-muted">
+      totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+      explicabo.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <a id="rond" class="btn text-light btnChasse rounded-pill" href="{{ path('home_index') }}">Retour au site
+    principal</a>
+  <img src="{{asset('assets/img/index.png')}}" class="mt-1" alt="icon bdd">
+</div>
+
+<div class="row text-center">
+  <div class="col-sm-12 col-md-12 col-12">
+    <h4 class="queFaisonsNous text-center">Que faisons nous ?</h4>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <p class="text-muted w-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente
+        nam, id vero
+      </p>
     </div>
   </div>
 </div>
-<br>
-<br>
-<aside>
-<div id="block2" class="container">
-  <div class="row">
-    <div class="col-6">
-       <h2><strong> Inscription élèves</strong></h2>
-        <a href="{{ path('add_student') }}" class="learn mt-5">Inscription étudiant</a>
-    </div>
-       <h2><strong> Inscription Entreprise</strong></h2>
-        <a href="{{ path('add_ent') }}" class="learn mt-5">Inscription entreprise</a>
-    <div class="col-6">
-    </div>
-  </div>
-</div>
-</aside>
-<br>
-<br>
-<div id="block3" class="container">
-  <div class="row">
-    <div class="col">
-     <h2 ><strong> Boite de reception </strong></h2>
-        <a href="{{ path('list_message') }}" class="learn mt-5">boite de réception</a>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-4">
+    <div class="container">
+      <a href="{{ path('list_valid') }}">
+        <div id="bock1" class="jumbotron jumbotronActivites text-center">
+          <div class="d-flex justify-content-center">
+            <div id="rond" class="rounded-circle rondCards"></div>
+          </div>
+          <img src="{{asset('assets/img/bdd.png')}}" class="mb-5" alt="icon eleve">
+          <h2>
+            <strong>
+              Accedez au registre d'utlisateurs</strong>
+          </h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, tempora.</p>
+        </div>
+      </a>
     </div>
   </div>
+
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-4">
+      <div class="container">
+        <a href="{{ path('add_student') }}">
+          <div id="bock1" class="jumbotron jumbotronActivites text-center">
+            <div class="d-flex justify-content-center">
+              <div id="rond" class="rounded-circle rondCards"></div>
+            </div>
+            <img src="{{asset('assets/img/student.png')}}" class="mb-5" alt="icon eleve">
+            <h2><strong> Inscription élèves</strong></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, tempora.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12 col-md-12 col-lg-4">
+      <div class="container">
+        <a href="{{ path('add_ent') }}">
+          <div id="bock2" class="jumbotron jumbotronActivites text-center">
+            <div class="d-flex justify-content-center">
+              <div id="rond" class="rounded-circle rondCards"></div>
+            </div>
+            <img src="{{asset('assets/img/ent.png')}}" class="mb-5" alt="icon entreprise">
+            <h2><strong> Inscription Entreprise </strong></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, tempora.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12 col-md-12 col-lg-4">
+      <div class="container">
+        <a href="{{ path('list_message') }}">
+          <div id="bock3" class="jumbotron jumbotronActivites text-center">
+            <div class="d-flex justify-content-right">
+              <div id="rond" class="rounded-circle rondCards"></div>
+            </div>
+            <img src="{{asset('assets/img/message.png')}}" class="mb-5" alt="icon message">
+            <h2><strong>Boite de reception</strong></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, tempora.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
-<br>
-<br>
-
-
-
-
-
-
 
 
 {% endblock %}

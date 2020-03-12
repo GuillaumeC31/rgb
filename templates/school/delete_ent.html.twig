@@ -101,7 +101,6 @@ color: #4285F4;
 					<p class="text-center h4">Supprimer cet utilisateur ?</p>
 					<div class="d-flex">
 						<div class="mx-auto my-5">
-							<a href="{{ path('list_valid') }}" class="btn btn-outline-warning">Retour</a>
 							<input type="hidden" name="delete" value="yes">
 							<button type="submit" class="btn btn-outline-danger">Supprimer</button>
 						</div>
@@ -111,4 +110,6 @@ color: #4285F4;
 		</div>
 	</div>
 </div>
+<a class="text-info"><img src="{{asset('assets/img/back.png')}}" href="{{ path('list_valid') }}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
+
 {% endblock %}

@@ -7,10 +7,14 @@
 	<style>
 		body {
 	 background-color:#f2f2f2;
-
 }
 h1{
-color: #4285F4;
+font-size:4rem;
+background-color:#b54447;
+color:white;
+}
+h2{
+  font-size:3rem;
 }
 .table{
   background-color:#d9d9d9;
@@ -19,7 +23,14 @@ color: #4285F4;
 {% endblock styles %}
 
 
-<h1 class="text-center my-5">Modifier Elève</h1>
+
+
+<h1 class="text-center my-5">
+  Modifier Elève<a href="{{ path('list_valid') }}">
+    <img src="{{asset('assets/img/student.png')}}" class=" m-5" alt="icon bdd"></a>
+</h1>
+<br>
+
 
 {% if formValid is not null and formValid == true %}
 	<div class="alert alert-success text-center">
@@ -37,19 +48,19 @@ color: #4285F4;
 
 <div class="container justify-content-center my-5">
   <div class="row">
-    <div class="col-8">
+    <div class="col">
 
 
         <form method="post">
            <div class="form mb-3  ">
-          <label for="address" class="col-form-label">Adresse</label>
+          <label for="address" class="text-danger col-form-label">Adresse</label>
           <div for="address" >
              <input type="text" name="address" id="address" class="form-control" value="{{ user.address }}" >
           </div>
         </div>
 
          <div class="form  mb-3">
-          <label for="zipcode" class="form-label">Code postale</label>
+          <label for="zipcode" class="text-danger form-label">Code postale</label>
           <div for="zipcode" >
             <input type="text" name="zipcode" id="zipcode" class="form-control" value="{{ user.zipcode }}" >
 
@@ -57,7 +68,7 @@ color: #4285F4;
         </div>
 
          <div class="form  mb-3">
-          <label for="city" class="form-label">Ville</label>
+          <label for="city" class="text-danger form-label">Ville</label>
           <div for="city" >
             <input type="text" name="city" id="city" class="form-control" placeholder="{{ user.city }}">
           </div>
@@ -65,39 +76,41 @@ color: #4285F4;
 
 
          <div class="form mb-3  ">
-          <label for="email" class="col-form-label">Email</label>
+          <label for="email" class="text-danger col-form-label">Email</label>
           <div for="email">
             <input type="text" name="email" id="email" class="form-control" value="{{ user.email }}">
           </div>
         </div>
 
          <div class="form  mb-3">
-          <label for="phone" class="form-label">Téléphone</label>
+          <label for="phone" class="text-danger form-label">Téléphone</label>
           <div for="phone" >
             <input type="text" name="phone" id="phone" class="form-control" value="{{ user.phone }}">
           </div>
         </div>
 
          <div class="form mb-3  ">
-          <label for="web" class="col-form-label">Web site</label>
+          <label for="web" class="text-danger col-form-label">Web site</label>
           <div for="web">
             <input type="text" name="web" id="web" class="form-control" value="{{ user.web }}">
           </div>
         </div>
 
         <div class="form mb-3  ">
-          <label for="github" class="col-form-label">Github</label>
+          <label for="github" class="text-danger col-form-label">Github</label>
           <div for="github">
             <input type="text" name="github" id="github" class="form-control" value="{{ user.github }}">
           </div>
         </div>
-        <a type="button" class="btn btn-outline-warning" href="{{ path('list_valid') }}">Retour</a>
+       
+       
         <button type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Valider</button>
 
        </form>
     </div>
   </div>
 </div>
+<a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}" href="{{ path('school_index') }}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
 
 
 

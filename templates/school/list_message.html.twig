@@ -8,10 +8,14 @@
 	<style>
 	body {
 	 background-color:#f2f2f2;
-
 }
 h1{
-color: #4285F4;
+font-size:4rem;
+background-color:#b54447;
+color:white;
+}
+h2{
+  font-size:3rem;
 }
 .table{
   background-color:#d9d9d9;
@@ -21,7 +25,13 @@ color: #4285F4;
 
 
 
-<h1 class="text-center my-5"><strong>Liste des messages</strong></h1>
+
+
+<h1 class="text-center my-5">
+	Liste des messages<a href="{{ path('school_index') }}">
+		<img src="{{asset('assets/img/message.png')}}" class=" m-5" alt="icon bdd"></a>
+</h1>
+<br>
 
 
 <div class="container-fluid  my-5">
@@ -30,11 +40,11 @@ color: #4285F4;
 
 
       <table class="table ">
-        <tr class="bg-dark text-light">
-          <th>Nom de l'utlisateur</th>
-          <th>Email</th>
-          <th>Titre </th>
-          <th>Message</th>
+        <tr>
+          <th class="text-danger">Nom de l'utlisateur</th>
+          <th class="text-danger">Email</th>
+          <th class="text-danger">Titre </th>
+          <th class="text-danger">Message</th>
 
         </tr>
 
@@ -56,5 +66,6 @@ color: #4285F4;
       </div>
     </div>
   </div>
-  <a class="btn btn-outline-warning m-5" href="{{ path('school_index') }}" class="text-info">Retour</a>
+ 
+  <a href="{{ path('school_index') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
 {% endblock %}
