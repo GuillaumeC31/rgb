@@ -100,7 +100,7 @@ class EntrepriseController extends AbstractController
         $findOneBy = array('stud_id' => $id, 'ent_id' => $this->getUser()->getId());
         $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy($findOneBy);
 
-        $viewEnt = $entityManager->getRepository(Users::class)->findAllByRole('ROLE_ENTREPRISE');
+
 
 
         if (!empty($viewAccept) && $viewAccept->getAccept() == 'true') {
