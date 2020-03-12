@@ -60,7 +60,7 @@ h2{
           </tr>
 
           <tr>
-            <th class="text-danger">Code postale :</th>
+            <th class="text-danger">Code postal :</th>
             <td>{{users.zipcode}}</td>
           </tr>
 
@@ -80,18 +80,13 @@ h2{
           </tr>
 
           <tr>
-            <th class="text-danger">Moyenne générale :</th>
-            <td>{{users.mark}}</td>
-          </tr>
-
-          <tr>
             <th class="text-danger">Date de naissance :</th>
             <td>{{users.birthdate|date('d/m/Y ') }}</td>
           </tr>
 
           <tr>
             <th class="text-danger">Date d'enregistrement :</th>
-            <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+            <td>{{users.dateRegistration|date('d/m/Y') }}</td>
           </tr>
           </tbody>
         </table><br>

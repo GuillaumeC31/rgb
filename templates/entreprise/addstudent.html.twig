@@ -30,17 +30,17 @@
       <form method="post" class="m-5 justify-content-center">
 
         <div class="form-row mb-3">
-          <label for="firstname" class="col-form-label col-4">Prénom</label>
+          <label for="firstname" class="col-form-label col-4">Prénom *</label>
           <div class="col-8">
-            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom">
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom" required>
           </div>
         </div>
         <hr>
 
         <div class="form-row mb-3  ">
-          <label for="lastname" class="col-form-label col-4">Nom</label>
+          <label for="lastname" class="col-form-label col-4">Nom *</label>
           <div class="col-8">
-            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom">
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom" required>
           </div>
         </div>
         <hr>
@@ -68,7 +68,7 @@
         <div class="form-row  mb-3">
           <label for="email" class="col-form-label col-4">Email</label>
           <div  class="col-8">
-            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email *" required>
           </div>
         </div>
         <hr>
@@ -76,7 +76,7 @@
         <div class="form-row  mb-3">
           <label for="birthdate" class="col-form-label col-4">Date de Naissance</label>
           <div  class="col-8">
-            <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Email">
+            <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Date de naissance" required>
           </div>
         </div>
         <hr>
@@ -160,14 +160,14 @@
         <hr>
 
         <div class="form-row  mb-3">
-         <label class="col-form-label col-4" for="Password">Password</label>
-         <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe ">
+         <label class="col-form-label col-4" for="Password">Password *</label>
+         <input type="password" name="password" id="Password" class="form-control" placeholder="Votre mot de passe" required>
        </div>
        <hr>
 
        <div class="form-row  mb-3">
-         <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password</label>
-         <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe ">
+         <label class="col-form-label col-4" for="passwordConfirm">Confirmation Password *</label>
+         <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" placeholder="Veuillez confirmer votre mot de passe " required>
        </div>
        <hr>
 

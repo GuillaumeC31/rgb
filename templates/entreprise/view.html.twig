@@ -32,13 +32,18 @@
       <div class="container mt-5">
 
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-6 border">
-            <h5 class="text-center">Informations personnelles</h5>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="jumbotron jumbotronActivites">
+            <div class="d-flex justify-content-center">
+              <div class="rounded-circle rondCardsgreen"></div>
+            </div>
+            <h4 class="text-center mb-4 mt-0">INFORMATIONS PERSONNELLES</h4>
+
             <table class="table">
               <tbody>
                 <tr>
-                  <td class="">Profil : </td>
-                  <td><img src=""></td>
+                  {#<td class="">Profil : </td>
+                  <td><img src=""></td>#}
                 </tr>
                 <tr>
                   <td class="">Nom : </td>
@@ -78,8 +83,15 @@
               </tbody>
             </table>
           </div>
-          <div class="col-12 col-md-6 col-lg-6 border">
-            <h5 class="text-center">formation</h5>
+          </div>
+
+
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="jumbotron jumbotronActivites">
+            <div class="d-flex justify-content-center">
+              <div class="rounded-circle rondCardsred"></div>
+            </div>
+            <h4 class="text-center mb-4 mt-0">FORMATIONS</h4>
             <table class="table">
               <tbody>
                 <tr>
@@ -92,10 +104,13 @@
                 </tr>
                 <tr>
                   <td>Langages connus : </td>
-                  <td></td>
+                  <td>{{ view_student.langages }}</td>
                 </tr>
                 <tr>
                   <td>Framework connus :</td>
+                  <td>{{ view_student.framework }}</td>
+                </tr>
+                <tr>
                   <td></td>
                 </tr>
                 <tr>
@@ -110,7 +125,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Envoyer message</td>
+                 {#<td>Envoyer message</td>
                   <td>
                     <form method="post" id="messageStudent">
                       <div class="form-group">
@@ -118,7 +133,7 @@
                       </div>
                       <button type="submit" class="btn btn-sm btn-outline-info mb-2">Envoyer le message</button>
                     </form>
-                  </td>
+                  </td>#}
                 </tr>
               </tbody>
             </table>
