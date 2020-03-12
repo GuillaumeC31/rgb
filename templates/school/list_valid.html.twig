@@ -15,6 +15,7 @@
       h1{
         font-size:4rem;
         background-color:#b54447;
+        color:white;
       }
 
       .table{
@@ -52,8 +53,11 @@
       </style>
     {% endblock styles %}
 
-
-    <h1 class="text-center my-5"><strong>Registre d'utilisateurs</strong></h1>
+    <h1 class="text-center my-5">
+      <strong>Registre d'utilisateurs</strong><a href="{{ path('list_valid') }}">
+        <img src="{{asset('assets/img/ent.png')}}" class=" m-5" alt="icon bdd"></a>
+    </h1>
+    <br>
 
     <div class="container-fluid  my-5">
       <div class="row">
@@ -92,7 +96,7 @@
                   <td>{{ent.email}}</td>
                   <td>{{ent.connect}}</td>
                   <td>
-                    <a class="btn btn-info btn-sm" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">Voir entreprise</a>
+                    <a class="btn btn-info btn-sm" href="{{ path('view_ent', {id: ent.id}) }}" class="text-info">entreprise</a>
                   </td>
                   <td>
                     <a href="{{ path('delete_ent', {id: ent.id} ) }}"  class="btn btn-danger btn-sm">supprimer</a>
@@ -144,7 +148,7 @@
                 <td>{{stu.formation }}</td>
                 <td></td>
                 <td>
-                  <a class="btn btn-info btn-sm " href="{{ path('view_student', {id: stu.id}) }}" class="text-info">Voir élève</a>
+                  <a class="btn btn-info btn-sm " href="{{ path('view_student', {id: stu.id}) }}" class="text-info">étudiant</a>
                 </td>
                 <td>
                   <a type="submit"  class="btn btn-danger btn-sm" href="{{ path('delete_student', {id: stu.id} ) }}">supprimer</a>
@@ -156,7 +160,7 @@
       </div>
     </div>
   </div>
-  <a class="btn btn-outline-warning m-5" href="{{ path('school_index') }}" class="text-info">Retour</a>
+ <a href="{{ path('school_index') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}"  class="m-3 bg-warning p-2" alt="icon bdd"></a>
 
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
   <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>

@@ -48,7 +48,7 @@ h2{
 
 <div class="container justify-content-center my-5">
   <div class="row">
-    <div class="col">
+    <div class="col-8 justify-content-center">
 
 
         <form method="post">
@@ -102,15 +102,15 @@ h2{
             <input type="text" name="github" id="github" class="form-control" value="{{ user.github }}">
           </div>
         </div>
-       
-       
+
+
         <button type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Valider</button>
 
        </form>
     </div>
   </div>
 </div>
-<a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}" href="{{ path('school_index') }}" class="m-5 bg-warning p-4" alt="icon bdd"></a>
+<a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}"  class="m-3 bg-warning p-2" alt="icon bdd"></a>
 
 
 
