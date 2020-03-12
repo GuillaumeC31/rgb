@@ -91,22 +91,30 @@ class SchoolController extends AbstractController
             $post = array_map('trim', array_map('strip_tags', $_POST));
 
 
-            if(!v::notEmpty()->length(2,null)->validate($post['address'])){
+            if(!empty($post['address']) && !v::notEmpty()->length(2,null)->validate($post['address'])){
                 $errors[] = 'Adresse invalide';
             }
-            if(!v::notEmpty()->length(2,null)->validate($post['zipcode'])){
+            if(!empty($post['zipcode']) && !v::notEmpty()->length(2,null)->validate($post['zipcode'])){
                 $errors[] = 'le code postal est invalide';
             }
-            if(!v::notEmpty()->length(2,null)->validate($post['city'])){
+            if(!empty($post['city']) && !v::notEmpty()->length(2,null)->validate($post['city'])){
                 $errors[] = 'la ville est invalide';
             }
 
-            if(!v::notEmpty()->phone()->validate($post['phone'])){
+            if(!empty($post['phone']) && !v::notEmpty()->phone()->validate($post['phone'])){
                 $errors[] = 'Le téléphone est invalide';
             }
 
-            if(!v::notEmpty()->email()->validate($post['email'])){
+            if(!empty($post['email']) && !v::notEmpty()->email()->validate($post['email'])){
                 $errors[] = 'Votre email est invalide';
+            }
+
+            if(!empty($post['web']) && !v::length(0,null)->validate($post['web'])){
+                $errors[] = 'Votre site web n\'est invalide';
+            }
+
+            if(!empty($post['github']) && !v::length(0,null)->validate($post['github'])){
+                $errors[] = 'Votre github n\'est invalide';
             }
 
             if(count($errors) === 0){
@@ -129,7 +137,7 @@ class SchoolController extends AbstractController
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('school/list_valid.html.twig');
+                //return $this->redirectToRoute('school/list_valid.html.twig');
              }
             else {
                 $formValid = false;

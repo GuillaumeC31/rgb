@@ -77,7 +77,6 @@ class EntrepriseController extends AbstractController
 
         $photoEtu = $entityManager->getRepository(Uploads::class)->findAll($filePath);
 
-
         return $this->render('entreprise/ficheEtu.html.twig', [
             'studentList' => $studentList,
             'sectionList' => $sectionList,
@@ -98,7 +97,7 @@ class EntrepriseController extends AbstractController
         $findOneBy = array('stud_id' => $id, 'ent_id' => $this->getUser()->getId());
         $viewAccept = $entityManager->getRepository(EntStudAccept::class)->findOneBy($findOneBy);
 
-        if ($viewAccept->getAccept() == 'true') {
+        if (!empty($viewAccept) && $viewAccept->getAccept() == 'true') {
             $viewAccept = 'checked';
             $img = 'on';
         } else {
@@ -110,7 +109,7 @@ class EntrepriseController extends AbstractController
 
         return $this->render('entreprise/view.html.twig', [
             'view_student'  => $viewStudent,
-            'viewAccept' => $viewAccept,
+            'viewAccept' => $viewAccept ?? null,
             'img' => $img,
         ]);
     }

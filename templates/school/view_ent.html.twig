@@ -32,10 +32,11 @@ h2{
 <div class="container  justify-content-center my-5">
   <div class="row">
     <div class="col justify-content-center">
-    
+
 
          <form method="post" class="justify-content-center">
-           <h2 class="text-center">{{users.identity}}  :  N° Siret{{users.siret}}</h2><br>
+           <h2 class="text-center">{{users.identity}}  :</h2>
+           <h4 class="text-center">N° Siret  {{users.siret}}</h4><br>
 
          <table class="table">
        <tbody>
@@ -102,12 +103,12 @@ h2{
 
            <tr>
                <th class="text-danger">Date d'enregistrement</th>
-                <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+                <td>{{users.dateRegistration|date('d/m/Y') }}</td>
           </tr>
           </tbody>
         </table>
-         
-          <a type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Comfirmer</a>
+
+          <a type="submit" class="btn btn-outline-success" href="{{ path('list_valid') }}">Confirmation</a>
       </form>
     </div>
   </div>

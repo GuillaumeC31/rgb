@@ -80,22 +80,17 @@ h2{
           </tr>
 
           <tr>
-            <th class="text-danger">Moyenne générale :</th>
-            <td>{{users.mark}}</td>
-          </tr>
-
-          <tr>
             <th class="text-danger">Date de naissance :</th>
             <td>{{users.birthdate|date('d/m/Y ') }}</td>
           </tr>
 
           <tr>
             <th class="text-danger">Date d'enregistrement :</th>
-            <td>{{users.dateRegistration|date('d/m/Y  H:i') }}</td>
+            <td>{{users.dateRegistration|date('d/m/Y') }}</td>
           </tr>
           </tbody>
         </table><br>
-              
+
               <a type="submit" class="btn btn-outline-success" href="{{ path('modif_student', {id: users.id}) }}" class="text-light">modifier</a>
       </form>
     </div>
