@@ -28,24 +28,31 @@
                     <textarea type="text" class="form-control border-0" placeholder="Entrez votre message..."
                         name="content" id="content" rows="5"></textarea>
                 </div>
-                <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-around mb-3">
                     <button name="submit" type="submit"
                         class="btn btnMailEnvoyer text-light rounded-pill">Envoyer</button>
-                    <a class="mailboxFlip rounded-pill btn text-dark btnReception" name="mailboxFlip"
-                        id="mailboxFlip">Boîte de réception</a>
+                    <a href="#" class="mailboxFlip rounded-pill btn text-dark btnReception "
+                        id="mailboxFlip">Afficher/masquer les envois</a>
                 </div>
 
 
 
-                <div class="d-flex align-content-center flex-column mt-3" id="mailboxToggle">
-                    {% for message in reception %}
-                    <h2 class="text-center"> {{message.title}}</h2>
-                    <ul class="list-group text-center">
-                        <li>
-                            <p class="text-center text-lead">{{message.content}}</p>
-                        </li>
-                    </ul>
-                    {% endfor %}
+                <div id="mailboxToggle">
+                    <div class="d-flex align-content-center flex-column mt-3" >
+                    {% if reception is defined %}
+                        {% for message in reception %}
+                        {% if message.user_id == app.user.id %}
+                        <small class="text-center"><strong>Envoyé à l'administration</strong></small>
+                        <h2 class="text-center"> {{message.title}}</h2>
+                        <ul class="list-group text-center">
+                            <li>
+                                <p class="text-center text-lead">{{message.content}}</p>
+                            </li>
+                        </ul>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
             </form>
 
@@ -58,28 +65,21 @@
             </div>
 
         </div>
-
-        <div class="d-flex justify-content-center">
-            <button class="btn btnProposerEntreprise rounded-pill mb-5">Proposer une entreprise</button>
-        </div>
     </div>
 
     <div class="col-sm-12 col-lg-8 col-md-12 mb-5">
         <div class="d-flex justify-content-center flex-column align-items-center">
             <div class="profilImage">
-            {% if filePath is not empty %}
-                <img src="{{asset('assets/uploads/' ~ filePath)}}" alt="" id="profilImage" srcset="">
-            {% else %}
-                <img src="{{asset('assets/img/man.jpg')}}" alt="" id="profilImage" srcset="">
-            {% endif %}
+
+        
+            
             </div>
 
             <div class="sandbox">
 
 
-                <div class="d-flex justify-items-center flex-column">
-                    <h1 class="display-3 d-flex justify-content-center">Vos fichiers</h1>
-
+                <div class="row">
+                
                     {% embed "filemanager.html.twig" %}
 
                     {% endembed %}
@@ -110,7 +110,7 @@
 <script src="{{asset('assets/js/justFlipIt.min.js')}}"></script>
 
     <!-- Fin Joobble API recherche -->
-    <script type="text/javascript" src="{{asset('assets/js/SearchBox.js')}}" language="javascript"></script>
+    <script type="text/javascript" src="https://fr.jooble.org/SearchBox" language="javascript"></script>
 
 
     <script>
@@ -142,11 +142,14 @@
 
                         let contenuArticles = document.createElement('p');    //On créer une nouvelle balise <li>
                         contenuArticles.className = "text-lead content";
-
                         contenuArticles.innerHTML = article.content;    //On lui rajoute du texte
-
                         let listeContenuArticles = document.querySelector('#actuality');    //On sélectionne une liste
                         listeContenuArticles.appendChild(contenuArticles);    //On lui ajoute la balise
+                     
+                        let hRArticles = document.createElement('hr');    //On créer une nouvelle balise <li>
+                        hRArticles.className = "shadow-lg";
+                        let listeHrArticles = document.querySelector('#actuality');    //On sélectionne une liste
+                        listeHrArticles.appendChild(hRArticles);    //On lui ajoute la balise
 
 
 
@@ -163,7 +166,6 @@
                 document.querySelector("#fleche").style.transform = 'rotateZ(' + json.wind.deg + 'deg)';*/
 
     $(document).ready(function(){
-
 
      $('#mailboxFlip').on("click", function(event){
             event.preventDefault();

@@ -8,16 +8,18 @@
 
             {% if uploads is defined %}
             {% for upload in uploads %}
+            {% if upload.title != 'profil_picture' %}
             <div class="card col-sm-12 col-md-6 col-6 p-3">
-                <iframe src="{{asset('assets/uploads/' ~ upload.filePath)}}"></iframe>
+                <iframe src="{{asset('assets/uploads/' ~ upload.file_path)}}"></iframe>
 
 
                 <div class="card-body text-center">
                     <h5 class="card-title">{{upload.title}}</h5>
-                    <p class="card-text">Mon super fichier !</p>
-                    <a href="#" class="btn btn-primary">Télécharger</a>
+                    <p class="card-text">Fichier n°<small>{{upload.id}} </small></p>
+                    <a href="{{asset('assets/uploads/' ~ upload.file_path)}}" class="btn btn-primary " download>Télécharger</a>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
             {% endif %}
 

@@ -120,50 +120,47 @@ class StudentController extends AbstractController
                             $chars_search = [' ', 'é', 'è', 'à', 'ù'];
                             $chars_replace= ['-', 'e', 'e', 'a', 'u'];
 
-                            $finalFileName = str_replace($chars_search, $chars_replace, time().'-'.$_FILES['upload_image']['name']);
-                            $finalFileName.= tr::transliterate($finalFileName);
+                            $finalFileName = tr::transliterate(time().'-'.$_FILES['upload_image']['name']);
 
                             if(!is_dir($uploadDir)){
                                 if(!mkdir($uploadDir, 0777)){
                                     $errors[] = 'Un problème est survenu lors de la création du répértoire d\'upload';
                                 }
                             }
-
-
                             $destination = $rootFolder.$uploadDir.$finalFileName;
-
                             move_uploaded_file($_FILES['upload_image']['tmp_name'], $destination);
-
                         }
                         else {
                             $errors[] = 'Votre fichier est trop lourd (10Mo maxi)';
                         }
-
                     }
                     else {
                         $errors[] = 'Ce type de fichier n\'est pas autorisé';
                     }
 
-
                     if (count($errors) == 0) {
+                      
                         $formValid = true;
                         $entityManager = $this->getDoctrine()->getManager();
                         $upload = new Uploads();
-                        $user = new Users();
-                        $userTable = $entityManager->getRepository(Users::class)->findAll();
-                        foreach ($userTable as $userTTAABLE) {
-                                $userId = $userTTAABLE->getId($id);
-                        }
-                        $upload->setUserId($userId);
+                        // $user = new Users();
+                        // $userTable = $entityManager->getRepository(Users::class)->findAll();
+                        // foreach ($userTable as $userTTAABLE) {
+                        //         $userId = $userTTAABLE->getId($id);
+                        // }
+                        $upload->setUserId($id);
                         $upload->setTitle($post['title_upload']);
                         $upload->setFilePath($finalFileName);
                         $upload->setCreatedAt(new \DateTime('now'));
-
                         $entityManager->persist($upload);
 
                         $entityManager->flush();
 
-                        return $this->redirectToRoute('student_home_home');
+                        $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]); 
+
+                        return $this->render('student/index.html.twig', [
+                            'nomPhotoDeProfil ' => $profilPicture->getFilePath() ?? null,
+                        ]);
 
 
                     }//Fermeture COUNT ERROR
@@ -210,23 +207,27 @@ class StudentController extends AbstractController
 
 
                 $email = (new Email())
-                    ->from('hello@rgb.fr')
-                    ->to('you@example.fr')
-                    ->subject('Votre email à été envoyé à l\'administration !' )
-                    ->text(strip_tags($mail))
-                    ->html($mail);
+                ->from('hello@rgb.fr')
+                ->to('you@example.fr')
+                ->subject('Votre email à été envoyé à l\'administration !' )
+                ->text(strip_tags($mail))
+                ->html($mail);
 
                 $sentEmail = $mailer->send($email);
-                $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
+                $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers($this->getUser()->getUserId());
                 $reception = $messages;
                 $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-
+              
+                $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]); 
+                
                 return $this->render('student/index.html.twig', [
                     //'errors' => $messages ?? null,
                     'id' => $id,
                     'uploads' => $uploads,
                     'reception' => $reception,
                     'filePath' => $filePath ?? '',
+                    'reception' => $messages ?? null,
+                    'nomPhotoDeProfil ' => $profilPicture->getFilePath() ?? '',
                 ]);
             }
         }//Fermeture not empty POST
@@ -235,11 +236,20 @@ class StudentController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $uploads = $entityManager->getRepository(Uploads::class)->findAll();
 
-        $userId = $this->getUser()->getId() ;
-        $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-        $filePath = $uploadUser->getFilePath();
-        $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers();
+        $userId = $this->getUser()->getId();
+        $uploadUsers = $entityManager->getRepository(Uploads::class)->findUpload($this->getUser()->getId());
+        $uploads = $uploadUsers;
+        
 
+        //$filePath = $uploads->getUser();
+        $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers($this->getUser()->getUserId());
+
+        // Récupération de la photo de profil de l'user
+        $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]);
+
+        foreach($uploadUsers as $uploadUser1){
+            $titles = $uploadUser1['title'];
+        }
 
 
         $reception = $messages;
@@ -249,9 +259,10 @@ class StudentController extends AbstractController
             'uploads' => $uploads ?? null ,
             'id' => $id ?? null,
             'userId' => $userId,
-            'uploadUser' => $uploadUser,
-            'filePath' => $filePath ?? '',
-            'reception' => $messages
+            //'filePath' => $filePath ?? '',
+            'reception' => $messages,
+            'nomPhotoDeProfil' => $profilPicture->getFilePath() ?? '',
+            'titles' => $titles,
         ]);
 
 
@@ -326,7 +337,7 @@ class StudentController extends AbstractController
                     $userTable = $entityManager->getRepository(Users::class)->findAll();
 
                     $upload->setUserId($this->getUser()->getId());
-                    $upload->setTitle('Photo de profil de '. $this->getUser()->getfirstname() );
+                    $upload->setTitle('profil_picture');
                     $upload->setFilePath($finalFileName);
                     $upload->setCreatedAt(new \DateTime('now'));
 

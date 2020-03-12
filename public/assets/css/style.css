@@ -157,6 +157,8 @@ font-size: 1.8em;
     }
   }
 
+
+
 h2 {
     font-size:1.5em;
   }
@@ -203,6 +205,8 @@ h2 {
 .jsb_holder{
     border:none !important;
     padding: 4px;
+    border-radius: 15px;
+    padding: 10px;
 }
 .jsb_btn{
     margin-top:22px;
@@ -245,7 +249,7 @@ iframe{
 }
 .actuality{
     margin-top: 7px !important;
-    max-height: 925px;
+    max-height: 877px;
     width: 718px;
     overflow: scroll;
     overflow-x: hidden;
@@ -254,13 +258,19 @@ iframe{
     scrollbar-color: #4285f4;
     scrollbar-width: thin;
 }
+.actuality h2{
+    font-size: 1.5em;
+}
 .custom-file-label{
     font-size: 0.9em;
 }
 .form-bg{
-    margin-top: 10px;
+    margin-top: 41px;
 }
 .btnProposerEntreprise{
     background-color: #4285f4;
     color: white;
+}
+#actuality hr{
+    margin-bottom: 50px ;
 }

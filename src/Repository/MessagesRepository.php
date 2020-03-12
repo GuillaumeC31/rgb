@@ -22,16 +22,16 @@ class MessagesRepository extends ServiceEntityRepository
      /**
      *  Récupère les messages avec leurs utilisateurs
      */
-    public function findAllWithUsers()
+    public function findAllWithUsers($userId)
     {
 
         $sql = 'SELECT m.*, u.lastname, u.firstname, u.email FROM messages AS m
                 LEFT JOIN users AS u
-                ON m.user_id = u.id';
+                ON m.user_id = u.id
+                ORDER BY m.created_at DESC';
 
         $statment = $this->_em->getConnection()->prepare($sql);
         $statment->execute();
-
         return $statment->fetchAll();
     }
 
