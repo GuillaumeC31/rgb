@@ -261,7 +261,7 @@ class StudentController extends AbstractController
             'userId' => $userId,
             //'filePath' => $filePath ?? '',
             'reception' => $messages,
-            'nomPhotoDeProfil' => $profilPicture->getFilePath() ?? '',
+            //'nomPhotoDeProfil' => $profilPicture->getFilePath() ?? '',
             'titles' => $titles,
         ]);
 
