@@ -105,6 +105,14 @@ font-size: 1.8em;
     padding-top: 40px;
 }
 
+.rondCards{
+    height: 75px;
+    width: 75px;
+    background-color: #4285f4;
+    position: relative;
+    top:-100px;
+}
+
 .rondCardsblue{
     height: 75px;
     width: 75px;
@@ -233,7 +241,15 @@ h2 {
 .files{
     overflow: scroll;
     max-height: 400px;
+    scrollbar-width: thin;
     overflow-x: hidden;
+}
+
+iframe{
+    scrollbar-width: thin !important;
+    overflow-x: hidden !important;
+    background-color:#f8f8f8 !important;
+    scrollbar-color: #4285f4 !important;
 }
 .actuality{
     margin-top: 7px !important;
