@@ -139,7 +139,7 @@ class StudentController extends AbstractController
                     }
 
                     if (count($errors) == 0) {
-                      
+
                         $formValid = true;
                         $entityManager = $this->getDoctrine()->getManager();
                         $upload = new Uploads();
@@ -156,7 +156,7 @@ class StudentController extends AbstractController
 
                         $entityManager->flush();
 
-                        $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]); 
+                        $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]);
 
                         return $this->render('student/index.html.twig', [
                             'nomPhotoDeProfil ' => $profilPicture->getFilePath() ?? null,
@@ -217,9 +217,9 @@ class StudentController extends AbstractController
                 $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers($this->getUser()->getUserId());
                 $reception = $messages;
                 $uploadUser = $entityManager->getRepository(Uploads::class)->find($userId);
-              
-                $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]); 
-                
+
+                $profilPicture = $entityManager->getRepository(Uploads::class)->findOneBy(['title' => 'profil_picture', 'user_id' => $this->getUser()->getId()]);
+
                 return $this->render('student/index.html.twig', [
                     //'errors' => $messages ?? null,
                     'id' => $id,
@@ -227,7 +227,7 @@ class StudentController extends AbstractController
                     'reception' => $reception,
                     'filePath' => $filePath ?? '',
                     'reception' => $messages ?? null,
-                    'nomPhotoDeProfil ' => $profilPicture->getFilePath() ?? '',
+                    //'nomPhotoDeProfil ' => $profilPicture->getFilePath() ?? '',
                 ]);
             }
         }//Fermeture not empty POST
@@ -239,7 +239,7 @@ class StudentController extends AbstractController
         $userId = $this->getUser()->getId();
         $uploadUsers = $entityManager->getRepository(Uploads::class)->findUpload($this->getUser()->getId());
         $uploads = $uploadUsers;
-        
+
 
         //$filePath = $uploads->getUser();
         $messages = $entityManager->getRepository(Messages::class)->findAllWithUsers($this->getUser()->getUserId());
