@@ -11,7 +11,12 @@
 
 }
 h1{
-color: #4285F4;
+font-size:4rem;
+background-color:#b54447;
+color:white;
+}
+h2{
+  font-size:3rem;
 }
 .table{
   background-color:#d9d9d9;
@@ -19,7 +24,14 @@ color: #4285F4;
 	</style>
 {% endblock styles %}
 
-	<h1 class="text-center my-5">Modifier entreprise</h1>
+
+
+	<h1 class="text-center my-5">
+  Modifier Entreprise<a href="{{ path('list_valid') }}">
+    <img src="{{asset('assets/img/ent.png')}}" class=" m-5" alt="icon bdd"></a>
+</h1>
+<br>
+
 
 	{% if formValid is not null and formValid == true %}
 		<div class="alert alert-success text-center">
@@ -98,7 +110,7 @@ color: #4285F4;
 							<input type="text" name="siren" id="siren" class="form-control" value="{{ user.siren }}">
 						</div>
 					</div>
-					<a class="btn btn-outline-warning" href="{{ path('list_valid') }}">Retour</a>
+					<a href="{{ path('list_valid') }}" class="text-info"><img src="{{asset('assets/img/back.png')}}"  class="m-3 bg-warning p-2" alt="icon bdd"></a>
 				</form>
 			</div>
 		</div>

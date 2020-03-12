@@ -491,9 +491,9 @@ class SchoolController extends AbstractController
 
                             $message = '<p>Bonjour '.$currentEntreprise->getIdentity().',';
                             $message.= '<br> Bienvenue sur la plateforme RGB :';
-                            $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
+                         // $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
                             $message.= '<br> login : '.$currentEntreprise->getEmail();
-                        //   $message.= '<br> votre mot de passe est le meme';
+                            $message.= '<br> votre mot de passe sera le meme que lors de votre inscription';
                             $message.= '<br>A très bientôt sur RGB.';
                             $message.= '</p>';
 
