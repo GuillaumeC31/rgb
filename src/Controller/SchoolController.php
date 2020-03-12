@@ -220,13 +220,12 @@ class SchoolController extends AbstractController
                 $ent->setUserId("0");
                 $ent->setPhotoProfileId("0");
 
-
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($ent);
                 $entityManager->flush();
 
                 $message = '<p>Bonjour '.$post['name_ent'].',';
-                 $message.= '<br> Bienvenue sur la plateforme RGB :';
+                $message.= '<br> Bienvenue sur la plateforme RGB :';
                 $message.= '<br> Merci pour votre inscription, veuillez retrouver vos identifiants ci-dessous :';
                 $message.= '<br> login : '.$post['email'];
                 $message.= '<br> mot de passe : '.$post['password'];
@@ -274,23 +273,23 @@ class SchoolController extends AbstractController
                      if(!v::notEmpty()->length(2,null)->validate($post['lastname'])){
                     $errors[] = 'Nom invalide';
                     }
-                     if(!v::notEmpty()->length(5,null)->validate($post['address'])){
+                     if(!empty($post['address']) && !v::notEmpty()->length(5,null)->validate($post['address'])){
                     $errors[] = 'Adresse invalide';
                     }
-                     if(!v::notEmpty()->length(2,null)->validate($post['city'])){
+                     if(!empty($post['city']) && !v::notEmpty()->length(2,null)->validate($post['city'])){
                     $errors[] = 'Ville invalide';
                     }
-                     if(!v::notEmpty()->alnum()->length(10,null)->validate($post['phone'])){
+                     if(!empty($post['phone']) && !v::notEmpty()->alnum()->length(10,null)->validate($post['phone'])){
                         $errors[] = 'Le Numéro de téléphone est invalide';
                     }
-                    if(!v::notEmpty()->alnum()->length(5,null)->validate($post['zipcode'])){
+                    if(!empty($post['zipcode']) && !v::notEmpty()->alnum()->length(5,null)->validate($post['zipcode'])){
                         $errors[] = 'Le code postale est invalide';
                     }
-                     if(!v::notEmpty()->date()->validate($post['birthdate'])){
+                     if(!empty($post['birthdate']) && !v::notEmpty()->date()->validate($post['birthdate'])){
                         $errors[] = 'Date de naissance est invalide';
 
                     }
-                    if(!v::notEmpty()->numeric()->length(2,null)->validate($post['mark'])){
+                    if(!empty($post['mark']) && !v::notEmpty()->numeric()->length(2,null)->validate($post['mark'])){
                         $errors[] = 'Moyenne des notes est invalide';
                     }
                     if(!v::notEmpty()->email()->validate($post['email'])){
